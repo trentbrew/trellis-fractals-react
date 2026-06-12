@@ -1,5 +1,5 @@
-import { KanbanBoard } from '@/components/boards/kanban/KanbanBoard';
+import { redirect } from 'next/navigation';
 
 export default function KanbanPage() {
-  return <KanbanBoard />;
+  redirect('/projections/kanban');
 }

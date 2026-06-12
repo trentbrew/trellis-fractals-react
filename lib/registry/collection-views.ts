@@ -1,4 +1,5 @@
 import type { AnyType } from 'trellis/schema';
+import { inferFieldSignalsFromDefinition } from './infer-from-definition';
 import { inferFieldSignals, type FieldSignal } from './introspect';
 
 /**
@@ -11,7 +12,9 @@ export type CollectionViewMode =
   | 'calendar'
   | 'gantt'
   | 'list'
-  | 'card-grid';
+  | 'card-grid'
+  | 'dag'
+  | 'json-ld';
 
 export type CollectionViewOption = {
   mode: CollectionViewMode;
@@ -27,8 +30,12 @@ type ProjectionNode = {
   order: number;
   /** All listed signals must be present (e.g. gantt = date + lane). */
   requireAll?: FieldSignal[];
-  /** At least one signal must be present (e.g. card-grid = file | url). */
+  /** At least one signal must be present (e.g. kanban = select). */
   requireAny?: FieldSignal[];
+};
+
+type TypeDefinitionLike = {
+  fields?: { name: string; valueType?: string }[];
 };
 
 /** Subset of trellis-client PROJECTION_NODES with playground-relevant gates. */
@@ -38,7 +45,8 @@ const COLLECTION_VIEW_NODES: ProjectionNode[] = [
   { mode: 'calendar', label: 'Calendar', order: 3, requireAny: ['date'] },
   { mode: 'gantt', label: 'Gantt', order: 4, requireAll: ['date', 'lane'] },
   { mode: 'list', label: 'List', order: 5 },
-  { mode: 'card-grid', label: 'Card grid', order: 6, requireAny: ['file', 'url'] },
+  { mode: 'card-grid', label: 'Grid', order: 6 },
+  { mode: 'json-ld', label: 'JSON-LD', order: 7 },
 ];
 
 function evaluateNode(node: ProjectionNode, signals: Set<FieldSignal>): { supported: boolean; reason?: string } {
@@ -67,23 +75,15 @@ function evaluateNode(node: ProjectionNode, signals: Set<FieldSignal>): { suppor
   return { supported: true };
 }
 
-/**
- * Suggest the best default collection view for a Trellis type.
- * Mirrors trellis-client `suggestDefaultProjection()` over Zod shapes.
- */
-export function suggestDefaultCollectionView(type: AnyType): CollectionViewMode {
-  const signals = inferFieldSignals(type);
+function suggestDefaultFromSignals(signals: Set<FieldSignal>): CollectionViewMode {
   if (signals.has('date') && signals.has('lane')) return 'gantt';
   if (signals.has('select')) return 'kanban';
   if (signals.has('date')) return 'calendar';
-  if (signals.has('file') || signals.has('url')) return 'card-grid';
   return 'table';
 }
 
-/** Eligible collection views for a type — ontology gate above motion layer. */
-export function suggestCollectionViews(type: AnyType): CollectionViewOption[] {
-  const signals = inferFieldSignals(type);
-  const defaultMode = suggestDefaultCollectionView(type);
+function buildCollectionViewOptions(signals: Set<FieldSignal>): CollectionViewOption[] {
+  const defaultMode = suggestDefaultFromSignals(signals);
 
   return COLLECTION_VIEW_NODES.map((node) => {
     const { supported, reason } = evaluateNode(node, signals);
@@ -101,7 +101,41 @@ export function suggestCollectionViews(type: AnyType): CollectionViewOption[] {
   });
 }
 
-/** Modes that pass the ontology gate (for view pickers). */
+/**
+ * Suggest the best default collection view for a Trellis type.
+ * Mirrors trellis-client `suggestDefaultProjection()` over Zod shapes.
+ */
+export function suggestDefaultCollectionView(type: AnyType): CollectionViewMode {
+  return suggestDefaultFromSignals(inferFieldSignals(type));
+}
+
+/** Suggest default view from a server type definition. */
+export function suggestDefaultCollectionViewFromDefinition(
+  def: TypeDefinitionLike,
+): CollectionViewMode {
+  return suggestDefaultFromSignals(inferFieldSignalsFromDefinition(def));
+}
+
+/** Eligible collection views for a type — type gate above motion layer. */
+export function suggestCollectionViews(type: AnyType): CollectionViewOption[] {
+  return buildCollectionViewOptions(inferFieldSignals(type));
+}
+
+/** Eligible collection views from a server type definition. */
+export function suggestCollectionViewsFromDefinition(
+  def: TypeDefinitionLike,
+): CollectionViewOption[] {
+  return buildCollectionViewOptions(inferFieldSignalsFromDefinition(def));
+}
+
+/** Modes that pass the type gate (for view pickers). */
 export function eligibleCollectionViews(type: AnyType): CollectionViewOption[] {
   return suggestCollectionViews(type).filter((option) => option.supported);
+}
+
+/** Modes that pass the type gate from a server type definition. */
+export function eligibleCollectionViewsFromDefinition(
+  def: TypeDefinitionLike,
+): CollectionViewOption[] {
+  return suggestCollectionViewsFromDefinition(def).filter((option) => option.supported);
 }

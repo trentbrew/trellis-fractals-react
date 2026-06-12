@@ -16,9 +16,9 @@ import {
   type WeekViewState,
 } from '@/lib/projections/resolvers/interval';
 import { useElementWidth } from '@/lib/hooks/use-element-width';
+import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
-import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
 import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { WeekNavToolbar } from '@/components/shell/WeekNavToolbar';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
@@ -85,9 +85,8 @@ export function CalendarBoard() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
+    <BrowseProjectionShell className="gap-4">
       <ProjectionHeader title="Calendar">
-        <CollectionViewHint schema={CalendarEvent} current="calendar" />
         <WeekNavToolbar
           label={formatWeekRange(weekStart)}
           onPrev={() => setWeekStart((prev) => addDays(prev, -7))}
@@ -97,6 +96,8 @@ export function CalendarBoard() {
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
+          resultCount={browsedRows.length}
+          totalCount={rows.length}
           onChange={(patch) => setBrowseState((prev) => ({ ...prev, ...patch }))}
         />
         <AddRecordButton label="New event" onClick={addEvent} />
@@ -170,6 +171,6 @@ export function CalendarBoard() {
         </div>
       </div>
       {menu}
-    </div>
+    </BrowseProjectionShell>
   );
 }

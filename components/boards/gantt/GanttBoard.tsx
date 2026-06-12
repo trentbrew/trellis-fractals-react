@@ -18,9 +18,9 @@ import {
   placeGanttBar,
 } from '@/lib/projections/resolvers/gantt';
 import { useElementWidth } from '@/lib/hooks/use-element-width';
+import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
-import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
 import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { WeekNavToolbar } from '@/components/shell/WeekNavToolbar';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
@@ -70,9 +70,8 @@ export function GanttBoard() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
+    <BrowseProjectionShell className="gap-4">
       <ProjectionHeader title="Gantt">
-        <CollectionViewHint schema={GanttTask} current="gantt" />
         <WeekNavToolbar
           label={formatWeekRange(weekStart)}
           onPrev={() => setWeekStart((prev) => addDays(prev, -7))}
@@ -82,6 +81,8 @@ export function GanttBoard() {
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
+          resultCount={browsedRows.length}
+          totalCount={rows.length}
           onChange={(patch) => setBrowseState((prev) => ({ ...prev, ...patch }))}
         />
         <AddRecordButton label="New task" onClick={addTask} />
@@ -129,6 +130,6 @@ export function GanttBoard() {
         })}
       </div>
       {menu}
-    </div>
+    </BrowseProjectionShell>
   );
 }

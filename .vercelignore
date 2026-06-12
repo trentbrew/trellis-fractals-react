@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+.trellis
+.trellis/**
+.trellis-db
+.trellis-db.json
+.trellis-deploy
+test-results
+.playwright-mcp
+*.log
+build-out.txt
+.env*
+!.env.example

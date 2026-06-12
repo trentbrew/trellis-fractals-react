@@ -1,26 +1,10 @@
 import Link from 'next/link';
-import {
-  CalendarIcon,
-  GanttChartIcon,
-  LayoutDashboardIcon,
-  LayoutGridIcon,
-  ListIcon,
-  TableIcon,
-  type LucideIcon,
-} from 'lucide-react';
 import type { AnyType } from 'trellis/schema';
 import { cn } from '@/lib/utils';
 import { suggestCollectionViews, type CollectionViewMode } from '@/lib/registry/collection-views';
+import { getCorpusType } from '@/lib/registry/corpus-registry';
+import { VIEW_ICONS } from '@/lib/registry/view-icons';
 import { corpusViewHref } from '@/lib/registry/view-routes';
-
-const VIEW_ICONS: Record<CollectionViewMode, LucideIcon> = {
-  table: TableIcon,
-  kanban: LayoutDashboardIcon,
-  calendar: CalendarIcon,
-  gantt: GanttChartIcon,
-  list: ListIcon,
-  'card-grid': LayoutGridIcon,
-};
 
 /** Segmented view-mode switcher, styled after the Nodebook browse toolbar. */
 export function CollectionViewHint({
@@ -30,7 +14,12 @@ export function CollectionViewHint({
   schema: AnyType;
   current?: CollectionViewMode;
 }) {
-  const views = suggestCollectionViews(schema).filter((view) => view.supported);
+  const corpus = getCorpusType(schema.type);
+  const views = suggestCollectionViews(schema).filter((view) => {
+    if (!view.supported) return false;
+    if (!corpus) return true;
+    return corpusViewHref(schema, view.mode) !== undefined;
+  });
 
   return (
     <div

@@ -8,7 +8,6 @@ import {
 } from '@/lib/registry/corpus-registry';
 import type { CollectionViewMode } from '@/lib/registry/collection-views';
 import { TodoBoard } from '@/components/boards/todos/TodoBoard';
-import { GridBoard } from '@/components/boards/grid/GridBoard';
 import { TableBoard } from '@/components/boards/table/TableBoard';
 import { KanbanBoard } from '@/components/boards/kanban/KanbanBoard';
 import { CalendarBoard } from '@/components/boards/calendar/CalendarBoard';
@@ -98,19 +97,18 @@ export default async function CollectionPage({
     );
   }
 
-  switch (view) {
-    case 'list':
+  // Mount proof board by corpus type (not view alone — avoids cross-schema wiring).
+  switch (entry.typeName) {
+    case 'Task':
       return <TodoBoard />;
-    case 'table':
+    case 'Card':
       return <TableBoard />;
-    case 'kanban':
+    case 'KanbanCard':
       return <KanbanBoard />;
-    case 'calendar':
+    case 'CalendarEvent':
       return <CalendarBoard />;
-    case 'gantt':
+    case 'GanttTask':
       return <GanttBoard />;
-    case 'card-grid':
-      return <GridBoard />;
     default:
       return null;
   }

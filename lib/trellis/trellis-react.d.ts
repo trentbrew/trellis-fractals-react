@@ -58,3 +58,22 @@ declare module 'trellis/react/typed' {
 
   export function useMutation<S extends AnyType>(schema: S): EntityMutations<InferType<S>>;
 }
+
+declare module 'trellis/react/realtime' {
+  import type { RealtimeRoom, PresencePeer, PresenceState } from 'trellis/realtime';
+
+  export function useRoom<P extends PresenceState = PresenceState>(
+    create: () => RealtimeRoom<P>,
+    deps?: unknown[],
+  ): {
+    room: RealtimeRoom<P> | null;
+    presence: PresencePeer<P>[];
+    others: PresencePeer<P>[];
+  };
+
+  export function usePresence<P extends PresenceState = PresenceState>(
+    room: RealtimeRoom<P> | null | undefined,
+  ): PresencePeer<P>[];
+
+  export function useSignal<T>(signal: { subscribe(cb: () => void): () => void; peek(): T }): T;
+}

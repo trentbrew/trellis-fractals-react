@@ -6,7 +6,10 @@ import { KanbanCard } from '../schemas/kanban-card';
 import { Task } from '../schemas/task';
 import { suggestCollectionViews, type CollectionViewMode } from './collection-views';
 
-/** Trellis entity type names seeded by scripts/seed-corpus.mjs */
+/**
+ * Projection-fixture schemas for the /projections dev lab.
+ * Not collection nav — seeded by scripts/seed-projection-fixtures.mjs.
+ */
 export type CorpusTypeName =
   | 'Card'
   | 'KanbanCard'
@@ -20,9 +23,9 @@ export type CorpusTypeEntry = {
   label: string;
   /** Matches suggestDefaultCollectionView(schema) — see inline comments per entry */
   defaultView: CollectionViewMode;
-  /** Direct route to the Next.js board for this type's default view */
+  /** Direct route under /projections for this type's default view */
   route: string;
-  /** Top-nav active id in AppShell */
+  /** Projections secondary sidebar active id */
   demoId: string;
 };
 
@@ -32,7 +35,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     schema: Card,
     label: 'Cards',
     defaultView: 'table', // no select/date/file/url → table
-    route: '/table',
+    route: '/projections/table',
     demoId: 'table',
   },
   KanbanCard: {
@@ -40,7 +43,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     schema: KanbanCard,
     label: 'Kanban',
     defaultView: 'kanban', // select field → kanban
-    route: '/kanban',
+    route: '/projections/kanban',
     demoId: 'kanban',
   },
   CalendarEvent: {
@@ -48,7 +51,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     schema: CalendarEvent,
     label: 'Calendar',
     defaultView: 'calendar', // date field → calendar
-    route: '/calendar',
+    route: '/projections/calendar',
     demoId: 'calendar',
   },
   GanttTask: {
@@ -56,7 +59,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     schema: GanttTask,
     label: 'Gantt',
     defaultView: 'gantt', // date + lane → gantt
-    route: '/gantt',
+    route: '/projections/gantt',
     demoId: 'gantt',
   },
   Task: {
@@ -64,7 +67,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     schema: Task,
     label: 'Todos',
     defaultView: 'list', // plain fields → list
-    route: '/todos',
+    route: '/projections/list',
     demoId: 'todos',
   },
 };
@@ -100,5 +103,19 @@ export function resolveCollectionMount(
   const option = suggestCollectionViews(entry.schema).find((v) => v.mode === view);
   if (!option) return { supported: false, reason: 'Unknown view mode' };
   if (!option.supported) return { supported: false, reason: option.reason };
+  // Collection host mounts one proof board per corpus type (its default view).
+  if (view !== entry.defaultView) {
+    return {
+      supported: false,
+      reason: `${entry.label} is mounted as ${entry.defaultView} — open ${entry.route}`,
+    };
+  }
   return { supported: true };
+}
+
+/** Views the collection host can mount for a corpus type (type ∩ proof boards). */
+export function mountedCollectionViews(typeName: CorpusTypeName): CollectionViewMode[] {
+  const entry = CORPUS_TYPES[typeName];
+  const mount = resolveCollectionMount(typeName, entry.defaultView);
+  return mount.supported ? [entry.defaultView] : [];
 }

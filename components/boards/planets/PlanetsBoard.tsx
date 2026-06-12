@@ -6,9 +6,9 @@ import { useCollection } from '@/lib/trellis/use-collection';
 import { Planet, type PlanetT } from '@/lib/schemas/planet';
 import { applyCollectionBrowse, defaultBrowseState, type BrowseState } from '@/lib/browse/apply';
 import { getBrowseConfig } from '@/lib/registry/browse-config';
+import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
-import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
 import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
 import { PlanetCard } from './PlanetCard';
@@ -45,9 +45,8 @@ export function PlanetsBoard() {
   const openPlanet = openId ? (rows.find((row) => row.id === openId) ?? null) : null;
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
+    <BrowseProjectionShell className="gap-4">
       <ProjectionHeader title="Planets">
-        <CollectionViewHint schema={Planet} current="card-grid" />
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
@@ -90,6 +89,6 @@ export function PlanetsBoard() {
         }}
       />
       {menu}
-    </div>
+    </BrowseProjectionShell>
   );
 }

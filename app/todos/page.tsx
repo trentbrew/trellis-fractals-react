@@ -1,5 +1,5 @@
-import { TodoBoard } from '@/components/boards/todos/TodoBoard';
+import { redirect } from 'next/navigation';
 
 export default function TodosPage() {
-  return <TodoBoard />;
+  redirect('/projections/list');
 }

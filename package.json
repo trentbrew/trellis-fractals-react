@@ -6,14 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node scripts/seed-all.mjs",
+    "seed:local": "TRELLIS_URL=http://localhost:8230 node scripts/seed-all.mjs",
+    "seed:collections": "node scripts/seed-collections.mjs",
+    "seed:fixtures": "node scripts/seed-projection-fixtures.mjs",
+    "seed:ontology": "node scripts/register-collection-ontology.mjs",
+    "smoke:deploy": "node scripts/smoke-deploy.mjs",
+    "smoke:ws": "node scripts/smoke-ws.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "@monaco-editor/react": "^4.7.0",
     "class-variance-authority": "^0.7.1",
+    "d3": "^7.9.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.17.0",
@@ -27,13 +39,16 @@
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4",
+    "@types/d3": "^7.4.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   }
 }

@@ -1,5 +1,5 @@
-import { CalendarBoard } from '@/components/boards/calendar/CalendarBoard';
+import { redirect } from 'next/navigation';
 
 export default function CalendarPage() {
-  return <CalendarBoard />;
+  redirect('/projections/calendar');
 }

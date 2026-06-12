@@ -1,56 +1,112 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { CollectionConfigureTrigger } from '@/components/collections/collection-configure-sheet';
+import { HistoryNavButtons } from '@/components/shell/history-nav-buttons';
+import { PrimarySidebar } from '@/components/shell/primary-sidebar';
+import { SecondarySidebar } from '@/components/shell/secondary-sidebar';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { embedKickerForPath } from '@/lib/shell/embed';
+import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
+import { pageLabel } from '@/lib/shell/modes';
+import { ShellProvider, useShell } from '@/lib/shell/shell-context';
 import { cn } from '@/lib/utils';
-import { CORPUS_DEMOS, MOTION_LABS, currentDemoId } from '@/lib/shell/demos';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+function AppShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const active = currentDemoId(pathname);
+  const router = useRouter();
+  const { collectionSlug } = useShell();
+  const label = pageLabel(pathname);
+  const { embed, readonly } = useEmbedFlags();
+
+  useEffect(() => {
+    document.documentElement.dataset.embed = embed ? 'true' : 'false';
+    document.documentElement.dataset.readonly = readonly ? 'true' : 'false';
+    document.body.classList.toggle('shell-embed', embed);
+  }, [embed, readonly]);
+
+  const kicker = embed ? embedKickerForPath(pathname, readonly) : null;
+  const collectionDetailMatch = pathname.match(/^\/collections\/([^/]+)/);
+  const isCollectionDetail =
+    collectionDetailMatch != null && collectionDetailMatch[1] !== 'types';
+
+  if (embed) {
+    return (
+      <div className="flex h-full min-h-0 w-full flex-col">
+        {kicker ? (
+          <p className="embed-kicker shrink-0 border-b border-border px-3 py-2 text-sm text-muted-foreground">
+            {kicker}
+          </p>
+        ) : null}
+        <main className="flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden p-3">
+          {children}
+        </main>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="flex items-center gap-4 border-b border-border px-4 py-3">
-        <span className="text-sm font-semibold tracking-wide text-muted-foreground">
-          fractals
-        </span>
-        <nav className="flex flex-wrap items-center gap-1" aria-label="Demos">
-          {CORPUS_DEMOS.map((demo) => (
-            <Link
-              key={demo.id}
-              href={demo.href}
-              data-active={active === demo.id ? 'true' : undefined}
-              className={cn(
-                'rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
-                active === demo.id && 'bg-muted text-foreground',
+    <div className="flex h-svh min-h-svh w-full">
+      <PrimarySidebar />
+      <SecondarySidebar />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-4">
+          {isCollectionDetail ? <HistoryNavButtons /> : null}
+          <Breadcrumb className="min-w-0">
+            <BreadcrumbList>
+              {isCollectionDetail ? (
+                <>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink render={<Link href="/collections">Collections</Link>} />
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="capitalize">{label}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </>
+              ) : (
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="capitalize">{label}</BreadcrumbPage>
+                </BreadcrumbItem>
               )}
-            >
-              {demo.label}
-            </Link>
-          ))}
-          <span className="mx-1 text-muted-foreground" aria-hidden="true">
-            ·
-          </span>
-          <span className="mr-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-            Motion labs
-          </span>
-          {MOTION_LABS.map((demo) => (
-            <Link
-              key={demo.id}
-              href={demo.href}
-              data-active={active === demo.id ? 'true' : undefined}
-              className={cn(
-                'rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground',
-                active === demo.id && 'bg-muted text-foreground',
-              )}
-            >
-              {demo.label}
-            </Link>
-          ))}
-        </nav>
-      </header>
-      <main className="flex flex-1 flex-col p-4">{children}</main>
+            </BreadcrumbList>
+          </Breadcrumb>
+          {isCollectionDetail && collectionSlug ? (
+            <CollectionConfigureTrigger
+              onClick={() =>
+                router.replace(`/collections/${collectionSlug}?configure=general`, {
+                  scroll: false,
+                })
+              }
+            />
+          ) : null}
+        </header>
+        <main
+          className={cn(
+            'flex min-h-0 flex-1 flex-col overflow-auto',
+            isCollectionDetail ? 'p-0' : 'p-4',
+          )}
+        >
+          {children}
+        </main>
+      </div>
     </div>
+  );
+}
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  return (
+    <ShellProvider>
+      <AppShellInner>{children}</AppShellInner>
+    </ShellProvider>
   );
 }

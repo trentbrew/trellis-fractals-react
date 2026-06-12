@@ -7,9 +7,9 @@ import { Task, type TaskT } from '@/lib/schemas/task';
 import { applyCollectionBrowse, defaultBrowseState, type BrowseState } from '@/lib/browse/apply';
 import { getBrowseConfig } from '@/lib/registry/browse-config';
 import { partitionTasks } from '@/lib/projections/todos';
+import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
-import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
 import { Input } from '@/components/ui/input';
 import { TodoRow } from './TodoRow';
 
@@ -34,9 +34,8 @@ export function TodoBoard() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
+    <BrowseProjectionShell className="gap-4">
       <ProjectionHeader title="Todos">
-        <CollectionViewHint schema={Task} current="list" />
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
@@ -104,6 +103,6 @@ export function TodoBoard() {
           {rows.length === 0 ? 'No tasks yet — add one above.' : 'No matches — try another search.'}
         </p>
       )}
-    </div>
+    </BrowseProjectionShell>
   );
 }

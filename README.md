@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# playground-next
 
-## Getting Started
+React/Next.js port of the fractal projection contract — collections, browse projections, and playground demos on Trellis typed SDK.
 
-First, run the development server:
+## Quick start (local)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+# Terminal A — Trellis sidecar (or reuse fractals-playground dev:db on :8230)
+trellis db serve --port 8230
+# Terminal B
 pnpm dev
-# or
-bun dev
+pnpm seed    # ontology + projection fixtures + collections (idempotent)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/projections/kanban](http://localhost:3000/projections/kanban).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+HTTP routes through `/api/trellis/*` in **local dev only** (sidecar has no CORS). **Hosted on Vercel:** browser calls the room node directly — deploy bundle must include CORS (use `TRELLIS_NODE_ROOT` when running `smoke:deploy`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Embed mode (brew.build)
 
-## Learn More
+Add `?embed=1` to hide shell chrome. Add `?readonly=1` to disable writes (brew.build iframe):
 
-To learn more about Next.js, take a look at the following resources:
+```
+/projections/kanban?embed=1&readonly=1
+/projections/kanban?embed=1
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`next.config.ts` sets `frame-ancestors` for `brew.build` embeds.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Hosted demo (kernel path)
 
-## Deploy on Vercel
+Same two-tier model as [fractals-playground](../fractals-playground): **Sprites room node** (API) + **Vercel** (Next app).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You can **reuse** an existing sprite (e.g. `fractals-demo-0610`) or deploy a dedicated one:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm run smoke:deploy -- playground-next-demo
+pnpm run seed
+pnpm run smoke:ws
+```
+
+### Vercel env (before `pnpm build` / deploy)
+
+| Variable | Purpose |
+| -------- | ------- |
+| `TRELLIS_URL` | Rewrite target for `/api/trellis` (room node URL) |
+| `NEXT_PUBLIC_TRELLIS_URL` | WebSocket origin (usually same as above) |
+| `NEXT_PUBLIC_TRELLIS_API_KEY` | From `.trellis-db.json` after deploy |
+
+Example embed URL once hosted:
+
+```
+https://playground.trellis.computer/projections/kanban?embed=1
+```
+
+**Domain:** `playground.trellis.computer` (Vercel, turtle-labs team). Avoid `cloud.trellis.computer` — reserved for Trellis Cloud control plane; `studio.trellis.computer` is Trellis Studio.
+
+> The `*.sprites.app` URL is **API only** — not the Next UI. Blank “Trellis DB Inspector” at `/` on the sprite is expected.
+
+## Room isolation
+
+| Tier | Status |
+| ---- | ------ |
+| `?embed=1&readonly=1` | **Shipped** — brew.build iframe; shared showcase |
+| Session room (`embed-{uuid}`) | **Shipped** — hosted app; private graph per browser session |
+| `trellis deploy --name` per project | Product (C0) |
+
+## Scripts
+
+| Script | Description |
+| ------ | ----------- |
+| `pnpm seed` | Ontology + fixtures + collections |
+| `pnpm run smoke:deploy -- <name>` | Deploy room node via trellis-node |
+| `pnpm run smoke:ws` | WebSocket subscribe smoke |
+| `pnpm test:e2e` | Playwright (collections + projections) |
+
+## Architecture notes
+
+- `lib/trellis/provider.tsx` — shared `TrellisDb`, HTTP patched to same-origin proxy, WS on public URL
+- `components/shell/AppShell.tsx` — embed mode strips chrome
+- Seed scripts read `url` + `apiKey` from `.trellis-db.json` when `TRELLIS_URL` is unset
+
+Sibling: [fractals-playground](../fractals-playground) (Vite/Svelte, static `dist/` host).

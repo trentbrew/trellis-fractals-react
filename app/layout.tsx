@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TrellisProvider } from "@/lib/trellis/provider";
+import { BootstrapSchemas } from "@/components/trellis/bootstrap-schemas";
+import { SessionRoomBootstrap } from "@/components/trellis/session-room-bootstrap";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/shell/AppShell";
+import { ThemeProvider } from "@/lib/shell/theme";
+import { getServerTheme } from "@/lib/shell/theme-server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,24 +22,36 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Fractals Playground (Next)",
   description: "React/Next.js port of the fractal projection contract samples",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = await getServerTheme();
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full${theme === "dark" ? " dark" : ""}`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className={`${geistSans.className} min-h-svh antialiased`}>
+        <ThemeProvider defaultTheme={theme}>
         <TrellisProvider>
-          <TooltipProvider>
-            <AppShell>{children}</AppShell>
-          </TooltipProvider>
+          <BootstrapSchemas>
+            <SessionRoomBootstrap>
+              <TooltipProvider>
+                <AppShell>{children}</AppShell>
+              </TooltipProvider>
+            </SessionRoomBootstrap>
+          </BootstrapSchemas>
         </TrellisProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

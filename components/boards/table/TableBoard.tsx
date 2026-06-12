@@ -1,29 +1,33 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { useMemo } from 'react';
 import { useCollection } from '@/lib/trellis/use-collection';
 import { Card, type CardT } from '@/lib/schemas/card';
-import { applyCollectionBrowse, defaultBrowseState, type BrowseState } from '@/lib/browse/apply';
-import { getBrowseConfig, tableColumnsFromBrowseConfig } from '@/lib/registry/browse-config';
+import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
-import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
 import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
-import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EditableTableRow } from './EditableTableRow';
+import {
+  SpreadsheetTable,
+  type SpreadsheetColumn,
+  type SpreadsheetRow,
+} from '@/components/boards/spreadsheet/SpreadsheetTable';
 
-const browseConfig = getBrowseConfig<CardT>(Card);
-const columns = tableColumnsFromBrowseConfig(Card, browseConfig);
+const columns: SpreadsheetColumn[] = [
+  { key: 'title', label: 'Title', kind: 'text', width: 240, required: true },
+  { key: 'body', label: 'Description', kind: 'longtext', width: 420 },
+];
 
 export function TableBoard() {
   const { rows, mut } = useCollection(Card);
-  const [browseState, setBrowseState] = useState<BrowseState>(() => defaultBrowseState(browseConfig));
-
-  const browsedRows = useMemo(
-    () => applyCollectionBrowse(rows, browseState, browseConfig),
-    [rows, browseState],
+  const spreadsheetRows = useMemo<SpreadsheetRow[]>(
+    () =>
+      rows.map((row) => ({
+        id: row.id,
+        type: row.type,
+        values: row as Record<string, unknown>,
+      })),
+    [rows],
   );
 
   const { openAt, menu } = useEntityContextMenu((action, entityId) => {
@@ -34,57 +38,31 @@ export function TableBoard() {
     await mut.create({ title: '', body: '', colorIndex: rows.length % 16 });
   }
 
+  async function updateCell(id: string, key: string, value: unknown) {
+    if (key !== 'title' && key !== 'body') return;
+    await mut.update(id, { [key]: value == null ? '' : String(value) } as Partial<CardT>);
+  }
+
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
+    <BrowseProjectionShell className="min-h-0 flex-1 gap-4">
       <ProjectionHeader title="Table">
         <CollectionViewHint schema={Card} current="table" />
-        <CollectionBrowseBar
-          config={browseConfig}
-          state={browseState}
-          resultCount={browsedRows.length}
-          totalCount={rows.length}
-          onChange={(patch) => setBrowseState((prev) => ({ ...prev, ...patch }))}
-        />
-        <AddRecordButton label="New row" onClick={addRow} />
       </ProjectionHeader>
-
-      <div className="overflow-hidden rounded-xl border border-border">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-border/50 hover:bg-transparent">
-              {columns.map((column) => (
-                <TableHead
-                  key={column.key}
-                  className="py-2 px-3 text-xs font-medium text-muted-foreground"
-                >
-                  {column.label}
-                </TableHead>
-              ))}
-              <TableHead className="w-10" />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <AnimatePresence initial={false}>
-              {browsedRows.map((row) => (
-                <EditableTableRow
-                  key={row.id}
-                  row={row}
-                  columns={columns}
-                  onPersist={(id, patch) => void mut.update(id, patch)}
-                  onDelete={(id) => void mut.remove(id)}
-                  onContextMenu={(event) => openAt(event, row.id)}
-                />
-              ))}
-            </AnimatePresence>
-          </TableBody>
-        </Table>
-        {browsedRows.length === 0 && (
-          <p className="p-4 text-sm text-muted-foreground">
-            {rows.length === 0 ? 'No rows yet — add one above.' : 'No matches — try another search.'}
-          </p>
-        )}
+      <div className="flex min-h-0 flex-1 flex-col">
+        <SpreadsheetTable
+          tableId="demo-card-table"
+          rows={spreadsheetRows}
+          columns={columns}
+          createLabel="New row"
+          emptyTitle="No rows yet"
+          emptyDescription="Add a row to start editing this table."
+          onCreateRow={addRow}
+          onUpdateCell={updateCell}
+          onDeleteRow={(id) => void mut.remove(id)}
+          onRowContextMenu={(event, row) => openAt(event, row.id)}
+        />
       </div>
       {menu}
-    </div>
+    </BrowseProjectionShell>
   );
 }

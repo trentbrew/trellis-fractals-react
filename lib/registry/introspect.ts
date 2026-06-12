@@ -2,7 +2,7 @@ import type { AnyType } from 'trellis/schema';
 import { z } from 'zod';
 import { innerZodType } from './zod-shape';
 
-/** Semantic field signals used by collection-view eligibility (ontology gate). */
+/** Semantic field signals used by collection-view eligibility (type gate). */
 export type FieldSignal = 'select' | 'date' | 'number' | 'file' | 'url' | 'lane';
 
 const TEMPORAL_KEYS = new Set(['start', 'end', 'date', 'due', 'dueAt', 'scheduledAt']);
@@ -16,7 +16,7 @@ function isLaneKey(key: string): boolean {
   return LANE_KEYS.has(key);
 }
 
-/** Infer ontology signals from a `defineType` Zod shape. */
+/** Infer type signals from a `defineType` Zod shape. */
 export function inferFieldSignals(type: AnyType): Set<FieldSignal> {
   const signals = new Set<FieldSignal>();
   const shape = type.zod.shape;

@@ -72,7 +72,7 @@ export function getBrowseConfig<E extends Record<string, unknown>>(
 /** @deprecated Use getBrowseConfig */
 export const inferBrowseConfig = getBrowseConfig;
 
-/** Map browse ontology to editable table columns (searchable string fields). */
+/** Map browse type to editable table columns (searchable string fields). */
 export function tableColumnsFromBrowseConfig<E extends Record<string, unknown>>(
   schema: AnyType,
   config: BrowseConfig<E>,

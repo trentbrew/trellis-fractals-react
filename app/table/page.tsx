@@ -1,5 +1,5 @@
-import { TableBoard } from '@/components/boards/table/TableBoard';
+import { redirect } from 'next/navigation';
 
 export default function TablePage() {
-  return <TableBoard />;
+  redirect('/projections/table');
 }

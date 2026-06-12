@@ -12,26 +12,64 @@ export function KanbanCard({
   onPersist,
   onDelete,
   onContextMenu,
+  onFocusCard,
+  onBlurCard,
+  focusHolders,
+  readonly = false,
 }: {
   card: KanbanCardT;
-  onPersist: (id: string, patch: { title: string }) => void;
-  onDelete: (id: string) => void;
-  onContextMenu: (event: React.MouseEvent) => void;
+  onPersist?: (id: string, patch: { title: string }) => void;
+  onDelete?: (id: string) => void;
+  onContextMenu?: (event: React.MouseEvent) => void;
+  onFocusCard?: (cardId: string) => void;
+  onBlurCard?: () => void;
+  focusHolders?: { name: string; color: string }[];
+  readonly?: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: card.id,
+    disabled: readonly,
   });
-  const title = useFocusSafeField(card.title, (value) => onPersist(card.id, { title: value }));
+  const title = useFocusSafeField(
+    card.title,
+    (value) => onPersist?.(card.id, { title: value }),
+    { debounceMs: 400 },
+  );
+
+  const focusColor = focusHolders?.[0]?.color;
+
+  if (readonly) {
+    return (
+      <div
+        className={cn(
+          'flex items-center gap-2 rounded-lg border bg-card p-3 transition-shadow duration-150',
+          focusColor ? 'border-transparent ring-2' : 'border-border',
+        )}
+        style={focusColor ? { boxShadow: `0 0 0 2px ${focusColor}` } : undefined}
+        onContextMenu={(event) => event.preventDefault()}
+        title={focusHolders?.map((h) => h.name).join(', ')}
+      >
+        <span className="flex-1 text-sm font-medium text-foreground">
+          {card.title || 'Untitled'}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform) }}
+      style={{
+        transform: CSS.Translate.toString(transform),
+        ...(focusColor ? { boxShadow: `0 0 0 2px ${focusColor}` } : {}),
+      }}
       onContextMenu={onContextMenu}
       className={cn(
-        'group flex items-center gap-2 rounded-lg border border-border bg-card p-3 transition-colors hover:bg-muted/50',
+        'group flex items-center gap-2 rounded-lg border bg-card p-3 transition-[box-shadow,background-color] duration-150 hover:bg-muted/50',
+        focusColor ? 'border-transparent ring-2' : 'border-border',
         isDragging && 'opacity-40',
       )}
+      title={focusHolders?.map((h) => h.name).join(', ')}
     >
       <button
         type="button"
@@ -45,8 +83,14 @@ export function KanbanCard({
       <input
         value={title.value}
         onChange={title.onChange}
-        onFocus={title.onFocus}
-        onBlur={title.onBlur}
+        onFocus={() => {
+          title.onFocus();
+          onFocusCard?.(card.id);
+        }}
+        onBlur={() => {
+          title.onBlur();
+          onBlurCard?.();
+        }}
         onKeyDown={title.onKeyDown}
         placeholder="Untitled"
         className="flex-1 bg-transparent text-sm font-medium outline-none"
@@ -54,7 +98,7 @@ export function KanbanCard({
       <button
         type="button"
         aria-label="Delete card"
-        onClick={() => onDelete(card.id)}
+        onClick={() => onDelete?.(card.id)}
         className="text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-destructive"
       >
         <XIcon className="size-4" />

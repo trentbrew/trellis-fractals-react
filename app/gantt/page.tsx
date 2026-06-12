@@ -1,5 +1,5 @@
-import { GanttBoard } from '@/components/boards/gantt/GanttBoard';
+import { redirect } from 'next/navigation';
 
 export default function GanttPage() {
-  return <GanttBoard />;
+  redirect('/projections/gantt');
 }
