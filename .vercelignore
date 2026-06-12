@@ -8,6 +8,8 @@ out
 .trellis-deploy
 test-results
 .playwright-mcp
+brew.build
+fractal-playground.code-workspace
 *.log
 build-out.txt
 .env*
