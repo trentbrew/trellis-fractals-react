@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/shell/AppShell";
 import { ThemeProvider } from "@/lib/shell/theme";
 import { getServerTheme } from "@/lib/shell/theme-server";
+import { VantageMotionProvider } from "@/lib/fractal/vantage-motion";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default async function RootLayout({
     >
       <body className={`${geistSans.className} min-h-svh antialiased`}>
         <ThemeProvider defaultTheme={theme}>
+        <VantageMotionProvider>
         <TrellisProvider>
           <BootstrapSchemas>
             <SessionRoomBootstrap>
@@ -51,6 +53,7 @@ export default async function RootLayout({
             </SessionRoomBootstrap>
           </BootstrapSchemas>
         </TrellisProvider>
+        </VantageMotionProvider>
         </ThemeProvider>
       </body>
     </html>

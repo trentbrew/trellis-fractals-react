@@ -89,7 +89,7 @@ export function FractalLadderVisual({ compact = false }: { compact?: boolean }) 
           ))}
         </div>
         <p className="text-xs text-muted-foreground">
-          Bands: graph ≤2 · list 3–6 · grid 7+ (max 2 cols · compact → tile → card → panel). Same live Card collection throughout.
+          Bands: graph ≤2 · list 3–6 · grid 7+ (6→1 cols · compact → tile → card → panel). Same live Card collection throughout.
         </p>
       </div>
 

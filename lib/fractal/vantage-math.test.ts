@@ -37,15 +37,19 @@ describe('resolveListRowMetrics', () => {
 
 describe('resolveGridColumns', () => {
   it('uses vantage-only columns when width is omitted', () => {
-    expect(resolveGridColumns(10)).toBe(2);
-    expect(resolveGridColumns(7)).toBe(2);
-    expect(resolveGridColumns(11)).toBe(1);
+    expect(resolveGridColumns(7)).toBe(6);
+    expect(resolveGridColumns(8)).toBe(5);
+    expect(resolveGridColumns(10)).toBe(3);
+    expect(resolveGridColumns(11)).toBe(2);
+    expect(resolveGridColumns(12)).toBe(1);
   });
 
-  it('caps at two columns on large containers', () => {
-    expect(resolveGridColumns(7, 1200)).toBe(2);
-    expect(resolveGridColumns(9, 960)).toBe(2);
-    expect(resolveGridColumns(11, 1200)).toBe(1);
+  it('caps dense grids on large containers', () => {
+    expect(resolveGridColumns(7, 1200)).toBe(6);
+    expect(resolveGridColumns(8, 1000)).toBe(5);
+    expect(resolveGridColumns(9, 960)).toBe(4);
+    expect(resolveGridColumns(11, 1200)).toBe(2);
+    expect(resolveGridColumns(12, 1200)).toBe(1);
   });
 
   it('uses one column on narrow containers', () => {

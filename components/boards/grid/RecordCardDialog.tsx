@@ -6,6 +6,11 @@ import { ExternalLinkIcon, StarIcon, XIcon } from 'lucide-react';
 import { gridCardPalette } from '@/lib/projections/grid-palette';
 import { formatPrice } from '@/lib/projections/format';
 import type { CardT } from '@/lib/schemas/card';
+import {
+  resolveRecordDialogTransition,
+  resolveVantageLayout,
+  type VantageMotion,
+} from '@/lib/fractal/vantage-motion-types';
 
 /**
  * The record lens, opened by clicking a card. It shares the card's `layoutId`,
@@ -13,9 +18,19 @@ import type { CardT } from '@/lib/schemas/card';
  * inner content fades in slightly behind the morph to mask the size-change
  * crossfade. This is the interaction (focus) axis — orthogonal to vantage.
  */
-export function RecordCardDialog({ card, onClose }: { card: CardT; onClose: () => void }) {
+export function RecordCardDialog({
+  card,
+  vantageMotion,
+  onClose,
+}: {
+  card: CardT;
+  vantageMotion: VantageMotion;
+  onClose: () => void;
+}) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const palette = gridCardPalette(card.colorIndex);
+  const dialogTransition = resolveRecordDialogTransition(vantageMotion);
+  const reduced = vantageMotion === 'reduced';
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -40,18 +55,19 @@ export function RecordCardDialog({ card, onClose }: { card: CardT; onClose: () =
     >
       <motion.div
         className="absolute inset-0 bg-background/70 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
+        initial={{ opacity: reduced ? 1 : 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        exit={{ opacity: reduced ? 1 : 0 }}
+        transition={dialogTransition}
         onClick={onClose}
       />
 
       <motion.div
-        layout
+        layout={resolveVantageLayout(vantageMotion, { recordMorph: true })}
         layoutId={`card-${card.id}`}
         data-testid="record-card-dialog"
         data-card-id={card.id}
-        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+        transition={dialogTransition}
         className="relative z-10 flex max-h-[min(88vh,46rem)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
       >
         <div
@@ -83,8 +99,12 @@ export function RecordCardDialog({ card, onClose }: { card: CardT; onClose: () =
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.12, duration: 0.25 } }}
+          initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 8 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: reduced ? { duration: 0 } : { delay: 0.12, duration: 0.25 },
+          }}
           className="flex min-h-0 flex-col gap-4 overflow-auto p-6"
         >
           <div className="flex flex-col gap-1">

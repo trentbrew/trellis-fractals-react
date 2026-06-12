@@ -13,6 +13,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { embedKickerForPath } from '@/lib/shell/embed';
+import { isSquareFractalEmbed } from '@/lib/shell/embed-frame';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
 import { pageLabel } from '@/lib/shell/modes';
 import { ShellProvider, useShell } from '@/lib/shell/shell-context';
@@ -34,6 +35,33 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
     document.body.classList.toggle('shell-embed', embed);
   }, [embed, readonly]);
 
+  const squareFractalEmbed = isSquareFractalEmbed(pathname);
+  const viewportFillEmbed =
+    squareFractalEmbed || pathname.startsWith('/fractals/ladder');
+
+  // Auto-height for legacy embeds; square viewport-fill frames scroll internally.
+  useEffect(() => {
+    if (!embed || viewportFillEmbed) return;
+    const report = () => {
+      window.parent?.postMessage(
+        {
+          type: 'trellis:embed-height',
+          path: location.pathname + location.search,
+          height: Math.ceil(document.documentElement.scrollHeight),
+        },
+        '*',
+      );
+    };
+    const observer = new ResizeObserver(report);
+    observer.observe(document.body);
+    report();
+    const settle = window.setTimeout(report, 300);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(settle);
+    };
+  }, [embed, pathname, viewportFillEmbed]);
+
   const kicker = embed ? embedKickerForPath(pathname, readonly) : null;
   const collectionDetailMatch = pathname.match(/^\/collections\/([^/]+)/);
   const isCollectionDetail =
@@ -41,13 +69,25 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
 
   if (embed) {
     return (
-      <div className="flex h-full min-h-0 w-full flex-col">
-        {kicker ? (
+      <div
+        className={cn(
+          'flex w-full flex-col',
+          viewportFillEmbed ? 'h-full min-h-0 overflow-hidden' : 'min-h-full',
+        )}
+      >
+        {!squareFractalEmbed && kicker ? (
           <p className="embed-kicker shrink-0 border-b border-border px-3 py-2 text-sm text-muted-foreground">
             {kicker}
           </p>
         ) : null}
-        <main className="flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden p-3">
+        <main
+          className={cn(
+            'flex w-full min-w-0 flex-col',
+            viewportFillEmbed
+              ? 'min-h-0 flex-1 overflow-hidden p-0'
+              : 'flex-1 p-3',
+          )}
+        >
           {children}
         </main>
       </div>

@@ -2,9 +2,10 @@
 
 import {
   detailOpacity,
-  vantageCssTransition,
   vantageStyle,
 } from '@/lib/fractal/vantage';
+import { useVantageMotion } from '@/lib/fractal/vantage-motion';
+import { resolveVantageCssTransition } from '@/lib/fractal/vantage-motion-types';
 import { useVantageState } from '@/lib/fractal/use-vantage-state';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
 import {
@@ -13,7 +14,9 @@ import {
   resolveEntityPresentation,
   type EntityPresentation,
 } from '@/lib/fractal/presentation';
-import { VantageControl } from '@/components/projections/vantage-control';
+import { FractalEmbedShell } from '@/components/shell/fractal-embed-shell';
+import { VantageControlsBar } from '@/components/projections/vantage-controls-bar';
+import { VantageDock } from '@/components/projections/vantage-dock';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
@@ -232,33 +235,42 @@ function EntityPresentation({
 export function EntityFocusDemo() {
   const { embed } = useEmbedFlags();
   const [vantage, setVantage] = useVantageState();
+  const { motion: vantageMotion } = useVantageMotion();
   const presentation = resolveEntityPresentation(vantage);
 
   return (
-    <div
-      className="flex min-h-0 w-full min-w-0 flex-1 flex-col gap-4"
-      data-testid="entity-focus-demo"
+    <FractalEmbedShell
+      className="w-full min-w-0 flex-1"
+      dock={
+        <VantageDock>
+          <VantageControlsBar
+            vantage={vantage}
+            onVantageChange={setVantage}
+            projectionLabel={ENTITY_PRESENTATION_LABELS[presentation]}
+            className="justify-center"
+          />
+        </VantageDock>
+      }
     >
-      <header className="flex w-full min-w-0 flex-wrap items-center gap-3">
+      <div
+        className={cn('flex min-h-0 w-full flex-1 flex-col', embed ? 'h-full gap-2' : 'gap-4')}
+        data-testid="entity-focus-demo"
+      >
         {!embed ? (
-          <div className="min-w-0 flex-1">
-            <h1 className="text-xl font-semibold tracking-tight">Entity</h1>
-          </div>
+          <header className="flex w-full min-w-0 flex-wrap items-center gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl font-semibold tracking-tight">Entity</h1>
+            </div>
+            <Badge variant="secondary" className="rounded-md" data-testid="entity-presentation-label">
+              {ENTITY_PRESENTATION_LABELS[presentation]}
+            </Badge>
+          </header>
         ) : null}
-        <Badge variant="secondary" className="rounded-md" data-testid="entity-presentation-label">
-          {ENTITY_PRESENTATION_LABELS[presentation]}
-        </Badge>
-        <VantageControl
-          value={vantage}
-          onChange={setVantage}
-          className="min-w-[12rem] max-w-72 flex-1"
-        />
-      </header>
 
       <main
         className={
           embed
-            ? 'flex min-h-[28rem] w-full min-w-0 flex-1 flex-col p-0'
+            ? 'flex min-h-0 w-full flex-1 flex-col p-0'
             : 'grid min-h-[32rem] flex-1 place-items-center rounded-lg border border-dashed border-border bg-muted/15 p-4'
         }
       >
@@ -273,7 +285,7 @@ export function EntityFocusDemo() {
           style={{
             ...vantageStyle(vantage),
             maxWidth: embed ? '100%' : entityStageMaxWidth(vantage),
-            transition: vantageCssTransition,
+            transition: resolveVantageCssTransition(vantageMotion),
           }}
         >
           <EntityPresentation
@@ -283,6 +295,7 @@ export function EntityFocusDemo() {
           />
         </div>
       </main>
-    </div>
+      </div>
+    </FractalEmbedShell>
   );
 }

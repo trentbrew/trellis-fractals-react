@@ -10,7 +10,7 @@ export default function FractalLadderPage() {
     <div
       className={
         embed
-          ? 'flex w-full min-w-0 flex-col gap-4'
+          ? 'flex h-full min-h-0 w-full flex-col overflow-auto p-3'
           : 'mx-auto flex w-full max-w-2xl flex-col gap-4'
       }
     >

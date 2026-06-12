@@ -4,34 +4,38 @@ Production origin: **https://playground.trellis.computer**
 
 QA gallery (local or hosted): [/fractals/embeds](https://playground.trellis.computer/fractals/embeds) — includes **Desktop / Tablet / Mobile** width preview toggles (gallery-only; published iframe specs unchanged).
 
+**Local dev:** open `http://localhost:3000/fractals/embeds` — preview iframes and copy snippets use `localhost` automatically. Override with `NEXT_PUBLIC_PLAYGROUND_ORIGIN` if your dev server uses another port.
+
 ---
 
 ## MVP embeds (ship with v1 post)
 
-| # | Caption | Path | Height |
-|---|---------|------|--------|
-| 0 | Ladder overview (optional) | `/fractals/ladder?embed=1` | 420 |
-| 1 | Entity — dot | `/fractals/entity?embed=1&vantage=1` | 520 |
-| 2 | Entity — page | `/fractals/entity?embed=1&vantage=12` | 640 |
-| 3 | Collection — dot field | `/fractals/collection?embed=1&vantage=1` | 560 |
-| 4 | Collection — card grid | `/fractals/collection?embed=1&vantage=10` | 640 |
-| 5 | Kanban — live graph | `/projections/kanban?embed=1&room=fractals-blog` | 560 |
+| # | Caption | Path | Frame |
+|---|---------|------|-------|
+| 0 | Ladder overview (optional) | `/fractals/ladder?embed=1` | 1:1 |
+| 1 | Entity — dot | `/fractals/entity?embed=1&vantage=1` | 1:1 |
+| 2 | Entity — page | `/fractals/entity?embed=1&vantage=12` | 1:1 |
+| 3 | Collection — dot field | `/fractals/collection?embed=1&vantage=1` | 1:1 |
+| 4 | Collection — card grid | `/fractals/collection?embed=1&vantage=10` | 1:1 |
+| 5 | Kanban — live graph | `/projections/kanban?embed=1&room=fractals-blog` | 1:1 |
+
+All MVP embeds use a **square (1:1) aspect-ratio** wrapper with `overflow: hidden`; content scrolls inside the iframe. Collection/entity/page embeds pin the vantage dock to the **top**.
 
 ### iframe template
 
 ```html
-<iframe
-  src="https://playground.trellis.computer/fractals/entity?embed=1&vantage=1"
-  title="Trellis Fractals — entity at vantage 1"
-  width="100%"
-  height="520"
-  style="border:1px solid #333; border-radius:8px;"
-  loading="lazy"
-  allow="clipboard-write"
-></iframe>
+<div style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:8px;border:1px solid #333;">
+  <iframe
+    src="https://playground.trellis.computer/fractals/entity?embed=1&vantage=1"
+    title="Trellis Fractals — entity at vantage 1"
+    style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+    loading="lazy"
+    allow="clipboard-write"
+  ></iframe>
+</div>
 ```
 
-Replace `src` and `height` per row above.
+Replace `src` per row above. Copy live snippets from [/fractals/embeds](https://playground.trellis.computer/fractals/embeds).
 
 ---
 

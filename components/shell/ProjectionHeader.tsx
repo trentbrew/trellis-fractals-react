@@ -13,7 +13,9 @@ export function ProjectionHeader({
         <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
         {trailing}
       </div>
-      {children && <div className="flex w-full min-w-0 items-center gap-2">{children}</div>}
+      {children ? (
+        <div className="flex w-full min-w-0 flex-wrap items-center gap-2">{children}</div>
+      ) : null}
     </header>
   );
 }

@@ -18,24 +18,31 @@ import {
   resolveGridColumns,
   resolveListRowMetrics,
   resolveGridGapClass,
-  VANTAGE_LAYOUT_TRANSITION,
-  VANTAGE_MORPH_TRANSITION,
-  vantageCssTransition,
   vantageStyle,
   type FractalBoardProjection,
 } from '@/lib/fractal/vantage';
+import { useVantageMotion } from '@/lib/fractal/vantage-motion';
+import {
+  resolveCrossProjectionLayoutId,
+  resolveVantageCssTransition,
+  resolveVantageLayout,
+  resolveVantageLayoutTransition,
+  resolveVantageListPresence,
+  resolveVantageMorphTransition,
+  type VantageMotion,
+} from '@/lib/fractal/vantage-motion-types';
 import { useVantageState } from '@/lib/fractal/use-vantage-state';
 import { useContainerWidth } from '@/hooks/use-container-width';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
 import { cn } from '@/lib/utils';
 import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
+import { FractalEmbedShell } from '@/components/shell/fractal-embed-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
 import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
-import { VantageControl } from '@/components/projections/vantage-control';
-import { VantagePresetControl } from '@/components/projections/vantage-presets';
-import { Badge } from '@/components/ui/badge';
+import { VantageControlsBar } from '@/components/projections/vantage-controls-bar';
+import { VantageDock } from '@/components/projections/vantage-dock';
 import { GridCard } from './GridCard';
 import { CardGraphCanvas } from './CardGraphCanvas';
 import { RecordCardDialog } from './RecordCardDialog';
@@ -50,10 +57,12 @@ const BOARD_PROJECTION_LABELS: Record<FractalBoardProjection, string> = {
 function CardListProjection({
   rows,
   vantage,
+  vantageMotion,
   onContextMenu,
 }: {
   rows: CardT[];
   vantage: number;
+  vantageMotion: VantageMotion;
   onContextMenu: (event: React.MouseEvent, card: CardT) => void;
 }) {
   if (rows.length === 0) {
@@ -109,9 +118,13 @@ function CardListProjection({
     'tags',
   );
 
+  const listPresence = resolveVantageListPresence(vantageMotion);
+  const listLayout = resolveVantageLayout(vantageMotion);
+  const cssTransition = resolveVantageCssTransition(vantageMotion);
+
   return (
     <motion.ul
-      layout
+      layout={listLayout}
       className="flex flex-col gap-2"
       data-testid="card-list-projection"
       style={vantageStyle(vantage)}
@@ -131,12 +144,12 @@ function CardListProjection({
           return (
             <motion.li
               key={card.id}
-              layout
-              layoutId={`card-${card.id}`}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={VANTAGE_MORPH_TRANSITION}
+              layout={listLayout}
+              layoutId={resolveCrossProjectionLayoutId(vantageMotion, card.id)}
+              initial={listPresence.initial}
+              animate={listPresence.animate}
+              exit={listPresence.exit}
+              transition={resolveVantageMorphTransition(vantageMotion)}
               data-card-id={card.id}
               data-shell="row"
               onContextMenu={(event) => onContextMenu(event, card)}
@@ -146,7 +159,7 @@ function CardListProjection({
                 paddingBlock: rowMetrics.paddingBlock,
                 paddingInline: rowMetrics.paddingInline,
                 gap: rowMetrics.gap,
-                transition: vantageCssTransition,
+                transition: cssTransition,
               }}
               className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center rounded-lg border border-border bg-card text-sm transition-colors hover:bg-muted/50"
             >
@@ -241,6 +254,7 @@ export function GridBoard() {
   const { rows, mut } = useCollection(Card);
   const [browseState, setBrowseState] = useState<BrowseState>(() => defaultBrowseState(browseConfig));
   const [vantage, setVantage] = useVantageState();
+  const { motion: vantageMotion } = useVantageMotion();
   const [focusCardId, setFocusCardId] = useState<string | null>(null);
   const [recordCard, setRecordCard] = useState<CardT | null>(null);
   const boardProjection = resolveBoardProjection(vantage);
@@ -263,43 +277,54 @@ export function GridBoard() {
   }
 
   return (
-    <BrowseProjectionShell className="min-h-0 flex-1 gap-4">
-      <ProjectionHeader title={embed ? 'Collection' : 'Grid'}>
-        {!embed ? (
-          <CollectionBrowseBar
-            config={browseConfig}
-            state={browseState}
-            resultCount={browsedRows.length}
-            totalCount={rows.length}
-            onChange={(patch) => setBrowseState((prev) => ({ ...prev, ...patch }))}
+    <FractalEmbedShell
+      dock={
+        <VantageDock>
+          <VantageControlsBar
+            vantage={vantage}
+            onVantageChange={setVantage}
+            projectionLabel={BOARD_PROJECTION_LABELS[boardProjection]}
+            className="justify-center"
           />
+        </VantageDock>
+      }
+    >
+      <BrowseProjectionShell className={cn('min-h-0 flex-1', embed ? 'h-full gap-2' : 'gap-4')}>
+        {!embed ? (
+          <ProjectionHeader title="Grid">
+            <div className="flex w-full min-w-0 items-center gap-2">
+              <CollectionBrowseBar
+                config={browseConfig}
+                state={browseState}
+                resultCount={browsedRows.length}
+                totalCount={rows.length}
+                onChange={(patch) => setBrowseState((prev) => ({ ...prev, ...patch }))}
+              />
+              <AddRecordButton label="New card" onClick={addCard} />
+            </div>
+          </ProjectionHeader>
         ) : null}
-        <Badge variant="secondary" className="shrink-0 rounded-md" data-testid="board-projection-label">
-          {BOARD_PROJECTION_LABELS[boardProjection]}
-        </Badge>
-        <VantagePresetControl value={vantage} onChange={setVantage} />
-        <VantageControl
-          value={vantage}
-          onChange={setVantage}
-          className="min-w-40 max-w-64 flex-1"
-        />
-        {!embed ? <AddRecordButton label="New card" onClick={addCard} /> : null}
-      </ProjectionHeader>
 
       <div
         ref={boardRef}
-        className="min-h-0 flex-1"
+        className="min-h-0 flex-1 overflow-auto"
         data-testid="grid-board-projection"
         data-board-projection={boardProjection}
         data-effective-cols={boardProjection === 'grid' ? cols : undefined}
+        data-vantage-motion={vantageMotion}
         style={vantageStyle(vantage)}
       >
         {boardProjection === 'grid' ? (
           <motion.div
-            layout
-            transition={VANTAGE_LAYOUT_TRANSITION}
-            style={{ '--cols': cols, ...vantageStyle(vantage) } as CSSProperties}
-            className={cn('grid grid-cols-[repeat(var(--cols),1fr)]', gridGapClass)}
+            layout={resolveVantageLayout(vantageMotion)}
+            transition={resolveVantageLayoutTransition(vantageMotion)}
+            style={
+              {
+                gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+                ...vantageStyle(vantage),
+              } as CSSProperties
+            }
+            className={cn('grid', gridGapClass)}
           >
             <AnimatePresence initial={false}>
               {browsedRows.map((card) => (
@@ -307,6 +332,8 @@ export function GridBoard() {
                   key={card.id}
                   card={card}
                   vantage={vantage}
+                  vantageMotion={vantageMotion}
+                  recordMorph={recordCard?.id === card.id}
                   autoFocus={card.id === focusCardId}
                   onAutoFocused={() => setFocusCardId(null)}
                   onPersist={(id, patch) => void mut.update(id, patch)}
@@ -328,6 +355,7 @@ export function GridBoard() {
           <CardListProjection
             rows={browsedRows}
             vantage={vantage}
+            vantageMotion={vantageMotion}
             onContextMenu={(event, card) => openAt(event, card.id)}
           />
         ) : null}
@@ -342,11 +370,16 @@ export function GridBoard() {
 
       <AnimatePresence>
         {recordCard ? (
-          <RecordCardDialog card={recordCard} onClose={() => setRecordCard(null)} />
+          <RecordCardDialog
+            card={recordCard}
+            vantageMotion={vantageMotion}
+            onClose={() => setRecordCard(null)}
+          />
         ) : null}
       </AnimatePresence>
 
       {menu}
-    </BrowseProjectionShell>
+      </BrowseProjectionShell>
+    </FractalEmbedShell>
   );
 }

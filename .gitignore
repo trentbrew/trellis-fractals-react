@@ -20,6 +20,9 @@
 # production
 /build
 
+# local symlink to ~/TURTLE/Projects/Packages/brew.build (same-window editing)
+/brew.build
+
 # misc
 .DS_Store
 *.pem

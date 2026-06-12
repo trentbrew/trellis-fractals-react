@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { BrowseConfig, BrowseSortDir } from '@/lib/registry/browse-config';
 import type { BrowseState } from '@/lib/browse/apply';
+import { cn } from '@/lib/utils';
 
 export function CollectionBrowseBar<E extends Record<string, unknown>>({
   config,
@@ -18,19 +19,21 @@ export function CollectionBrowseBar<E extends Record<string, unknown>>({
   resultCount,
   totalCount,
   onChange,
+  className,
 }: {
   config: BrowseConfig<E>;
   state: BrowseState;
   resultCount?: number;
   totalCount?: number;
   onChange: (patch: Partial<BrowseState>) => void;
+  className?: string;
 }) {
   const sortable = config.fields.filter((field) => field.sortable);
   const showCount = resultCount != null && totalCount != null && resultCount !== totalCount;
   const currentSort = sortable.find((field) => field.key === state.sortKey);
 
   return (
-    <div className="flex w-full items-center gap-2" role="search">
+    <div className={cn('flex min-w-0 flex-1 items-center gap-2', className)} role="search">
       <div className="relative min-w-0 flex-1">
         <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <input
@@ -39,7 +42,7 @@ export function CollectionBrowseBar<E extends Record<string, unknown>>({
           aria-label="Search collection"
           value={state.query}
           onChange={(event) => onChange({ query: event.currentTarget.value })}
-          className="w-full rounded-lg border border-border bg-card/50 py-2 pr-4 pl-10 text-sm placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+          className="h-8 w-full rounded-lg border border-border bg-card/50 pr-4 pl-10 text-sm placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
         />
       </div>
 

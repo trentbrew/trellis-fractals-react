@@ -12,16 +12,22 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
+import { FractalEmbedShell } from '@/components/shell/fractal-embed-shell';
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
-import { VantageControl } from '@/components/projections/vantage-control';
+import { VantageControlsBar } from '@/components/projections/vantage-controls-bar';
+import { VantageDock } from '@/components/projections/vantage-dock';
 import {
   DEFAULT_VANTAGE,
   detailOpacity,
   resolveShell,
-  vantageCssTransition,
   vantageStyle,
   type FractalShell,
 } from '@/lib/fractal/vantage';
+import { useVantageMotion } from '@/lib/fractal/vantage-motion';
+import {
+  resolveVantageCssTransition,
+  type VantageMotion,
+} from '@/lib/fractal/vantage-motion-types';
 import { FractalThing, type FractalLane, type FractalThingT } from '@/lib/schemas/fractal-thing';
 import { useCollection } from '@/lib/trellis/use-collection';
 import { cn } from '@/lib/utils';
@@ -137,6 +143,7 @@ function ThingShell({
   identity,
   lane,
   vantage,
+  vantageMotion,
   editable = false,
   saving = false,
   onTitleChange,
@@ -145,6 +152,7 @@ function ThingShell({
   identity: string;
   lane: FractalLane;
   vantage: number;
+  vantageMotion: VantageMotion;
   editable?: boolean;
   saving?: boolean;
   onTitleChange?: (title: string) => void;
@@ -169,7 +177,7 @@ function ThingShell({
       data-thing-id={record?.id ?? identity}
       data-identity={identity}
       data-lane={lane}
-      style={{ ...style, transition: vantageCssTransition }}
+      style={{ ...style, transition: resolveVantageCssTransition(vantageMotion) }}
     >
       <span
         className={cn(
@@ -250,6 +258,7 @@ export function FractalVantageDemo() {
   const [lane, setLane] = useState<FractalLane>('main');
   const [identity, setIdentity] = useState(DEFAULT_IDENTITY);
   const [vantage, setVantage] = useState(DEFAULT_VANTAGE);
+  const { motion: vantageMotion } = useVantageMotion();
   const [savingId, setSavingId] = useState<string | null>(null);
   const seedStarted = useRef(false);
   const collectionFilter = useMemo(
@@ -300,6 +309,17 @@ export function FractalVantageDemo() {
   }
 
   return (
+    <FractalEmbedShell
+      dock={
+        <VantageDock>
+          <VantageControlsBar
+            vantage={vantage}
+            onVantageChange={setVantage}
+            className="justify-center"
+          />
+        </VantageDock>
+      }
+    >
     <BrowseProjectionShell className="min-h-0 flex-1 gap-4" data-testid="fractal-app">
       <ProjectionHeader title="Fractal Wedge">
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
@@ -387,24 +407,23 @@ export function FractalVantageDemo() {
                   identity={identity}
                   lane={lane}
                   vantage={item.level}
+                  vantageMotion={vantageMotion}
                 />
               ))}
             </div>
           </section>
 
           <section className="grid gap-3 rounded-lg border border-border p-4">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <CheckCircle2Icon className="size-4 text-muted-foreground" />
-                <h2 className="text-sm font-semibold">Focus</h2>
-              </div>
-              <VantageControl value={vantage} onChange={setVantage} />
+            <div className="flex items-center gap-2">
+              <CheckCircle2Icon className="size-4 text-muted-foreground" />
+              <h2 className="text-sm font-semibold">Focus</h2>
             </div>
             <ThingShell
               record={active}
               identity={identity}
               lane={lane}
               vantage={vantage}
+              vantageMotion={vantageMotion}
               editable
               saving={active ? savingId === active.id : false}
               onTitleChange={active ? (title) => void updateTitle(active, title) : undefined}
@@ -419,12 +438,14 @@ export function FractalVantageDemo() {
                 identity="midsole-rebound"
                 lane="main"
                 vantage={2}
+                vantageMotion={vantageMotion}
               />
               <ThingShell
                 record={crossTermAgent}
                 identity="retinol-risk"
                 lane="agent:demo"
                 vantage={12}
+                vantageMotion={vantageMotion}
                 editable
                 saving={savingId === crossTermAgent?.id}
                 onTitleChange={
@@ -437,6 +458,8 @@ export function FractalVantageDemo() {
           </section>
         </main>
       </div>
+
     </BrowseProjectionShell>
+    </FractalEmbedShell>
   );
 }

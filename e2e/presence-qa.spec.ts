@@ -75,4 +75,5 @@ test('blog embed gallery loads iframes', async ({ page }) => {
     '1',
     { timeout: 15_000 },
   );
+  await expect(collectionIframe.getByTestId('vantage-dock')).toBeVisible({ timeout: 15_000 });
 });

@@ -39,6 +39,10 @@ test('grid board collapses projections by fractal vantage', async ({ page }) => 
     'data-board-projection',
     'grid',
   );
+  await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+    'data-effective-cols',
+    '6',
+  );
   await expect(cards.first()).toHaveAttribute('data-card-variant', 'compact');
   await expect(page.getByTestId('vantage-control')).toContainText('7.0');
 
@@ -46,6 +50,10 @@ test('grid board collapses projections by fractal vantage', async ({ page }) => 
   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
     'data-board-projection',
     'grid',
+  );
+  await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+    'data-effective-cols',
+    '5',
   );
   await expect(cards.first()).toHaveAttribute('data-card-variant', 'tile');
   await expect(page.getByTestId('vantage-control')).toContainText('8.0');
@@ -62,6 +70,10 @@ test('grid board collapses projections by fractal vantage', async ({ page }) => 
   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
     'data-board-projection',
     'grid',
+  );
+  await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+    'data-effective-cols',
+    '4',
   );
   await expect(cards.first()).toHaveAttribute('data-shell', 'card');
   await expect(page.getByTestId('vantage-control')).toContainText('9.0');

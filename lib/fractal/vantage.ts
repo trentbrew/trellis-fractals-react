@@ -67,7 +67,7 @@ export const VANTAGE_LAYOUT_TRANSITION: Transition = {
   layout: VANTAGE_LAYOUT_SPRING,
 };
 
-/** Layout morph plus eased opacity/scale for cards and shells. */
+/** Opacity/scale plus layout spring — pair with `layout="position"` to avoid text stretch. */
 export const VANTAGE_MORPH_TRANSITION: Transition = {
   layout: VANTAGE_LAYOUT_SPRING,
   opacity: { duration: 0.34, ease: VANTAGE_EASE },

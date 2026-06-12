@@ -12,7 +12,12 @@ import {
   resolveFieldDisclosure,
 } from '@/lib/fractal/disclosure';
 import {
-  VANTAGE_MORPH_TRANSITION,
+  resolveVantageCardPresence,
+  resolveVantageLayout,
+  resolveVantageMorphTransition,
+  type VantageMotion,
+} from '@/lib/fractal/vantage-motion-types';
+import {
   resolveGridCardVariant,
   vantageStyle,
   type GridCardVariant,
@@ -34,21 +39,28 @@ export function GridCard({
   onDelete,
   onOpenRecord,
   onContextMenu,
+  recordMorph = false,
+  vantageMotion,
 }: {
   card: CardT;
   vantage: number;
+  vantageMotion: VantageMotion;
   autoFocus?: boolean;
   onAutoFocused?: () => void;
   onPersist: (id: string, patch: { title?: string; body?: string }) => void;
   onDelete: (id: string) => void;
   onOpenRecord?: () => void;
   onContextMenu: (event: React.MouseEvent) => void;
+  /** Full size morph for shared-layout record lens — off during vantage drag. */
+  recordMorph?: boolean;
 }) {
   const titleRef = useRef<HTMLInputElement>(null);
   const [imageFailed, setImageFailed] = useState(false);
   const palette = gridCardPalette(card.colorIndex);
   const variant = resolveGridCardVariant(vantage);
   const shell = 'card' as const;
+  const presence = resolveVantageCardPresence(vantageMotion);
+  const layout = resolveVantageLayout(vantageMotion, { recordMorph });
 
   const categoryDisclosure = resolveFieldDisclosure(
     CARD_FIELD_DISCLOSURE.category,
@@ -175,12 +187,12 @@ export function GridCard({
 
   return (
     <motion.div
-      layout
+      layout={layout}
       layoutId={`card-${card.id}`}
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.92, y: 8 }}
-      transition={VANTAGE_MORPH_TRANSITION}
+      initial={presence.initial}
+      animate={presence.animate}
+      exit={presence.exit}
+      transition={resolveVantageMorphTransition(vantageMotion)}
       onContextMenu={onContextMenu}
       data-shell="card"
       data-card-variant={variant}

@@ -11,15 +11,20 @@ import {
   PAGE_PROJECTION_LABELS,
   resolvePageProjection,
 } from '@/lib/fractal/page-projection';
-import { useVantageState } from '@/lib/fractal/use-vantage-state';
-import { VANTAGE_PROJECTION_TRANSITION, vantageStyle } from '@/lib/fractal/vantage';
-import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
-import { VantageControl } from '@/components/projections/vantage-control';
+import { useVantageMotion } from '@/lib/fractal/vantage-motion';
 import {
-  PAGE_VANTAGE_PRESETS,
-  VantagePresetControl,
-} from '@/components/projections/vantage-presets';
+  resolveVantageLayout,
+  resolveVantageProjectionTransition,
+} from '@/lib/fractal/vantage-motion-types';
+import { useVantageState } from '@/lib/fractal/use-vantage-state';
+import { vantageStyle } from '@/lib/fractal/vantage';
+import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
+import { FractalEmbedShell } from '@/components/shell/fractal-embed-shell';
+import { VantageControlsBar } from '@/components/projections/vantage-controls-bar';
+import { VantageDock } from '@/components/projections/vantage-dock';
+import { PAGE_VANTAGE_PRESETS } from '@/components/projections/vantage-presets';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import {
   PageGraphCanvas,
   PageLayoutSurface,
@@ -29,7 +34,11 @@ import {
 export function PageFocusDemo() {
   const { embed } = useEmbedFlags();
   const [vantage, setVantage] = useVantageState(10);
+  const { motion: vantageMotion } = useVantageMotion();
   const [focusPageId, setFocusPageId] = useState(DEFAULT_PAGE_ID);
+  const projectionTransition = resolveVantageProjectionTransition(vantageMotion);
+  const projectionLayout = resolveVantageLayout(vantageMotion);
+  const reduced = vantageMotion === 'reduced';
   const projection = resolvePageProjection(vantage);
   const focusPage = SAMPLE_PAGES.find((page) => page.id === focusPageId) ?? SAMPLE_PAGES[0];
   const related = relatedPages(focusPage);
@@ -39,30 +48,36 @@ export function PageFocusDemo() {
   }, []);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-4" data-testid="page-focus-demo">
-      <header className="flex flex-wrap items-center gap-3">
+    <FractalEmbedShell
+      dock={
+        <VantageDock>
+          <VantageControlsBar
+            vantage={vantage}
+            onVantageChange={setVantage}
+            projectionLabel={PAGE_PROJECTION_LABELS[projection]}
+            presets={PAGE_VANTAGE_PRESETS}
+            className="justify-center"
+          />
+        </VantageDock>
+      }
+    >
+      <div
+        className={cn('flex min-h-0 flex-1 flex-col', embed ? 'h-full gap-2' : 'gap-4')}
+        data-testid="page-focus-demo"
+      >
         {!embed ? (
-          <div className="min-w-0 flex-1">
-            <h1 className="text-xl font-semibold tracking-tight">Page</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              One route as graph node, outline, and layout with a graph-derived sidebar.
-            </p>
-          </div>
+          <header className="flex flex-wrap items-center gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl font-semibold tracking-tight">Page</h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                One route as graph node, outline, and layout with a graph-derived sidebar.
+              </p>
+            </div>
+            <Badge variant="secondary" className="rounded-md" data-testid="page-projection-label">
+              {PAGE_PROJECTION_LABELS[projection]}
+            </Badge>
+          </header>
         ) : null}
-        <Badge variant="secondary" className="rounded-md" data-testid="page-projection-label">
-          {PAGE_PROJECTION_LABELS[projection]}
-        </Badge>
-        <VantagePresetControl
-          value={vantage}
-          onChange={setVantage}
-          presets={PAGE_VANTAGE_PRESETS}
-        />
-        <VantageControl
-          value={vantage}
-          onChange={setVantage}
-          className="min-w-48 max-w-72 flex-1"
-        />
-      </header>
 
       <LayoutGroup id="page-focus">
         <div
@@ -75,11 +90,11 @@ export function PageFocusDemo() {
             {projection === 'graph' ? (
               <motion.div
                 key="graph"
-                layout
-                initial={{ opacity: 0, scale: 0.98 }}
+                layout={projectionLayout}
+                initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={VANTAGE_PROJECTION_TRANSITION}
+                exit={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.98 }}
+                transition={projectionTransition}
               >
                 <PageGraphCanvas
                   pages={SAMPLE_PAGES}
@@ -92,11 +107,11 @@ export function PageFocusDemo() {
             {projection === 'outline' ? (
               <motion.div
                 key="outline"
-                layout
-                initial={{ opacity: 0 }}
+                layout={projectionLayout}
+                initial={{ opacity: reduced ? 1 : 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={VANTAGE_PROJECTION_TRANSITION}
+                exit={{ opacity: reduced ? 1 : 0 }}
+                transition={projectionTransition}
               >
                 <PageOutlineList
                   pages={SAMPLE_PAGES}
@@ -110,11 +125,11 @@ export function PageFocusDemo() {
             {projection === 'layout' ? (
               <motion.div
                 key="layout"
-                layout
-                initial={{ opacity: 0 }}
+                layout={projectionLayout}
+                initial={{ opacity: reduced ? 1 : 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={VANTAGE_PROJECTION_TRANSITION}
+                exit={{ opacity: reduced ? 1 : 0 }}
+                transition={projectionTransition}
               >
                 <PageLayoutSurface
                   page={focusPage}
@@ -127,6 +142,7 @@ export function PageFocusDemo() {
           </AnimatePresence>
         </div>
       </LayoutGroup>
-    </div>
+      </div>
+    </FractalEmbedShell>
   );
 }
