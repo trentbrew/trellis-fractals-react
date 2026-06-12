@@ -141,7 +141,7 @@ export function ForceGraphCanvas({
     const nodeLayer = root.append('g').attr('class', 'nodes');
 
     const link = linkLayer
-      .selectAll('line')
+      .selectAll<SVGLineElement, SimLink>('line')
       .data(links)
       .join('line')
       .attr('stroke-width', 1.5);
