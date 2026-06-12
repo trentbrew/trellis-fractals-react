@@ -52,7 +52,7 @@ test('legacy grid route redirects to fractal collection', async ({ page }) => {
 
 test('fractals embed mode and vantage deep-links', async ({ page }) => {
   await page.goto('/fractals/entity?embed=1&vantage=1');
-  await expect(page.locator('.embed-kicker')).toContainText('Fractal entity');
+  await expect(page.getByTestId('vantage-dock')).toBeVisible();
   await expect(page.getByTestId('entity-focus-stage')).toHaveAttribute(
     'data-presentation',
     'dot',
@@ -60,12 +60,15 @@ test('fractals embed mode and vantage deep-links', async ({ page }) => {
   );
   await expect(page.getByRole('heading', { name: 'Entity' })).toHaveCount(0);
 
-  await page.goto('/fractals/collection?embed=1&vantage=4');
-  await expect(page.locator('.embed-kicker')).toContainText('Fractal collection');
+  await page.goto('/fractals/collection?embed=1&vantage=8');
+  await expect(page.getByTestId('vantage-dock')).toBeVisible();
   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
     'data-board-projection',
-    'table',
+    'grid',
     { timeout: 15_000 },
+  );
+  await expect(page.getByTestId('grid-board-projection')).not.toContainText(
+    'No cards yet',
   );
 });
 

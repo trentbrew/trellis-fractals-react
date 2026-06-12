@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { isEmbedMode } from './embed';
 
 const ROOM_STORAGE_KEY = 'trellis-playground-room';
 
@@ -20,6 +21,11 @@ export function getRoomIdFromUrl(search = ''): string | null {
   const slug = room.trim();
   if (!slug || slug.length > 64 || !/^[a-zA-Z0-9_-]+$/.test(slug)) return null;
   return slug;
+}
+
+/** Blog/static fractal iframes — shared showcase seed, no session room minted. */
+export function isPassiveShowcaseEmbed(search = ''): boolean {
+  return isEmbedMode(search) && !getRoomIdFromUrl(search);
 }
 
 /**
@@ -52,6 +58,10 @@ export function getOrCreateSessionRoomId(search = ''): string {
  * targets the same shareable slug (matches trellis realtime-app `?room=` UX).
  */
 export function resolveAndSyncSessionRoom(search = ''): string {
+  if (isPassiveShowcaseEmbed(search)) {
+    return '';
+  }
+
   const room = getOrCreateSessionRoomId(search);
 
   if (typeof window !== 'undefined' && !getRoomIdFromUrl(search)) {
@@ -65,12 +75,13 @@ export function resolveAndSyncSessionRoom(search = ''): string {
 
 /**
  * Hosted writable app → isolated tenant per session room.
- * Readonly embed + local dev → default showcase tenant (shared seed).
+ * Passive embeds + readonly + local dev → default showcase tenant (shared seed).
  */
 export function resolvePlaygroundTenantId(readonly: boolean, search = ''): string | undefined {
   if (typeof window === 'undefined') return undefined;
   if (isLocalHost()) return undefined;
   if (readonly) return undefined;
+  if (isPassiveShowcaseEmbed(search)) return undefined;
   return `embed-${getOrCreateSessionRoomId(search)}`;
 }
 
@@ -90,7 +101,9 @@ export function usePlaygroundTenantId(readonly: boolean): {
 
   useEffect(() => {
     const search = typeof window !== 'undefined' ? window.location.search : '';
-    resolveAndSyncSessionRoom(search);
+    if (!isPassiveShowcaseEmbed(search)) {
+      resolveAndSyncSessionRoom(search);
+    }
     setState({
       tenantId: resolvePlaygroundTenantId(readonly, search),
       ready: true,
@@ -111,7 +124,12 @@ export function useSessionRoom(): string | null {
   useEffect(() => {
     const sync = () => {
       const search = window.location.search;
-      setSessionRoom(resolveAndSyncSessionRoom(search));
+      if (isPassiveShowcaseEmbed(search)) {
+        setSessionRoom(null);
+        return;
+      }
+      const room = resolveAndSyncSessionRoom(search);
+      setSessionRoom(room || null);
     };
 
     sync();

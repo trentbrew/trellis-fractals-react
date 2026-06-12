@@ -41,7 +41,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full${theme === "dark" ? " dark" : ""}`}
       suppressHydrationWarning
     >
-      <body className={`${geistSans.className} min-h-svh antialiased`}>
+      <body className={`${geistSans.className} h-full min-h-0 antialiased`}>
         <ThemeProvider defaultTheme={theme}>
         <VantageMotionProvider>
         <TrellisProvider>

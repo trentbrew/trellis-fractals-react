@@ -46,7 +46,7 @@ Replace `src` per row above. Copy live snippets from [/fractals/embeds](https://
 | `embed` | `1` | Strip app chrome; show kicker + demo only |
 | `vantage` | `1`–`13` | Deep-link entity/collection presentation |
 | `room` | slug | Shared writable session (kanban + hosted graph) |
-| `readonly` | `1` | Disable mutations (not used in MVP embeds) |
+| `readonly` | `1` | Disable mutations (optional; passive embeds use showcase tenant by default) |
 
 ---
 

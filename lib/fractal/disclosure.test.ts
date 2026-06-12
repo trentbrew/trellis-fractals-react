@@ -98,22 +98,22 @@ describe('resolveFieldDisclosure', () => {
     expect(shown.mode).toBe('mount');
   });
 
-  it('shows tags in rich list rows near end of list band', () => {
-    const hidden = resolveFieldDisclosure(
-      CARD_FIELD_DISCLOSURE.tags,
-      5,
-      'row',
-      'tags',
-    );
-    expect(hidden.visible).toBe(false);
-
-    const shown = resolveFieldDisclosure(
+  it('keeps tags on grid mount threshold even in list shell', () => {
+    const listRow = resolveFieldDisclosure(
       CARD_FIELD_DISCLOSURE.tags,
       5.5,
       'row',
       'tags',
     );
-    expect(shown.visible).toBe(true);
-    expect(shown.mode).toBe('mount');
+    expect(listRow.visible).toBe(false);
+
+    const grid = resolveFieldDisclosure(
+      CARD_FIELD_DISCLOSURE.tags,
+      10.5,
+      'card',
+      'tags',
+    );
+    expect(grid.visible).toBe(true);
+    expect(grid.mode).toBe('mount');
   });
 });
