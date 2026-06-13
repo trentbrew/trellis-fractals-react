@@ -26,7 +26,7 @@ Add `?embed=1` to hide shell chrome. Add `?readonly=1` to disable writes (brew.b
 /projections/kanban?embed=1
 ```
 
-`next.config.ts` sets `frame-ancestors` for `brew.build` embeds.
+`next.config.ts` sets `frame-ancestors` for brew.build and trentbrew.com embeds (including nested: portfolio → blog → playground).
 
 ## Hosted demo (kernel path)
 
