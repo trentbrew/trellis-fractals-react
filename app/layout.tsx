@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TrellisProvider } from "@/lib/trellis/provider";
@@ -7,6 +8,7 @@ import { SessionRoomBootstrap } from "@/components/trellis/session-room-bootstra
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/shell/AppShell";
 import { ThemeProvider } from "@/lib/shell/theme";
+import { ColorThemeProvider } from "@/components/shell/color-theme-provider";
 import { getServerTheme } from "@/lib/shell/theme-server";
 import { VantageMotionProvider } from "@/lib/fractal/vantage-motion";
 
@@ -41,19 +43,30 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full${theme === "dark" ? " dark" : ""}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('fractals-color-theme');if(!t)t='notebook';if(t!=='neutral')document.documentElement.dataset.colorTheme=t}catch(e){}`,
+          }}
+        />
+      </head>
       <body className={`${geistSans.className} h-full min-h-0 antialiased`}>
         <ThemeProvider defaultTheme={theme}>
+        <ColorThemeProvider>
         <VantageMotionProvider>
         <TrellisProvider>
           <BootstrapSchemas>
             <SessionRoomBootstrap>
               <TooltipProvider>
-                <AppShell>{children}</AppShell>
+                <Suspense fallback={null}>
+                  <AppShell>{children}</AppShell>
+                </Suspense>
               </TooltipProvider>
             </SessionRoomBootstrap>
           </BootstrapSchemas>
         </TrellisProvider>
         </VantageMotionProvider>
+        </ColorThemeProvider>
         </ThemeProvider>
       </body>
     </html>

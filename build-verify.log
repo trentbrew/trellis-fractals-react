@@ -1,0 +1,58 @@
+
+> playground-next@0.1.0 build /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 9.3s
+  Running TypeScript ...
+  Finished TypeScript in 5.1s ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/33) ...
+  Generating static pages using 9 workers (8/33) 
+  Generating static pages using 9 workers (16/33) 
+  Generating static pages using 9 workers (24/33) 
+✓ Generating static pages using 9 workers (33/33) in 189ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /api/trellis/ontologies
+├ ƒ /api/trellis/ontologies/[...id]
+├ ƒ /calendar
+├ ƒ /collection
+├ ƒ /collections
+├ ƒ /collections/[slug]
+├ ƒ /collections/types
+├ ƒ /fractals
+├ ƒ /fractals/app
+├ ƒ /fractals/collection
+├ ƒ /fractals/embeds
+├ ƒ /fractals/entity
+├ ƒ /fractals/ladder
+├ ƒ /fractals/page
+├ ƒ /gantt
+├ ƒ /graph
+├ ƒ /issues
+├ ƒ /kanban
+├ ƒ /planets
+├ ƒ /projections
+├ ƒ /projections/calendar
+├ ƒ /projections/dag
+├ ƒ /projections/fractal
+├ ƒ /projections/gallery
+├ ƒ /projections/gantt
+├ ƒ /projections/json-ld
+├ ƒ /projections/kanban
+├ ƒ /projections/list
+├ ƒ /projections/table
+├ ƒ /realtime
+├ ƒ /table
+└ ƒ /todos
+
+
+ƒ  (Dynamic)  server-rendered on demand
+
+done

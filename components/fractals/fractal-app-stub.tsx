@@ -6,7 +6,13 @@ export function FractalAppStub() {
   const { embed } = useEmbedFlags();
 
   return (
-    <div className={embed ? 'flex min-h-0 flex-1 flex-col' : 'mx-auto flex w-full max-w-3xl flex-col gap-4'}>
+    <div
+      className={
+        embed
+          ? 'flex min-h-0 flex-1 w-full flex-col items-center justify-center p-4'
+          : 'mx-auto flex w-full max-w-3xl flex-col gap-4'
+      }
+    >
       {!embed ? (
         <header className="space-y-2">
           <p className="font-mono text-xs text-muted-foreground">04 / containment</p>
@@ -20,7 +26,7 @@ export function FractalAppStub() {
       <section
         className={
           embed
-            ? 'min-h-[18rem] flex-1 rounded-lg border border-border bg-card p-2'
+            ? 'w-full min-h-[18rem] rounded-lg border border-border bg-card p-3'
             : 'rounded-lg border border-dashed border-border bg-muted/15 p-5'
         }
       >

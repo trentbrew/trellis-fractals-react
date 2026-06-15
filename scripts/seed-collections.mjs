@@ -5,8 +5,15 @@
  *   node scripts/seed-collections.mjs
  *   TRELLIS_URL=http://localhost:8230 node scripts/seed-collections.mjs
  */
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
+import { join, resolve } from 'node:path';
 import { authHeaders, trellisEnv } from './trellis-config.mjs';
+import {
+  IDEAS_RECORD_FIELDS,
+  IDEAS_RECORD_ONTOLOGY_ID,
+  IDEAS_SEED_RECORDS,
+} from '../lib/trellis/demo-ideas-seed.mjs';
 
 const { base: TRELLIS_URL, apiKey } = trellisEnv();
 const META_PREFIX = 'collectionMeta:';
@@ -21,16 +28,8 @@ const SEED_COLLECTIONS = [
     color: '#0f62fe',
     description: 'Rough concepts and sparks worth revisiting',
     sortOrder: 0,
-    records: [
-      {
-        title: 'Fractal shell contract',
-        body: 'One kernel, many vantages — representation vs version.',
-      },
-      {
-        title: 'Collections before fractals',
-        body: 'Ship the record type users will actually manage.',
-      },
-    ],
+    records: IDEAS_SEED_RECORDS,
+    richSchema: true,
   },
   {
     id: `${META_PREFIX}reading-list`,
@@ -71,19 +70,96 @@ async function api(method, path, body) {
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${data.message ?? res.statusText}`);
-  return data;
+  return { ok: res.ok, status: res.status, data };
 }
 
-const metaList = await api('GET', '/entities?type=CollectionMeta&limit=500');
+async function apiOrThrow(method, path, body) {
+  const result = await api(method, path, body);
+  if (!result.ok) {
+    throw new Error(`HTTP ${result.status}: ${result.data.message ?? 'request failed'}`);
+  }
+  return result.data;
+}
+
+function writeOntologyOverlay(ontologyId, fields, label) {
+  const dbPath = resolve(process.cwd(), '.trellis-db');
+  const overlayPath = join(dbPath, 'ontology-overlays.json');
+  let overlay = {};
+  if (existsSync(overlayPath)) {
+    try {
+      overlay = JSON.parse(readFileSync(overlayPath, 'utf8'));
+    } catch {
+      overlay = {};
+    }
+  }
+  overlay[ontologyId] = {
+    '@id': ontologyId,
+    label,
+    fields,
+  };
+  mkdirSync(dbPath, { recursive: true });
+  writeFileSync(overlayPath, `${JSON.stringify(overlay, null, 2)}\n`);
+}
+
+function recordPayload(collectionId, row, sortOrder) {
+  const { relatedRecordTitle: _relatedRecordTitle, ...attributes } = row;
+  return {
+    collectionId,
+    sortOrder,
+    laneId: 'main',
+    ...attributes,
+  };
+}
+
+function rowNeedsEnrichment(existing, row) {
+  for (const [key, value] of Object.entries(row)) {
+    if (key === 'relatedRecordTitle' || value === undefined) continue;
+    const current = existing[key];
+    if (current === undefined || current === null || current === '') return true;
+  }
+  return false;
+}
+
+async function ensureIdeasSchema() {
+  const ontologyBody = {
+    '@id': IDEAS_RECORD_ONTOLOGY_ID,
+    '@type': 'trellis:Schema',
+    version: '1.0.0',
+    tier: 'user',
+    subClassOf: 'core:Record',
+    label: 'Ideas records',
+    fields: IDEAS_RECORD_FIELDS,
+  };
+
+  const post = await api('POST', '/ontologies', ontologyBody);
+  if (!post.ok) {
+    const patch = await api(
+      'PATCH',
+      `/ontologies/${encodeURIComponent(IDEAS_RECORD_ONTOLOGY_ID)}`,
+      { fields: IDEAS_RECORD_FIELDS },
+    );
+    if (!patch.ok) {
+      throw new Error(
+        `Failed to register Ideas record schema: ${patch.data.message ?? patch.status}`,
+      );
+    }
+  }
+
+  writeOntologyOverlay(IDEAS_RECORD_ONTOLOGY_ID, IDEAS_RECORD_FIELDS, 'Ideas records');
+}
+
+const metaList = await apiOrThrow('GET', '/entities?type=CollectionMeta&limit=500');
 const slugs = new Set((metaList.data ?? []).map((e) => String(e.slug ?? '')));
 
 let metaCreated = 0;
 let recordsCreated = 0;
+let recordsUpdated = 0;
+
+await ensureIdeasSchema();
 
 for (const collection of SEED_COLLECTIONS) {
   if (!slugs.has(collection.slug)) {
-    await api('POST', '/entities', {
+    await apiOrThrow('POST', '/entities', {
       id: collection.id,
       type: 'CollectionMeta',
       attributes: {
@@ -99,33 +175,60 @@ for (const collection of SEED_COLLECTIONS) {
     slugs.add(collection.slug);
   }
 
-  const recordList = await api('GET', '/entities?type=CollectionRecord&limit=500');
-  const titlesForCollection = new Set(
-    (recordList.data ?? [])
-      .filter((e) => e.collectionId === collection.id)
-      .map((e) => String(e.title ?? '')),
+  const recordList = await apiOrThrow('GET', '/entities?type=CollectionRecord&limit=500');
+  const recordsForCollection = (recordList.data ?? []).filter(
+    (entry) => entry.collectionId === collection.id,
+  );
+  const byTitle = new Map(
+    recordsForCollection.map((entry) => [String(entry.title ?? ''), entry]),
   );
 
   for (let i = 0; i < collection.records.length; i++) {
     const row = collection.records[i];
-    if (titlesForCollection.has(row.title)) continue;
-    await api('POST', '/entities', {
-      id: `${RECORD_PREFIX}${randomUUID()}`,
-      type: 'CollectionRecord',
-      attributes: {
-        collectionId: collection.id,
-        title: row.title,
-        body: row.body,
-        sortOrder: i,
-        laneId: 'main',
-      },
-    });
-    recordsCreated++;
+    const existing = byTitle.get(row.title);
+    const attributes = recordPayload(collection.id, row, i);
+
+    if (!existing) {
+      const created = await apiOrThrow('POST', '/entities', {
+        id: `${RECORD_PREFIX}${randomUUID()}`,
+        type: 'CollectionRecord',
+        attributes,
+      });
+      byTitle.set(row.title, created.data ?? created);
+      recordsCreated++;
+      continue;
+    }
+
+    if (rowNeedsEnrichment(existing, row)) {
+      await apiOrThrow('PATCH', `/entities/${existing.id}`, attributes);
+      recordsUpdated++;
+    }
+  }
+
+  if (collection.richSchema) {
+    const refreshed = await apiOrThrow('GET', '/entities?type=CollectionRecord&limit=500');
+    const ideasRows = (refreshed.data ?? []).filter(
+      (entry) => entry.collectionId === collection.id,
+    );
+    const rowByTitle = new Map(
+      ideasRows.map((entry) => [String(entry.title ?? ''), entry]),
+    );
+
+    for (const row of collection.records) {
+      if (!row.relatedRecordTitle) continue;
+      const source = rowByTitle.get(row.title);
+      const target = rowByTitle.get(row.relatedRecordTitle);
+      if (!source?.id || !target?.id || source.relatedRecord === target.id) continue;
+      await apiOrThrow('PATCH', `/entities/${source.id}`, {
+        relatedRecord: target.id,
+      });
+      recordsUpdated++;
+    }
   }
 }
 
 console.log(
-  metaCreated || recordsCreated
-    ? `✓ Seeded ${metaCreated} collection(s), ${recordsCreated} record(s)`
+  metaCreated || recordsCreated || recordsUpdated
+    ? `✓ Seeded ${metaCreated} collection(s), ${recordsCreated} record(s), updated ${recordsUpdated} record(s)`
     : '✓ Collection seed data already present',
 );

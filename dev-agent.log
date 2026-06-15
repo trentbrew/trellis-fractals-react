@@ -1,0 +1,23 @@
+
+> playground-next@0.1.0 dev /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3098
+- Network:       http://192.168.1.84:3098
+✓ Ready in 337ms
+
+[?25h
+ ELIFECYCLE  Command failed with exit code 143.
+DEV_CAPTURE_PID=60111
+
+> playground-next@0.1.0 dev /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3098
+- Network:       http://192.168.1.84:3098
+✓ Ready in 337ms
+
+[?25h
+ ELIFECYCLE  Command failed with exit code 143.

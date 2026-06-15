@@ -1,0 +1,22 @@
+TRL-42: Impl: Host trellis.computer JSON-LD ontology vocabulary
+
+  REVIEW: REWORK
+Issues:
+- [TRL-41/ac/1] lib/json-ld/context.ts missing — shared JSON_LD_CONTEXT not created (blocker)
+- [TRL-41/ac/2] app/ns/route.ts and app/type/[term]/route.ts missing — vocab URLs still 404 (blocker)
+- [TRL-41/ac/3] scripts/smoke-ontology-vocab.mjs and package.json smoke:ontology-vocab missing (blocker)
+- [TRL-41/ac/4] collection-records-json-ld.tsx and JsonLdBoard.tsx still duplicate inline JSON_LD_CONTEXT (blocker)
+- [TRL-41/ac/5] README has no vocab URL / smoke command documentation (blocker)
+- [TRL-41/ac/6] pnpm test:unit lib/json-ld/context.test.ts — file absent, cannot run (blocker)
+
+Required fixes:
+- Implement full TRL-41 spec scope: shared context module + tests, /ns + /type routes, consumer dedup, smoke script, README snippet
+- Unrelated working-tree changes (theme, vantage, ontology API shim) should not substitute for TRL-41 deliverables
+
+Attempt: 1/3
+
+  Status:    queue
+  Priority:  high
+  Labels:    impl, infra, json-ld, ontology, canonical-client
+  Parent:    TRL-41
+  Created:   14m ago

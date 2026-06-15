@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Settings2Icon } from 'lucide-react';
 import { PRIMARY_NAV } from '@/lib/shell/modes';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/shell/theme-toggle';
@@ -26,8 +27,8 @@ export function PrimarySidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-full min-h-full w-14 shrink-0 flex-col self-stretch border-r border-border bg-sidebar">
-      <div className="flex h-12 shrink-0 items-center justify-center border-b border-border">
+    <aside className="flex h-full min-h-full w-14 shrink-0 flex-col self-stretch border-r border-border-subtle bg-shell-rail">
+      <div className="flex h-12 shrink-0 items-center justify-center border-b border-border-subtle">
         <Tooltip>
           <TooltipTrigger
             render={
@@ -39,7 +40,7 @@ export function PrimarySidebar() {
             }
           >
             <span
-              className="size-7 bg-foreground"
+              className="size-6 bg-foreground"
               style={logoMaskStyle}
               aria-hidden
             />
@@ -84,7 +85,25 @@ export function PrimarySidebar() {
         })}
       </nav>
 
-      <div className="mt-auto flex shrink-0 flex-col items-center border-t border-border p-2">
+      <div className="mt-auto flex shrink-0 flex-col items-center gap-1 border-t border-border-subtle p-2">
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Link
+                href="/settings"
+                className={cn(
+                  'flex size-9 items-center justify-center rounded-lg text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                  pathname.startsWith('/settings') &&
+                    'bg-sidebar-accent text-sidebar-accent-foreground',
+                )}
+                aria-current={pathname.startsWith('/settings') ? 'page' : undefined}
+              />
+            }
+          >
+            <Settings2Icon className="size-4" />
+          </TooltipTrigger>
+          <TooltipContent side="right">Settings</TooltipContent>
+        </Tooltip>
         <ThemeToggle />
       </div>
     </aside>

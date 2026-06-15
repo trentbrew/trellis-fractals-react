@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, Suspense } from 'react';
 import { PlusIcon, SearchIcon, XIcon } from 'lucide-react';
 import { EntityIcon } from '@/lib/icons/entity-icon';
 import { DEFAULT_LUCIDE_ICON } from '@/lib/icons/lucide-icons';
@@ -17,6 +17,7 @@ import {
 import { useShell } from '@/lib/shell/shell-context';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { SidebarCollapsibleSection } from './sidebar-collapsible-section';
 import { TypesSecondary } from './types-secondary';
 
 function nextUntitledMeta(existing: CollectionMeta[]): { title: string; slug: string } {
@@ -49,6 +50,15 @@ export function CollectionsSecondary() {
   const { getTypeIcon, getTypeColor } = useTypeAppearance(sorted);
   const [sidebarQuery, setSidebarQuery] = useState('');
   const [creating, setCreating] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(true);
+  const [typesOpen, setTypesOpen] = useState(true);
+
+  useEffect(() => {
+    if (sidebarQuery.trim()) {
+      setCollectionsOpen(true);
+      setTypesOpen(true);
+    }
+  }, [sidebarQuery]);
 
   const filteredCollections = useMemo(
     () => sorted.filter((collection) => matchesSidebarQuery(collection.title, sidebarQuery)),
@@ -100,18 +110,20 @@ export function CollectionsSecondary() {
       </div>
 
       <div className="flex-1 overflow-y-auto p-3">
-        <div>
-          <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-            Collections
-          </h2>
+        <SidebarCollapsibleSection
+          title="Collections"
+          open={collectionsOpen}
+          onOpenChange={setCollectionsOpen}
+          testId="sidebar-collections-section"
+        >
           {loading ? (
-            <p className="mt-2 text-xs text-muted-foreground">Loading…</p>
+            <p className="text-xs text-muted-foreground">Loading…</p>
           ) : filteredCollections.length === 0 ? (
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               {sidebarQuery ? 'No matching collections.' : 'No collections yet.'}
             </p>
           ) : (
-            <ul className="mt-2 space-y-0.5">
+            <ul className="space-y-0.5">
               {filteredCollections.map((collection, index) => {
                 const href = `/collections/${collection.slug}`;
                 const isActive = collectionSlug === collection.slug;
@@ -141,9 +153,15 @@ export function CollectionsSecondary() {
               })}
             </ul>
           )}
-        </div>
+        </SidebarCollapsibleSection>
 
-        <TypesSecondary searchQuery={sidebarQuery} />
+        <Suspense fallback={null}>
+          <TypesSecondary
+            searchQuery={sidebarQuery}
+            open={typesOpen}
+            onOpenChange={setTypesOpen}
+          />
+        </Suspense>
       </div>
 
       <div className="shrink-0 border-t border-border p-3">

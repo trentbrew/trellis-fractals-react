@@ -15,13 +15,14 @@ import {
 } from '@/lib/fractal/disclosure';
 import {
   resolveBoardProjection,
+  resolveGraphListCrossfade,
   resolveGridColumns,
   resolveListRowMetrics,
   resolveGridGapClass,
   vantageStyle,
   type FractalBoardProjection,
+  type GraphListCrossfade,
 } from '@/lib/fractal/vantage';
-import { useVantageMotion } from '@/lib/fractal/vantage-motion';
 import {
   resolveCrossProjectionLayoutId,
   resolveVantageCssTransition,
@@ -48,11 +49,87 @@ import { CardGraphCanvas } from './CardGraphCanvas';
 import { RecordCardDialog } from './RecordCardDialog';
 
 const browseConfig = getBrowseConfig<CardT>(Card);
-const BOARD_PROJECTION_LABELS: Record<FractalBoardProjection, string> = {
-  graph: 'Graph',
-  list: 'List',
-  grid: 'Grid',
-};
+const COLLECTION_DEMO_MOTION: VantageMotion = 'full';
+
+function resolveGraphListLayers(
+  vantage: number,
+  reduced: boolean,
+): GraphListCrossfade {
+  if (reduced) {
+    const projection = resolveBoardProjection(vantage);
+    return {
+      graph: projection === 'graph' ? 1 : 0,
+      list: projection === 'list' ? 1 : 0,
+    };
+  }
+  return resolveGraphListCrossfade(vantage);
+}
+
+function GraphListProjectionStack({
+  rows,
+  vantage,
+  vantageMotion,
+  graphList,
+  embed,
+  onContextMenu,
+}: {
+  rows: CardT[];
+  vantage: number;
+  vantageMotion: VantageMotion;
+  graphList: GraphListCrossfade;
+  embed: boolean;
+  onContextMenu: (event: React.MouseEvent, card: CardT) => void;
+}) {
+  const blending = graphList.graph > 0 && graphList.list > 0;
+  const cssTransition = resolveVantageCssTransition(vantageMotion);
+
+  return (
+    <div
+      className={cn('relative w-full', blending ? 'min-h-[min(24rem,70vh)]' : 'min-h-0')}
+      data-testid="graph-list-crossfade"
+      data-graph-list-blending={blending || undefined}
+      data-graph-opacity={graphList.graph.toFixed(3)}
+      data-list-opacity={graphList.list.toFixed(3)}
+    >
+      {graphList.graph > 0 ? (
+        <div
+          className={cn(
+            'w-full',
+            blending && 'absolute inset-0 flex items-center justify-center',
+            embed && !blending && 'flex items-center justify-center',
+          )}
+          style={{
+            opacity: graphList.graph,
+            transition: cssTransition,
+            pointerEvents: graphList.graph > 0.5 ? 'auto' : 'none',
+          }}
+          aria-hidden={graphList.graph < 0.05}
+        >
+          <CardGraphCanvas rows={rows} onContextMenu={onContextMenu} />
+        </div>
+      ) : null}
+
+      {graphList.list > 0 ? (
+        <div
+          className={cn('w-full', blending && 'absolute inset-0 overflow-auto')}
+          style={{
+            opacity: graphList.list,
+            transition: cssTransition,
+            pointerEvents: graphList.list > 0.5 ? 'auto' : 'none',
+          }}
+          aria-hidden={graphList.list < 0.05}
+        >
+          <CardListProjection
+            rows={rows}
+            vantage={vantage}
+            vantageMotion={vantageMotion}
+            onContextMenu={onContextMenu}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 function CardListProjection({
   rows,
@@ -254,10 +331,10 @@ export function GridBoard() {
   const { rows, mut } = useCollection(Card);
   const [browseState, setBrowseState] = useState<BrowseState>(() => defaultBrowseState(browseConfig));
   const [vantage, setVantage] = useVantageState();
-  const { motion: vantageMotion } = useVantageMotion();
   const [focusCardId, setFocusCardId] = useState<string | null>(null);
   const [recordCard, setRecordCard] = useState<CardT | null>(null);
   const boardProjection = resolveBoardProjection(vantage);
+  const graphList = resolveGraphListLayers(vantage, false);
   const { ref: boardRef, width: containerWidth } = useContainerWidth();
   const cols = resolveGridColumns(vantage, containerWidth);
   const gridGapClass = resolveGridGapClass(vantage);
@@ -283,7 +360,8 @@ export function GridBoard() {
           <VantageControlsBar
             vantage={vantage}
             onVantageChange={setVantage}
-            projectionLabel={BOARD_PROJECTION_LABELS[boardProjection]}
+            showMotionControl={false}
+            fullWidthSlider
             className="justify-center"
           />
         </VantageDock>
@@ -307,17 +385,20 @@ export function GridBoard() {
 
       <div
         ref={boardRef}
-        className="min-h-0 flex-1 overflow-auto"
+        className={cn(
+          'min-h-0 flex-1 overflow-auto',
+          embed && boardProjection === 'graph' && graphList.list === 0 && 'flex items-center justify-center',
+        )}
         data-testid="grid-board-projection"
         data-board-projection={boardProjection}
         data-effective-cols={boardProjection === 'grid' ? cols : undefined}
-        data-vantage-motion={vantageMotion}
+        data-vantage-motion={COLLECTION_DEMO_MOTION}
         style={vantageStyle(vantage)}
       >
         {boardProjection === 'grid' ? (
           <motion.div
-            layout={resolveVantageLayout(vantageMotion)}
-            transition={resolveVantageLayoutTransition(vantageMotion)}
+            layout={resolveVantageLayout(COLLECTION_DEMO_MOTION)}
+            transition={resolveVantageLayoutTransition(COLLECTION_DEMO_MOTION)}
             style={
               {
                 gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
@@ -332,7 +413,7 @@ export function GridBoard() {
                   key={card.id}
                   card={card}
                   vantage={vantage}
-                  vantageMotion={vantageMotion}
+                  vantageMotion={COLLECTION_DEMO_MOTION}
                   recordMorph={recordCard?.id === card.id}
                   autoFocus={card.id === focusCardId}
                   onAutoFocused={() => setFocusCardId(null)}
@@ -349,30 +430,23 @@ export function GridBoard() {
               </p>
             )}
           </motion.div>
-        ) : null}
-
-        {boardProjection === 'list' ? (
-          <CardListProjection
+        ) : (
+          <GraphListProjectionStack
             rows={browsedRows}
             vantage={vantage}
-            vantageMotion={vantageMotion}
+            vantageMotion={COLLECTION_DEMO_MOTION}
+            graphList={graphList}
+            embed={embed}
             onContextMenu={(event, card) => openAt(event, card.id)}
           />
-        ) : null}
-
-        {boardProjection === 'graph' ? (
-          <CardGraphCanvas
-            rows={browsedRows}
-            onContextMenu={(event, card) => openAt(event, card.id)}
-          />
-        ) : null}
+        )}
       </div>
 
       <AnimatePresence>
         {recordCard ? (
           <RecordCardDialog
             card={recordCard}
-            vantageMotion={vantageMotion}
+            vantageMotion={COLLECTION_DEMO_MOTION}
             onClose={() => setRecordCard(null)}
           />
         ) : null}

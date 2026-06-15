@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { TagsIcon } from 'lucide-react';
 import { EntityIcon } from '@/lib/icons/entity-icon';
-import { useTypeAppearance, typeSchemaHref } from '@/lib/registry/type-appearance';
+import { useTypeAppearance, typeBrowseHref } from '@/lib/registry/type-appearance';
 import {
   listManageableTypes,
   typeDisplayLabel,
@@ -15,6 +15,7 @@ import { CollectionMetaType, sortMeta, type CollectionMeta } from '@/lib/schemas
 import { useCollection } from '@/lib/trellis/use-collection';
 import { useTypes } from '@/lib/trellis/use-types';
 import { cn } from '@/lib/utils';
+import { SidebarCollapsibleSection } from './sidebar-collapsible-section';
 
 function matchesSidebarQuery(text: string, query: string): boolean {
   const needle = query.trim().toLowerCase();
@@ -22,8 +23,18 @@ function matchesSidebarQuery(text: string, query: string): boolean {
   return text.toLowerCase().includes(needle);
 }
 
-export function TypesSecondary({ searchQuery = '' }: { searchQuery?: string }) {
+export function TypesSecondary({
+  searchQuery = '',
+  open,
+  onOpenChange,
+}: {
+  searchQuery?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const selectedTypeId = searchParams.get('type');
   const { types, loading } = useTypes();
   const { rows: metaRows } = useCollection(CollectionMetaType);
   const collections = useMemo(
@@ -32,7 +43,8 @@ export function TypesSecondary({ searchQuery = '' }: { searchQuery?: string }) {
   );
   const { getTypeIcon, getTypeColor } = useTypeAppearance(collections);
 
-  const typesActive = pathname === '/collections/types' || pathname.startsWith('/collections/types?');
+  const typesActive =
+    pathname === '/collections/types' && !selectedTypeId;
 
   const globalTypes = useMemo(
     () =>
@@ -54,16 +66,18 @@ export function TypesSecondary({ searchQuery = '' }: { searchQuery?: string }) {
   const showManageLink = !searchQuery.trim() || matchesSidebarQuery('Manage types', searchQuery);
 
   return (
-    <div className="mt-4 border-t border-border pt-3">
-      <h2 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-        Types
-      </h2>
-
+    <SidebarCollapsibleSection
+      title="Types"
+      className="mt-4 border-t border-border pt-3"
+      open={open}
+      onOpenChange={onOpenChange}
+      testId="sidebar-types-section"
+    >
       {showManageLink ? (
         <Link
           href="/collections/types"
           className={cn(
-            'mt-2 flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted',
+            'flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted',
             typesActive && 'bg-muted font-medium',
           )}
           data-testid="sidebar-manage-types"
@@ -86,8 +100,8 @@ export function TypesSecondary({ searchQuery = '' }: { searchQuery?: string }) {
             const label = typeDisplayLabel(ont);
             const color = getTypeColor(ont, index);
             const icon = getTypeIcon(ont);
-            const href = typeSchemaHref(ont);
-            const isActive = pathname.startsWith(href.split('?')[0] ?? href);
+            const href = typeBrowseHref(ont);
+            const isActive = selectedTypeId === typeId;
 
             return (
               <li key={typeId}>
@@ -124,6 +138,6 @@ export function TypesSecondary({ searchQuery = '' }: { searchQuery?: string }) {
           ) : null}
         </ul>
       )}
-    </div>
+    </SidebarCollapsibleSection>
   );
 }

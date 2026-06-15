@@ -17,14 +17,32 @@ import { isSquareFractalEmbed } from '@/lib/shell/embed-frame';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
 import { pageLabel } from '@/lib/shell/modes';
 import { ShellProvider, useShell } from '@/lib/shell/shell-context';
+import { PresenceAvatars } from '@/components/presence/presence-avatars';
+import { PresenceRoomBadge } from '@/components/presence/presence-room-badge';
+import { PresenceRoomShare } from '@/components/presence/presence-room-share';
+import { PresenceRoom, useBoardPresence } from '@/lib/presence/context';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+
+function AppHeaderPresence() {
+  const ctx = useBoardPresence();
+  if (!ctx?.enabled) return null;
+
+  return (
+    <div className="ml-auto flex shrink-0 items-center gap-2">
+      <PresenceRoomBadge />
+      <PresenceAvatars />
+      <PresenceRoomShare sessionRoom={ctx.sessionRoom} />
+    </div>
+  );
+}
 
 function AppShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { collectionSlug } = useShell();
   const label = pageLabel(pathname);
   const { embed, readonly } = useEmbedFlags();
@@ -63,9 +81,13 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
   }, [embed, pathname, viewportFillEmbed]);
 
   const kicker = embed ? embedKickerForPath(pathname, readonly) : null;
+  const hideSecondarySidebar = pathname.startsWith('/settings');
   const collectionDetailMatch = pathname.match(/^\/collections\/([^/]+)/);
   const isCollectionDetail =
     collectionDetailMatch != null && collectionDetailMatch[1] !== 'types';
+  const isTypeBrowse =
+    pathname.startsWith('/collections/types') && Boolean(searchParams.get('type'));
+  const fullBleedMain = isCollectionDetail || isTypeBrowse;
 
   if (embed) {
     return (
@@ -97,7 +119,7 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-svh min-h-svh w-full">
       <PrimarySidebar />
-      <SecondarySidebar />
+      {!hideSecondarySidebar ? <SecondarySidebar /> : null}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-4">
           {isCollectionDetail ? <HistoryNavButtons /> : null}
@@ -129,11 +151,12 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
               }
             />
           ) : null}
+          <AppHeaderPresence />
         </header>
         <main
           className={cn(
             'flex min-h-0 flex-1 flex-col overflow-auto',
-            isCollectionDetail ? 'p-0' : 'p-4',
+            fullBleedMain ? 'p-0' : 'p-4',
           )}
         >
           {children}
@@ -146,7 +169,9 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <ShellProvider>
-      <AppShellInner>{children}</AppShellInner>
+      <PresenceRoom>
+        <AppShellInner>{children}</AppShellInner>
+      </PresenceRoom>
     </ShellProvider>
   );
 }

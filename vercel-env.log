@@ -1,0 +1,12 @@
+Retrieving project…
+> Environment Variables found for turtle-labs/trellis-playground [87ms]
+
+ name                               value               environments        created    
+ NEXT_PUBLIC_TRELLIS_API_KEY        Encrypted           Production          2d ago     
+ NEXT_PUBLIC_TRELLIS_URL            Encrypted           Production          2d ago     
+ TRELLIS_URL                        Encrypted           Production          2d ago     
+
+Common next commands:
+- `vercel env add`
+- `vercel env rm`
+- `vercel env pull`

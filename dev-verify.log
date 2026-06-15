@@ -1,0 +1,11 @@
+
+> playground-next@0.1.0 dev /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.84:3000
+✓ Ready in 344ms
+
+ GET / 307 in 1529ms (next.js: 1191ms, application-code: 339ms)
+[?25h

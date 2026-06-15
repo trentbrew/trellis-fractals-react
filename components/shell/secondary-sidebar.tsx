@@ -20,7 +20,7 @@ export function SecondarySidebar() {
   const { mode } = useShell();
 
   return (
-    <aside className="flex h-full min-h-full w-56 shrink-0 flex-col self-stretch border-r border-border bg-card/30">
+    <aside className="flex h-full min-h-full w-56 shrink-0 flex-col self-stretch border-r border-border bg-shell-panel">
       {mode === 'collections' && <CollectionsSecondary />}
       {mode === 'fractals' && <FractalsSecondary />}
       {mode === 'projections' && <ProjectionsSecondary />}

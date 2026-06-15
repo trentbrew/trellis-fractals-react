@@ -11,6 +11,9 @@ default:
 dev:
     pnpm dev
 
+dev-webpack:
+    pnpm dev:webpack
+
 # After `rm -rf .next` mid-session or ENOENT build-manifest 500s — stop dev first, then:
 dev-clean:
     rm -rf .next
@@ -51,6 +54,10 @@ seed-remote:
     node scripts/register-collection-ontology.mjs
     node scripts/seed-collections.mjs
     node scripts/seed-projection-fixtures.mjs
+
+# JSON-LD vocabulary routes (requires Next dev on :3000)
+smoke-ontology-vocab:
+    node scripts/smoke-ontology-vocab.mjs
 
 # Health + route smoke (parity pass)
 parity:

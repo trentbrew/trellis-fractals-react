@@ -14,9 +14,7 @@ import { CollectionBrowseBar } from '@/components/shell/CollectionBrowseBar';
 import { AddRecordButton } from '@/components/shell/AddRecordButton';
 import { useEntityContextMenu } from '@/components/shell/EntityContextMenu';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
-import { PresenceRoom, useBoardPresence } from '@/lib/presence/context';
-import { PresenceAvatars } from '@/components/presence/presence-avatars';
-import { PresenceRoomBadge } from '@/components/presence/presence-room-badge';
+import { useBoardPresence } from '@/lib/presence/context';
 import { BoardPresenceSurface } from '@/components/presence/board-presence-surface';
 import { KanbanLane } from './KanbanLane';
 
@@ -56,15 +54,7 @@ function KanbanBoardReadonly({
 
   return (
     <BrowseProjectionShell className="gap-4">
-      <ProjectionHeader
-        title="Kanban"
-        trailing={
-          <div className="flex items-center gap-3">
-            <PresenceRoomBadge />
-            <PresenceAvatars />
-          </div>
-        }
-      >
+      <ProjectionHeader title="Kanban">
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
@@ -159,15 +149,7 @@ function KanbanBoardInner() {
 
   return (
     <BrowseProjectionShell className="gap-4">
-      <ProjectionHeader
-        title="Kanban"
-        trailing={
-          <div className="flex items-center gap-3">
-            <PresenceRoomBadge />
-            <PresenceAvatars />
-          </div>
-        }
-      >
+      <ProjectionHeader title="Kanban">
         <CollectionBrowseBar
           config={browseConfig}
           state={browseState}
@@ -215,9 +197,5 @@ function KanbanBoardInner() {
 }
 
 export function KanbanBoard() {
-  return (
-    <PresenceRoom>
-      <KanbanBoardInner />
-    </PresenceRoom>
-  );
+  return <KanbanBoardInner />;
 }

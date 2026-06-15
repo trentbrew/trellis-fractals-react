@@ -50,6 +50,7 @@ export function shellModeFromPath(pathname: string): ShellMode {
 }
 
 export function pageLabel(pathname: string): string {
+  if (pathname.startsWith('/settings')) return 'Settings';
   const mode = shellModeFromPath(pathname);
   const nav = PRIMARY_NAV.find((item) => item.id === mode);
   if (mode === 'projections') {

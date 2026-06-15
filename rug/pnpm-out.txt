@@ -1,0 +1,28 @@
+(node:24629) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Progress: resolved 24, reused 4, downloaded 20, added 0
+Progress: resolved 27, reused 4, downloaded 23, added 0
+Progress: resolved 29, reused 4, downloaded 25, added 0
+Progress: resolved 29, reused 4, downloaded 26, added 0
+Progress: resolved 189, reused 77, downloaded 104, added 0
+Progress: resolved 347, reused 117, downloaded 201, added 0
+Progress: resolved 560, reused 210, downloaded 321, added 0
+Progress: resolved 892, reused 331, downloaded 416, added 0
+ WARN  3 deprecated subdependencies found: boolean@3.2.0, node-domexception@1.0.0, prebuild-install@7.1.3
+Packages: +1
++
+Progress: resolved 961, reused 337, downloaded 479, added 1, done
+
+dependencies:
++ qrcode.react 4.2.0
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: esbuild.                                            │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Done in 20.5s using pnpm v10.8.0

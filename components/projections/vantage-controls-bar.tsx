@@ -15,12 +15,16 @@ export function VantageControlsBar({
   onVantageChange,
   projectionLabel,
   presets = COLLECTION_VANTAGE_PRESETS,
+  showMotionControl = true,
+  fullWidthSlider = false,
   className,
 }: {
   vantage: number;
   onVantageChange: (value: number) => void;
   projectionLabel?: string;
   presets?: VantagePreset[];
+  showMotionControl?: boolean;
+  fullWidthSlider?: boolean;
   className?: string;
 }) {
   return (
@@ -34,11 +38,13 @@ export function VantageControlsBar({
         </Badge>
       ) : null}
       <VantagePresetControl value={vantage} onChange={onVantageChange} presets={presets} />
-      <VantageMotionControl />
+      {showMotionControl ? <VantageMotionControl /> : null}
       <VantageControl
         value={vantage}
         onChange={onVantageChange}
-        className="min-w-40 max-w-64 flex-1"
+        className={cn(
+          fullWidthSlider ? 'min-w-0 w-full basis-full' : 'min-w-40 max-w-64 flex-1',
+        )}
       />
     </div>
   );

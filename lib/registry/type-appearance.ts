@@ -35,6 +35,15 @@ export function resolveTypeColor(
   return legacyColors[typeId] ?? TYPE_COLOR_PRESETS[fallbackIndex % TYPE_COLOR_PRESETS.length];
 }
 
+export function typeBrowseHref(type: TypeDef): string {
+  const typeId = type['@id'] ?? '';
+  const slug = collectionSlugFromTypeId(typeId);
+  if (slug) {
+    return `/collections/${slug}`;
+  }
+  return `/collections/types?type=${encodeURIComponent(typeId)}`;
+}
+
 export function typeSchemaHref(type: TypeDef): string {
   const typeId = type['@id'] ?? '';
   const slug = collectionSlugFromTypeId(typeId);

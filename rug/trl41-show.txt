@@ -1,0 +1,100 @@
+TRL-41: Spec: Host trellis.computer JSON-LD ontology vocabulary
+
+  ## Summary
+
+Make JSON-LD `@context` URLs used by collection and demo projections **resolvable** at `https://trellis.computer`. Today `collection-records-json-ld.tsx` and `JsonLdBoard.tsx` duplicate a hard-coded context pointing at `https://trellis.computer/type/` and `https://trellis.computer/ns#` — those URLs 404.
+
+Parent proposal: TRL-31. Backend path (no design artifact). Related but separate: TRL-37 (dynamic ontology GET/PATCH shim).
+
+## Problem
+
+- Duplicate `JSON_LD_CONTEXT` in two components.
+- Namespace URLs are aspirational — no static vocabulary is served.
+- JSON-LD consumers (browser, validators, crawlers) cannot dereference terms.
+
+## Scope (v1)
+
+### 1. Shared context module
+
+Create `lib/json-ld/context.ts` (or `lib/json-ld/vocabulary.ts`):
+
+- Export `JSON_LD_CONTEXT` constant (same shape as today).
+- Export `buildTypeTermDefinitions()` seeded from **CollectionMetaType** and **CollectionRecordType** field metadata in `lib/schemas/collection.ts`.
+- Include core terms: `@id`, `@type`, `title`, `body`, `collectionId`, `slug`, `icon`, `color`, `description`, `sortOrder`, `laneId`, `defaultView`, `viewPrefs` — mapped to JSON-LD-friendly `@type` / `rdfs:comment` where useful.
+
+### 2. Static HTTP routes (Next App Router)
+
+Serve `application/ld+json` (and `application/json` fallback) from this app:
+
+| URL | Response |
+|-----|----------|
+| `GET /ns` | JSON-LD `@context` document for `https://trellis.computer/ns#` terms (`trellis:Record`, `trellis:Schema`, etc.) |
+| `GET /type/:term` | Term definition for `@vocab` expansion (e.g. `/type/CollectionRecord`) |
+
+Implementation options (pick one, document in impl):
+
+- **A (preferred):** `app/ns/route.ts` + `app/type/[term]/route.ts` reading from shared builder.
+- **B:** Build step writes `public/ns.jsonld` + `public/type/*.jsonld` from schema — acceptable if simpler.
+
+**Local dev:** same paths on `http://localhost:3000/ns` and `/type/CollectionRecord`.
+
+**Production:** paths must resolve on `https://trellis.computer` apex (Vercel rewrites or apex deploy — document any DNS/config step in README snippet).
+
+### 3. Consumer dedup
+
+Replace inline `JSON_LD_CONTEXT` in:
+
+- `components/collections/views/collection-records-json-ld.tsx`
+- `components/boards/json-ld/JsonLdBoard.tsx`
+
+Both import from shared module only.
+
+### 4. Smoke verification
+
+Add `scripts/smoke-ontology-vocab.mjs`:
+
+- `GET ${BASE_URL}/ns` → 200, valid JSON, contains `@context`
+- `GET ${BASE_URL}/type/CollectionRecord` → 200, references CollectionRecord label/fields
+- Default `BASE_URL=http://localhost:3000`; accept `ONTOLOGY_VOCAB_URL` env for prod smoke
+
+Wire into `package.json` as `"smoke:ontology-vocab"` (optional `just smoke-ontology-vocab`).
+
+## Non-goals (v1)
+
+- Dynamic per-tenant / per-collection vocabulary publish from graph ops
+- Ontology CRUD or PATCH-driven vocab sync (TRL-37 territory)
+- Custom collection slug vocab (`collectionRecordTypeId`) — defer; only seed CollectionMeta + CollectionRecord system types
+- JSON-LD projection UI changes beyond import swap
+
+## Files (expected touch)
+
+- `lib/json-ld/context.ts` (new)
+- `lib/json-ld/context.test.ts` (new)
+- `app/ns/route.ts`, `app/type/[term]/route.ts` (new)
+- `components/collections/views/collection-records-json-ld.tsx`
+- `components/boards/json-ld/JsonLdBoard.tsx`
+- `scripts/smoke-ontology-vocab.mjs` (new)
+- `package.json`, `justfile` (smoke script)
+- README: one paragraph on vocab URLs + smoke command
+
+## Risks / decisions
+
+- **Apex routing:** if playground deploys to a subdomain, apex `trellis.computer/ns` may need infra ticket — spec AC uses app routes; prod smoke documents actual URL.
+- **Task schema:** JsonLdBoard uses `Task` type — vocab v1 covers CollectionRecord/CollectionMeta; Task terms optional stretch if trivial from same builder pattern.
+
+  Status:    queue
+  Priority:  high
+  Labels:    spec, infra, json-ld, ontology, canonical-client
+  Assignee:  agent:trentbrew
+  Parent:    TRL-31
+  Branch:    issue/TRL-41-spec-host-trellis-computer-json-ld-ontol
+  Created:   14m ago
+  Started:   13m ago
+
+  Acceptance Criteria:
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)
+    ✗ failed README documents vocab URL paths and smoke:ontology-vocab command (node scripts/smoke-ontology-vocab.mjs)

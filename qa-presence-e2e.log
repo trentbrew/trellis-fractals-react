@@ -1,0 +1,112 @@
+
+Running 3 tests using 1 worker
+
+(node:30165) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30165) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › e2e/presence-qa.spec.ts:5:5 › kanban same-browser presence — two tabs see 2 online (18.2s)
+(node:30792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:30792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › e2e/presence-qa.spec.ts:5:5 › kanban same-browser presence — two tabs see 2 online (retry #1) (17.5s)
+(node:31370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31370) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › e2e/presence-qa.spec.ts:5:5 › kanban same-browser presence — two tabs see 2 online (retry #2) (17.5s)
+(node:31938) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31938) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [chromium] › e2e/presence-qa.spec.ts:36:5 › kanban cross-browser presence — two contexts (7.5s)
+  ✓  5 [chromium] › e2e/presence-qa.spec.ts:61:5 › blog embed gallery loads iframes (1.7s)
+
+
+  1) [chromium] › e2e/presence-qa.spec.ts:5:5 › kanban same-browser presence — two tabs see 2 online 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('span').filter({ hasText: /\(you\)/ }).first()
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('span').filter({ hasText: /\(you\)/ }).first()[22m
+
+
+      29 |   // Remote cursor label on tab B (not "(you)")
+      30 |   const remoteCursor = pageB.locator('span').filter({ hasText: /\(you\)/ }).first();
+    > 31 |   await expect(remoteCursor).toBeVisible({ timeout: 10_000 });
+         |                              ^
+      32 |
+      33 |   await context.close();
+      34 | });
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/presence-qa.spec.ts:31:30
+
+    Error Context: test-results/presence-qa-kanban-same-br-08bb0-nce-—-two-tabs-see-2-online-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('span').filter({ hasText: /\(you\)/ }).first()
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('span').filter({ hasText: /\(you\)/ }).first()[22m
+
+
+      29 |   // Remote cursor label on tab B (not "(you)")
+      30 |   const remoteCursor = pageB.locator('span').filter({ hasText: /\(you\)/ }).first();
+    > 31 |   await expect(remoteCursor).toBeVisible({ timeout: 10_000 });
+         |                              ^
+      32 |
+      33 |   await context.close();
+      34 | });
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/presence-qa.spec.ts:31:30
+
+    Error Context: test-results/presence-qa-kanban-same-br-08bb0-nce-—-two-tabs-see-2-online-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/presence-qa-kanban-same-br-08bb0-nce-—-two-tabs-see-2-online-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/presence-qa-kanban-same-br-08bb0-nce-—-two-tabs-see-2-online-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('span').filter({ hasText: /\(you\)/ }).first()
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('span').filter({ hasText: /\(you\)/ }).first()[22m
+
+
+      29 |   // Remote cursor label on tab B (not "(you)")
+      30 |   const remoteCursor = pageB.locator('span').filter({ hasText: /\(you\)/ }).first();
+    > 31 |   await expect(remoteCursor).toBeVisible({ timeout: 10_000 });
+         |                              ^
+      32 |
+      33 |   await context.close();
+      34 | });
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/presence-qa.spec.ts:31:30
+
+    Error Context: test-results/presence-qa-kanban-same-br-08bb0-nce-—-two-tabs-see-2-online-chromium-retry2/error-context.md
+
+  1 failed
+    [chromium] › e2e/presence-qa.spec.ts:5:5 › kanban same-browser presence — two tabs see 2 online 
+  2 passed (1.1m)

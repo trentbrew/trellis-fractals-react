@@ -1,0 +1,91 @@
+[     471ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     481ms] [LOG] [Fast Refresh] done in 111ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     545ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     567ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     703ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     798ms] [LOG] [Fast Refresh] done in 198ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   20447ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   20978ms] [ERROR] ./components/fractals/force-graph-canvas.tsx:46:27
+Return statement is not allowed here
+  44 |   }
+  45 | }
+> 46 |   if (nodes.length === 0) return;
+     |                           ^^^^^^^
+  47 |
+  48 |   const xs = nodes.map((node) => node.x);
+  49 |   const ys = nodes.map((node) => node.y);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./components/fractals/force-graph-canvas.tsx [Client Component Browser]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/fractals/force-graph-canvas.tsx [Client Component SSR]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component] @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[   21105ms] [ERROR] ./components/fractals/force-graph-canvas.tsx:46:27
+Return statement is not allowed here
+  44 |   }
+  45 | }
+> 46 |   if (nodes.length === 0) return;
+     |                           ^^^^^^^
+  47 |
+  48 |   const xs = nodes.map((node) => node.x);
+  49 |   const ys = nodes.map((node) => node.y);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./components/fractals/force-graph-canvas.tsx [Client Component Browser]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/fractals/force-graph-canvas.tsx [Client Component SSR]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component] @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[   21142ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   21711ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   21946ms] [ERROR] ./components/fractals/force-graph-canvas.tsx:48:1
+'import', and 'export' cannot be used outside of module code
+  46 | function fitViewBox(svg: d3.Selection<SVGSVGElement, unknown, null, undefined>, nodes: SimNode[]) {
+  47 |
+> 48 | export function ForceGraphCanvas({
+     | ^^^^^^
+  49 |   nodes: nodeInputs,
+  50 |   links: linkInputs,
+  51 |   focusId,
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./components/fractals/force-graph-canvas.tsx [Client Component Browser]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Client Component Browser]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/fractals/force-graph-canvas.tsx [Client Component SSR]
+    ./components/boards/grid/CardGraphCanvas.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Client Component SSR]
+    ./components/boards/grid/GridBoard.tsx [Server Component]
+    ./app/fractals/collection/page.tsx [Server Component] @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[   35103ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   35728ms] [LOG] [Fast Refresh] done in 246ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   38934ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   39042ms] [LOG] [Fast Refresh] done in 154ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477

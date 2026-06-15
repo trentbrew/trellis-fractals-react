@@ -42,9 +42,9 @@ import { BrowseProjectionShell } from '@/components/shell/browse-projection-shel
 import { CollectionBrowseToolbar } from '@/components/collections/collection-browse-toolbar';
 import {
   CollectionConfigureSheet,
-  CollectionHeaderBadge,
   type ConfigureTab,
 } from '@/components/collections/collection-configure-sheet';
+import { CollectionInlineHeader } from '@/components/collections/collection-inline-header';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -545,24 +545,19 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
       data-testid="collection-records"
       data-page-variant={variant}
     >
-      <header className="shrink-0 space-y-3 px-4 py-4">
-        <div className="flex items-center gap-2">
-          <CollectionHeaderBadge
-            icon={collectionIcon}
-            color={collectionColor}
-            label={collection.title}
-          />
-          <h1 className="min-w-0 flex-1 text-xl font-bold tracking-tight md:text-2xl">
-            {collection.title}
-          </h1>
-        </div>
-        {collection.description ? (
-          <p className="text-sm text-muted-foreground">{collection.description}</p>
-        ) : null}
-      </header>
+      <CollectionInlineHeader
+        className="px-4 py-4"
+        title={collection.title}
+        description={collection.description ?? ''}
+        icon={collectionIcon}
+        color={collectionColor}
+        onSaveTitle={(title) => void updateMetaTitle(title)}
+        onSaveDescription={(description) => void updateMetaDescription(description)}
+        onSaveAppearance={(updates) => void updateAppearance(updates)}
+      />
 
       <CollectionBrowseToolbar
-        className="px-4 py-4"
+        className="p-2"
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
         onNewRecord={openNewRecordSheet}
@@ -576,6 +571,7 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         filtersEnabled={isTableView}
         cardGridColumns={cardGridColumns}
         onCardGridColumnsChange={setCardGridColumns}
+        hideViewTabs
       />
 
       <CollectionConfigureSheet

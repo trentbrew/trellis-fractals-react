@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - link "Fractals" [ref=e5] [cursor=pointer]:
+        - /url: /collections
+      - navigation "App modes" [ref=e7]:
+        - link [ref=e8] [cursor=pointer]:
+          - /url: /collections
+          - img [ref=e9]
+        - link [ref=e13] [cursor=pointer]:
+          - /url: /projections
+          - img [ref=e14]
+        - link [ref=e16] [cursor=pointer]:
+          - /url: /graph
+          - img [ref=e17]
+        - link [ref=e22] [cursor=pointer]:
+          - /url: /realtime
+          - img [ref=e23]
+        - link [ref=e26] [cursor=pointer]:
+          - /url: /issues
+          - img [ref=e27]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /grid
+          - img [ref=e32]
+      - button "Toggle theme" [ref=e35]
+    - complementary [ref=e37]:
+      - generic [ref=e38]:
+        - generic [ref=e40]:
+          - img
+          - searchbox "Search collections and types" [ref=e41]
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - heading "Collections" [level=2] [ref=e44]
+            - paragraph [ref=e45]: Loading…
+          - generic [ref=e46]:
+            - heading "Types" [level=2] [ref=e47]
+            - link "Manage types" [ref=e48] [cursor=pointer]:
+              - /url: /collections/types
+              - img [ref=e49]
+              - text: Manage types
+            - paragraph [ref=e53]: Loading…
+        - button "New collection" [ref=e55]:
+          - img
+          - text: New collection
+    - generic [ref=e56]:
+      - banner [ref=e57]:
+        - generic [ref=e58]:
+          - button "Go back" [ref=e59]:
+            - img
+          - button "Go forward" [disabled]:
+            - img
+        - navigation "breadcrumb" [ref=e60]:
+          - list [ref=e61]:
+            - listitem [ref=e62]:
+              - link "Collections" [ref=e63] [cursor=pointer]:
+                - /url: /collections
+            - listitem [ref=e64]:
+              - img [ref=e65]
+            - listitem [ref=e67]:
+              - link "ideas" [disabled] [ref=e68]
+        - button "configure entity" [ref=e69]:
+          - img
+      - main [ref=e70]:
+        - paragraph [ref=e71]: Loading…
+  - button "Open Next.js Dev Tools" [ref=e77] [cursor=pointer]:
+    - img [ref=e78]

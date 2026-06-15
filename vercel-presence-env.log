@@ -1,0 +1,8 @@
+Retrieving project…
+WARNING! NEXT_PUBLIC_ variables can be seen by anyone visiting your site
+Retrieving project…
+Saving
+Added Environment Variable NEXT_PUBLIC_PRESENCE_RELAY_URL to Project trellis-playground [106ms]
+Common next commands:
+- `vercel env ls`
+- `vercel env pull`

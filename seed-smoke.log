@@ -1,0 +1,19 @@
+
+> playground-next@0.1.0 seed /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> node scripts/seed-all.mjs
+
+→ register-collection-ontology.mjs
+✓ Registered CollectionMeta
+✓ Registered CollectionRecord
+→ seed-projection-fixtures.mjs
+✓ Seeded 22 projection fixture(s), 9 already present
+→ seed-collections.mjs
+✓ Seeded 3 collection(s), 4 record(s)
+Seed complete
+
+> playground-next@0.1.0 smoke:ws /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next
+> node scripts/smoke-ws.mjs
+
+WS subscribe OK: subscribed
+WS smoke passed
+exit:0

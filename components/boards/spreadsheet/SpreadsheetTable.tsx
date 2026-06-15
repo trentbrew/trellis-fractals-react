@@ -730,7 +730,7 @@ export function SpreadsheetTable({
   return (
     <div
       className={cn(
-        'flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden',
+        'flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden **:animate-none! **:transition-none!',
         embedded ? 'bg-background' : 'rounded-lg border border-border bg-card',
       )}
     >
@@ -740,7 +740,7 @@ export function SpreadsheetTable({
             <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
             <input
               type="search"
-              className="h-8 w-full rounded-md border border-transparent bg-muted/40 pr-8 pl-8 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:bg-background"
+              className="h-8 w-full rounded-md border border-transparent bg-muted/40 pr-8 pl-8 text-sm outline-none placeholder:text-muted-foreground focus:border-ring focus:bg-background"
               placeholder="Search table..."
               value={query}
               onChange={(event) => setQuery(event.currentTarget.value)}
@@ -931,7 +931,7 @@ export function SpreadsheetTable({
                   >
                     <div
                       className={cn(
-                        'grid h-full text-left text-xs transition-colors',
+                        'grid h-full text-left text-xs',
                         rowSelected ? 'bg-muted text-foreground' : rowSurface,
                       )}
                       style={{ gridTemplateColumns: gridTemplate }}
@@ -965,12 +965,12 @@ export function SpreadsheetTable({
                       </div>
                       <div
                         className={cn(
-                          'sticky z-30 flex min-w-0 items-center gap-1 border-r border-border px-2 shadow-[5px_0_10px_-8px_rgba(0,0,0,0.55)]',
+                          'sticky z-30 flex min-w-0 items-center gap-1 border-r border-border shadow-[5px_0_10px_-8px_rgba(0,0,0,0.55)]',
                           rowSelected ? 'bg-muted' : cn(surface, 'group-hover:bg-muted/55'),
                         )}
                         style={{ left: CHECK_WIDTH + INDEX_WIDTH }}
                       >
-                        <span className="min-w-0 flex-1 truncate font-mono text-[10px] text-muted-foreground">
+                        <span className="min-w-0 flex-1 truncate pl-2 font-mono text-[10px] text-muted-foreground">
                           {row.id}
                         </span>
                         <button
@@ -994,8 +994,10 @@ export function SpreadsheetTable({
                             key={column.key}
                             role="gridcell"
                             className={cn(
-                              'flex min-w-0 items-center overflow-hidden border-r border-border px-2',
+                              'flex min-w-0 h-full overflow-hidden border-r border-border',
+                              kind === 'boolean' ? 'items-center justify-center' : 'items-stretch',
                               missing && 'ring-1 ring-inset ring-amber-500/45',
+                              active && 'z-10 border border-primary bg-primary/5',
                             )}
                             onDoubleClick={() => beginEdit(row, column)}
                           >
@@ -1005,21 +1007,21 @@ export function SpreadsheetTable({
                                 role="switch"
                                 aria-checked={value === true}
                                 className={cn(
-                                  'relative inline-flex h-4 w-7 shrink-0 rounded-full transition-colors',
+                                  'relative inline-flex h-4 w-7 shrink-0 rounded-full',
                                   value === true ? 'bg-primary' : 'bg-muted ring-1 ring-inset ring-border',
                                 )}
                                 onClick={() => void updateBoolean(row, column)}
                               >
                                 <span
                                   className={cn(
-                                    'absolute top-0.5 h-3 w-3 rounded-full bg-background shadow-sm transition-transform',
+                                    'absolute top-0.5 h-3 w-3 rounded-full bg-background shadow-sm',
                                     value === true ? 'translate-x-3.5' : 'translate-x-0.5',
                                   )}
                                 />
                               </button>
                             ) : kind === 'select' ? (
                               <select
-                                className="min-w-0 max-w-full rounded bg-transparent px-1 py-0.5 text-[11px] font-medium outline-none hover:bg-muted focus:bg-background"
+                                className="h-full w-full min-w-0 appearance-none rounded-none border-0 bg-transparent px-2 text-xs outline-none hover:bg-muted focus:bg-background"
                                 value={value == null ? '' : String(value)}
                                 onChange={(event) => void updateSelect(row, column, event.currentTarget.value)}
                               >
@@ -1035,7 +1037,7 @@ export function SpreadsheetTable({
                                 type={kind === 'number' ? 'number' : kind === 'date' ? 'date' : 'text'}
                                 step={kind === 'number' ? 'any' : undefined}
                                 autoFocus
-                                className="h-7 min-w-0 flex-1 rounded-md border border-ring bg-background px-1.5 text-xs outline-none"
+                                className="h-full w-full min-w-0 rounded-none border-0 bg-transparent px-2 text-xs shadow-none outline-none focus-visible:ring-0"
                                 value={draft}
                                 onChange={(event) => setDraft(event.currentTarget.value)}
                                 onBlur={() => void commit(row, column)}
@@ -1061,7 +1063,7 @@ export function SpreadsheetTable({
                               <button
                                 type="button"
                                 className={cn(
-                                  'min-w-0 flex-1 truncate rounded px-1.5 py-1 text-left text-xs hover:bg-muted',
+                                  'h-full w-full min-w-0 truncate rounded-none px-2 text-left text-xs hover:bg-muted',
                                   (kind === 'formula' || kind === 'reference' || kind === 'readonly' || column.readOnly) &&
                                     'cursor-default text-muted-foreground hover:bg-transparent',
                                   isEmpty(value) && 'text-muted-foreground',

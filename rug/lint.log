@@ -1,0 +1,533 @@
+
+> playground-next@0.1.0 lint /Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground
+> eslint
+
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/.trellis-deploy/server-entry.ts
+  4:10  warning  'join' is defined but never used        @typescript-eslint/no-unused-vars
+  5:10  warning  'existsSync' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/.trellis-deploy/server.js
+     59:34   warning  'x' is defined but never used                                          @typescript-eslint/no-unused-vars
+   2033:36   warning  '_ctx' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2036:30   warning  'type' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2036:36   warning  '_ctx' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2039:24   warning  '_ctx' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2042:25   warning  '_ctx' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2045:27   warning  '_ctx' is defined but never used                                       @typescript-eslint/no-unused-vars
+   2645:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2694:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2698:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2705:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2709:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2718:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2759:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2764:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2770:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2777:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2781:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2785:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2812:15   error    Unexpected aliasing of 'this' to local variable                        @typescript-eslint/no-this-alias
+   2815:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2842:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2870:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2904:19   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2912:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2916:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2934:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2954:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2968:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2992:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2994:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   2997:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3003:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3023:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3079:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3092:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3094:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3103:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3117:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3169:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3179:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3199:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3224:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3264:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3272:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3273:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3309:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3367:20   warning  'q' is defined but never used                                          @typescript-eslint/no-unused-vars
+   3377:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3385:18   warning  'g' is defined but never used                                          @typescript-eslint/no-unused-vars
+   3388:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3404:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3406:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3421:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3423:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3431:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3433:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3439:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3441:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3443:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3457:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3467:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3468:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3471:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3480:20   warning  'g' is defined but never used                                          @typescript-eslint/no-unused-vars
+   3483:24   warning  'e' is assigned a value but never used                                 @typescript-eslint/no-unused-vars
+   3498:16   warning  'd' is assigned a value but never used                                 @typescript-eslint/no-unused-vars
+   3528:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3543:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3552:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3564:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3570:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3574:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3581:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3582:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3609:11   error    Unexpected aliasing of 'this' to local variable                        @typescript-eslint/no-this-alias
+   3622:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3628:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3634:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3635:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3661:19   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3666:21   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3730:18   warning  'c' is defined but never used                                          @typescript-eslint/no-unused-vars
+   3811:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3834:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3931:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3936:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3938:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3939:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3945:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3947:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3982:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   3996:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4003:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4009:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4014:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4021:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4026:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4031:22   warning  'pb' is defined but never used                                         @typescript-eslint/no-unused-vars
+   4041:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4047:22   warning  'x' is defined but never used                                          @typescript-eslint/no-unused-vars
+   4050:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4093:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4100:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4104:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4106:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4113:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4140:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4144:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4149:9    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4165:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4198:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4224:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4225:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4226:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4227:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4228:7    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4267:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4268:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4269:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4484:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4488:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4558:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4568:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4589:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4609:24   warning  'g' is defined but never used                                          @typescript-eslint/no-unused-vars
+   4677:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4697:13   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4731:17   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4755:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4756:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4757:15   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4780:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4845:11   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   4936:14   warning  'e' is defined but never used                                          @typescript-eslint/no-unused-vars
+   5944:24   warning  '_' is defined but never used                                          @typescript-eslint/no-unused-vars
+   5945:21   warning  '_arg' is defined but never used                                       @typescript-eslint/no-unused-vars
+   5947:24   warning  '_x' is defined but never used                                         @typescript-eslint/no-unused-vars
+   8303:5    warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+   9055:13   error    Unexpected aliasing of 'this' to local variable                        @typescript-eslint/no-this-alias
+   9070:13   error    Unexpected aliasing of 'this' to local variable                        @typescript-eslint/no-this-alias
+  10427:19   warning  'subId' is assigned a value but never used                             @typescript-eslint/no-unused-vars
+  11067:35   warning  'ctx' is defined but never used                                        @typescript-eslint/no-unused-vars
+  11144:20   warning  'spawn' is defined but never used                                      @typescript-eslint/no-unused-vars
+  11146:5    warning  'execFileAsync' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+  11147:5    warning  'SPRITE_ENSURE_BUN_SH' is assigned a value but never used              @typescript-eslint/no-unused-vars
+  11267:5    warning  'HookRegistry' is assigned a value but never used                      @typescript-eslint/no-unused-vars
+  13551:51   warning  'mkdirSync5' is defined but never used                                 @typescript-eslint/no-unused-vars
+  13551:112  warning  'writeFileSync6' is defined but never used                             @typescript-eslint/no-unused-vars
+  13554:114  warning  'readFileSync33' is defined but never used                             @typescript-eslint/no-unused-vars
+  14188:5    warning  'SCAFFOLD_MODULE_DIR' is assigned a value but never used               @typescript-eslint/no-unused-vars
+  14907:9    warning  'oldByName' is assigned a value but never used                         @typescript-eslint/no-unused-vars
+  14908:9    warning  'newByName' is assigned a value but never used                         @typescript-eslint/no-unused-vars
+  15095:80   warning  'decorators' is defined but never used                                 @typescript-eslint/no-unused-vars
+  15486:15   warning  'rawText' is assigned a value but never used                           @typescript-eslint/no-unused-vars
+  15966:78   warning  'attrs' is defined but never used                                      @typescript-eslint/no-unused-vars
+  16007:78   warning  'attrs' is defined but never used                                      @typescript-eslint/no-unused-vars
+  16165:35   warning  'filePath' is defined but never used                                   @typescript-eslint/no-unused-vars
+  16377:66   warning  'scopeStack' is defined but never used                                 @typescript-eslint/no-unused-vars
+  16847:35   warning  'filePath' is defined but never used                                   @typescript-eslint/no-unused-vars
+  18628:20   warning  'branchA' is defined but never used                                    @typescript-eslint/no-unused-vars
+  18628:29   warning  'branchB' is defined but never used                                    @typescript-eslint/no-unused-vars
+  19897:5    warning  'TrellisClient' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/boards/grid/GridBoard.tsx
+  23:8  warning  'FractalBoardProjection' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-configure-sheet.tsx
+  181:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-configure-sheet.tsx:181:5
+  179 |   useEffect(() => {
+  180 |     if (!open) return;
+> 181 |     setDraftTitle(collection.title);
+      |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  182 |     setDraftDescription(collection.description ?? '');
+  183 |     setDraftIcon(collectionIcon);
+  184 |     setDraftColor(collectionColor);  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-schema-editor.tsx
+  88:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-schema-editor.tsx:88:5
+  86 |       nextDraft.push(emptyField());
+  87 |     }
+> 88 |     setDraftFields(nextDraft);
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  89 |     setBaselineSnapshot(fieldsSnapshot(nextDraft));
+  90 |     setFieldErrors({});
+  91 |     setFormError(null);  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-views-editor.tsx
+  114:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/collection-views-editor.tsx:114:5
+  112 |   useEffect(() => {
+  113 |     const next = buildDraft(collection, fields);
+> 114 |     setDraft(next);
+      |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  115 |     setBaselineSnapshot(draftSnapshot(next));
+  116 |     setSaveError(null);
+  117 |   }, [collection, fields]);  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/type-fields-editor.tsx
+  83:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/type-fields-editor.tsx:83:5
+  81 |     if (!open) return;
+  82 |     const nextDraft = cloneEditableFields(fields);
+> 83 |     setDraftFields(nextDraft.length > 0 ? nextDraft : [{ name: 'title', valueType: 'title', required: true }]);
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  84 |     setBaselineSnapshot(fieldsSnapshot(nextDraft));
+  85 |     setFieldErrors({});
+  86 |     setFormError(null);  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/types-home.tsx
+  67:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/collections/types-home.tsx:67:7
+  65 |   useEffect(() => {
+  66 |     if (selectedTypeId && selectedType) {
+> 67 |       setEditorOpen(true);
+     |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  68 |     }
+  69 |   }, [selectedTypeId, selectedType]);
+  70 |  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/fractals/force-graph-canvas.tsx
+  106:3  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/fractals/force-graph-canvas.tsx:106:3
+  104 |   const svgRef = useRef<SVGSVGElement>(null);
+  105 |   const onSelectRef = useRef(onSelect);
+> 106 |   onSelectRef.current = onSelect;
+      |   ^^^^^^^^^^^^^^^^^^^ Cannot update ref during render
+  107 |
+  108 |   useEffect(() => {
+  109 |     const svgEl = svgRef.current;  react-hooks/refs
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/shell/collections-secondary.tsx
+  58:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/shell/collections-secondary.tsx:58:7
+  56 |   useEffect(() => {
+  57 |     if (sidebarQuery.trim()) {
+> 58 |       setCollectionsOpen(true);
+     |       ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  59 |       setTypesOpen(true);
+  60 |     }
+  61 |   }, [sidebarQuery]);  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/shell/history-nav-buttons.tsx
+  5:41  warning  'ChevronLeftIcon' is defined but never used   @typescript-eslint/no-unused-vars
+  5:58  warning  'ChevronRightIcon' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/shell/theme-toggle.tsx
+  18:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/shell/theme-toggle.tsx:18:5
+  16 |
+  17 |   useEffect(() => {
+> 18 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |   }, []);
+  20 |
+  21 |   return (  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/ui/color-picker.tsx
+  177:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/components/ui/color-picker.tsx:177:5
+  175 |
+  176 |   useEffect(() => {
+> 177 |     setDraft(format === 'hex' ? value : formatRgbString(value));
+      |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  178 |   }, [format, value]);
+  179 |
+  180 |   function commitDraft() {  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/fractal/use-vantage-state.ts
+  12:32  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/fractal/use-vantage-state.ts:12:32
+  10 |   useEffect(() => {
+  11 |     const fromUrl = parseVantageFromSearch(window.location.search);
+> 12 |     if (fromUrl !== undefined) setVantage(fromUrl);
+     |                                ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  13 |   }, []);
+  14 |
+  15 |   return [vantage, setVantage] as const;  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/fractal/vantage-motion.tsx
+  54:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/fractal/vantage-motion.tsx:54:5
+  52 |
+  53 |   useEffect(() => {
+> 54 |     setMotionState(readStoredMotion() ?? systemMotion());
+     |     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  55 |   }, []);
+  56 |
+  57 |   const setMotion = useCallback((next: VantageMotion) => {  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/icons/type-colors.ts
+  41:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/icons/type-colors.ts:41:5
+  39 |
+  40 |   useEffect(() => {
+> 41 |     setColors(readTypeColors());
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  42 |   }, []);
+  43 |
+  44 |   const setTypeColor = useCallback((typeId: string, color: string) => {  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/presence/use-joined-room.ts
+  19:3  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/presence/use-joined-room.ts:19:3
+  17 |   const lastCursorRef = useRef({ x: OFFSCREEN, y: OFFSCREEN });
+  18 |   const profileRef = useRef(opts.initial);
+> 19 |   profileRef.current = opts.initial;
+     |   ^^^^^^^^^^^^^^^^^^ Cannot update ref during render
+  20 |
+  21 |   const [room, setRoom] = useState<RealtimeRoom<BoardPresence> | null>(null);
+  22 |   const [presence, setPresence] = useState<PresencePeer<BoardPresence>[]>(EMPTY_PRESENCE);                                                                                                                                                                                                                react-hooks/refs
+  59:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/presence/use-joined-room.ts:59:5
+  57 |     });
+  58 |     roomRef.current = joined;
+> 59 |     setRoom(joined);
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  60 |
+  61 |     const unsub = joined.presenceSignal.subscribe(setPresence);
+  62 |     joined.setPresence(snapshot());  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/presence/use-pointer-presence.ts
+  21:3  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/presence/use-pointer-presence.ts:21:3
+  19 |   const throttleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  20 |   const pushRef = useRef(pushPresence);
+> 21 |   pushRef.current = pushPresence;
+     |   ^^^^^^^^^^^^^^^ Cannot update ref during render
+  22 |
+  23 |   const attachSurface = useCallback((node: HTMLDivElement | null) => {
+  24 |     surfaceRef.current = node;  react-hooks/refs
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/session-room.ts
+  107:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/session-room.ts:107:5
+  105 |       resolveAndSyncSessionRoom(search);
+  106 |     }
+> 107 |     setState({
+      |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  108 |       tenantId: resolvePlaygroundTenantId(readonly, search),
+  109 |       ready: true,
+  110 |     });  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/theme.tsx
+  71:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/theme.tsx:71:5
+  69 |   useEffect(() => {
+  70 |     const initial = readStoredTheme() ?? systemTheme();
+> 71 |     setThemeState(initial);
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  72 |     persistTheme(initial);
+  73 |   }, []);
+  74 |  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/use-embed-flags.ts
+  29:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/use-embed-flags.ts:29:5
+  27 |
+  28 |   useEffect(() => {
+> 29 |     setFlags(readEmbedFlags());
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  30 |   }, [pathname]);
+  31 |
+  32 |   return flags;  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/use-embed-origin.ts
+  14:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/shell/use-embed-origin.ts:14:5
+  12 |
+  13 |   useEffect(() => {
+> 14 |     setOrigin(resolveEmbedOriginFromWindow());
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |   }, []);
+  16 |
+  17 |   return origin;  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/trellis/use-types.ts
+  78:21  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/lib/trellis/use-types.ts:78:21
+  76 |     const sync = (list: TypeDef[]) => setTypes(list);
+  77 |     typeListeners.add(sync);
+> 78 |     if (typesCache) setTypes(typesCache);
+     |                     ^^^^^^^^ Avoid calling setState() directly within an effect
+  79 |     return () => {
+  80 |       typeListeners.delete(sync);
+  81 |     };  react-hooks/set-state-in-effect
+
+/Users/trentbrew/TURTLE/Projects/TRELLIS/fractal-playground/scripts/seed-projection-fixtures.mjs
+  308:17  warning  '_id' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 189 problems (24 errors, 165 warnings)
+
+ ELIFECYCLE  Command failed with exit code 1.

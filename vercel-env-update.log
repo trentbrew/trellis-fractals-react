@@ -1,0 +1,8 @@
+Retrieving project…
+WARNING! The NEXT_PUBLIC_ prefix will make TRELLIS_API_KEY visible to anyone visiting your site
+Retrieving project…
+Saving
+Added Environment Variable NEXT_PUBLIC_TRELLIS_API_KEY to Project trellis-playground [124ms]
+Common next commands:
+- `vercel env ls`
+- `vercel env pull`

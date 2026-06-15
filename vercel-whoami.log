@@ -1,0 +1,21 @@
+trent-brew
+Fetching projects in turtle-labs
+> Projects found under turtle-labs  [816ms]
+
+  Project Name           Latest Production URL                                 Updated   Node Version   
+  trellis-playground     https://playground.trellis.computer                   2h        24.x           
+  trellis-cloud-web      https://studio.trellis.computer                       2d        24.x           
+  raster.tv              https://www.raster.tv                                 8d        24.x           
+  turtle.tech            https://www.turtle.tech                               10d       20.x           
+  ide                    https://ide-turtle-labs.vercel.app                    13d       24.x           
+  brew.build             https://www.brew.build                                14d       22.x           
+  payment.turtle.tech    https://payment.turtle.tech                           14d       22.x           
+  trellis-www            https://www.trellis.computer                          15d       24.x           
+  trellis                https://trellis-wheat.vercel.app                      15d       24.x           
+  trellis-docs           https://trellis-docs.vercel.app                       15d       24.x           
+  app                    https://app-turtle-labs.vercel.app                    16d       24.x           
+  trellis-cloud          https://trellis-cloud-turtle-labs.vercel.app          16d       24.x           
+  imhotep-prototype      https://imhotep-prototype.vercel.app                  17d       22.x           
+  notioncms              https://notioncms.vercel.app                          17d       18.x           
+  podular                https://podular-trents-projects-1ed206ca.vercel.app   17d       18.x           
+  services.turtle.tech   https://pricing.turtle.tech                           17d       18.x           

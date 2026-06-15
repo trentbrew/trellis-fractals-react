@@ -8,11 +8,7 @@ import { BrowseProjectionShell } from '@/components/shell/browse-projection-shel
 import { ProjectionHeader } from '@/components/shell/ProjectionHeader';
 import { CollectionViewHint } from '@/components/shell/CollectionViewHint';
 import { JsonLdMonacoEditor } from '@/components/json-ld/json-ld-monaco-editor';
-
-const JSON_LD_CONTEXT = {
-  '@vocab': 'https://trellis.computer/type/',
-  trellis: 'https://trellis.computer/ns#',
-};
+import { JSON_LD_CONTEXT } from '@/lib/json-ld/context';
 
 function toJsonLdEntity(row: InferType<typeof Task>) {
   const { id, type, ...attributes } = row;

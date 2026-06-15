@@ -98,7 +98,7 @@ export function PresenceRoom({ children }: { children: ReactNode }) {
   const sessionRoom = useSessionRoom();
 
   if (!sessionRoom) {
-    return null;
+    return children;
   }
 
   return <PresenceRoomActive sessionRoom={sessionRoom}>{children}</PresenceRoomActive>;

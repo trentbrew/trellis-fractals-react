@@ -1,0 +1,117 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - link "Fractals" [ref=e15] [cursor=pointer]:
+        - /url: /collections
+      - navigation "App modes" [ref=e17]:
+        - link [ref=e18] [cursor=pointer]:
+          - /url: /collections
+          - img [ref=e19]
+        - link [ref=e23] [cursor=pointer]:
+          - /url: /fractals
+          - img [ref=e24]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /projections
+          - img [ref=e32]
+        - link [ref=e34] [cursor=pointer]:
+          - /url: /graph
+          - img [ref=e35]
+        - link [ref=e40] [cursor=pointer]:
+          - /url: /realtime
+          - img [ref=e41]
+        - link [ref=e44] [cursor=pointer]:
+          - /url: /issues
+          - img [ref=e45]
+      - button "Switch to dark mode" [ref=e50]:
+        - img [ref=e51]
+    - complementary [ref=e53]:
+      - generic [ref=e55]:
+        - heading "Fractals" [level=2] [ref=e56]
+        - paragraph [ref=e57]: Vantage across entity, collection, page, and app containment.
+        - list [ref=e58]:
+          - listitem [ref=e59]:
+            - link "Entity" [ref=e60] [cursor=pointer]:
+              - /url: /fractals/entity
+              - img [ref=e61]
+              - generic [ref=e64]: Entity
+          - listitem [ref=e65]:
+            - link "Collection" [ref=e66] [cursor=pointer]:
+              - /url: /fractals/collection
+              - img [ref=e67]
+              - generic [ref=e71]: Collection
+          - listitem [ref=e72]:
+            - link "Page" [ref=e73] [cursor=pointer]:
+              - /url: /fractals/page
+              - img [ref=e74]
+              - generic [ref=e76]: Page
+          - listitem [ref=e77]:
+            - link "App Stub" [ref=e78] [cursor=pointer]:
+              - /url: /fractals/app
+              - img [ref=e79]
+              - generic [ref=e81]: App
+              - generic [ref=e82]: Stub
+    - generic [ref=e83]:
+      - banner [ref=e84]:
+        - navigation "breadcrumb" [ref=e85]:
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - link "Collection" [disabled] [ref=e88]
+      - main [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - heading "Grid" [level=1] [ref=e93]
+            - generic [ref=e94]:
+              - search [ref=e95]:
+                - generic [ref=e96]:
+                  - img
+                  - searchbox "Search collection" [ref=e97]
+                - button "Title" [ref=e98]:
+                  - img
+                  - generic [ref=e99]: Title
+              - generic [ref=e100]: Graph
+              - radiogroup "Vantage presets" [ref=e101]:
+                - radio "Dots preset" [checked] [ref=e102]:
+                  - img
+                  - generic [ref=e103]: Dots
+                - radio "List preset" [ref=e104]:
+                  - img
+                  - generic [ref=e105]: List
+                - radio "Cards preset" [ref=e106]:
+                  - img
+                  - generic [ref=e107]: Cards
+                - radio "Record preset" [ref=e108]:
+                  - img
+                  - generic [ref=e109]: Record
+                - radio "JSON-LD preset" [ref=e110]:
+                  - img
+                  - generic [ref=e111]: JSON-LD
+              - generic [ref=e112]:
+                - generic [ref=e113]: "1.5"
+                - slider "1.5" [ref=e114]
+              - button "New card" [active] [ref=e115]:
+                - img
+                - text: New card
+          - img "Card graph" [ref=e119]:
+            - generic [ref=e128]:
+              - generic "Vanguard 28 Backpack" [ref=e129]:
+                - generic [ref=e131]: Vanguard 28 Backpack
+              - generic "Tundra Shell Jacket" [ref=e132]:
+                - generic [ref=e134]: Tundra Shell Jacket
+              - generic "Solace Field Watch" [ref=e135]:
+                - generic [ref=e137]: Solace Field Watch
+              - generic "Meridian Keyboard" [ref=e138]:
+                - generic [ref=e140]: Meridian Keyboard
+              - generic "Halcyon Headphones" [ref=e141]:
+                - generic [ref=e143]: Halcyon Headphones
+              - generic "Ember Pour-Over Kettle" [ref=e144]:
+                - generic [ref=e146]: Ember Pour-Over Kettle
+              - generic "Drift Lounge Chair" [ref=e147]:
+                - generic [ref=e149]: Drift Lounge Chair
+              - generic "Aero Runner" [ref=e150]:
+                - generic [ref=e152]: Aero Runner
+              - generic "Untitled card" [ref=e153]:
+                - generic [ref=e155]: Untitled card
+          - button

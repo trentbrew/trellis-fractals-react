@@ -1,0 +1,59 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - link "Fractals" [ref=e5] [cursor=pointer]:
+      - /url: /collections
+    - navigation "App modes" [ref=e7]:
+      - link [ref=e8] [cursor=pointer]:
+        - /url: /collections
+        - img [ref=e9]
+      - link [ref=e13] [cursor=pointer]:
+        - /url: /projections
+        - img [ref=e14]
+      - link [ref=e16] [cursor=pointer]:
+        - /url: /graph
+        - img [ref=e17]
+      - link [ref=e22] [cursor=pointer]:
+        - /url: /realtime
+        - img [ref=e23]
+      - link [ref=e26] [cursor=pointer]:
+        - /url: /issues
+        - img [ref=e27]
+      - link [ref=e31] [cursor=pointer]:
+        - /url: /grid
+        - img [ref=e32]
+    - button "Switch to dark mode" [ref=e35]:
+      - img [ref=e36]
+  - complementary [ref=e38]:
+    - generic [ref=e39]:
+      - generic [ref=e41]:
+        - img
+        - searchbox "Search collections and types" [ref=e42]
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - heading "Collections" [level=2] [ref=e45]
+          - paragraph [ref=e46]: Loading…
+        - generic [ref=e47]:
+          - heading "Types" [level=2] [ref=e48]
+          - link "Manage types" [ref=e49] [cursor=pointer]:
+            - /url: /collections/types
+            - img [ref=e50]
+            - text: Manage types
+          - paragraph [ref=e54]: Loading…
+      - button "New collection" [ref=e56]:
+        - img
+        - text: New collection
+  - generic [ref=e57]:
+    - banner [ref=e58]:
+      - navigation "breadcrumb" [ref=e59]:
+        - list [ref=e60]:
+          - listitem [ref=e61]:
+            - link "Collections" [disabled] [ref=e62]
+    - main [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - heading "Collections" [level=1] [ref=e66]
+          - paragraph [ref=e67]:
+            - text: Named tables with live records — graph-discovered via
+            - code [ref=e68]: CollectionMeta
+            - text: .
+        - paragraph [ref=e69]: Loading collections…

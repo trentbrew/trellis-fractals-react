@@ -1,3 +1,4 @@
+import { parseJsonBody } from '@/lib/trellis/parse-json-body';
 import { OntologyNotFoundError, patchOntologyServer } from '@/lib/trellis/ontology-server';
 import type { TypeUpdate } from '@/lib/trellis/use-types';
 
@@ -18,7 +19,9 @@ function decodeOntologyId(segments: string[]): string {
 export async function PATCH(request: Request, context: RouteContext) {
   const { id: segments } = await context.params;
   const decodedId = decodeOntologyId(segments);
-  const updates = (await request.json()) as TypeUpdate;
+  const parsed = await parseJsonBody(request);
+  if (!parsed.ok) return parsed.response;
+  const updates = parsed.body as TypeUpdate;
 
   try {
     const ontology = await patchOntologyServer(decodedId, updates);

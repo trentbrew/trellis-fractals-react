@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - link "Fractals" [ref=e15] [cursor=pointer]:
+        - /url: /collections
+      - navigation "App modes" [ref=e17]:
+        - link [ref=e18] [cursor=pointer]:
+          - /url: /collections
+          - img [ref=e19]
+        - link [ref=e23] [cursor=pointer]:
+          - /url: /fractals
+          - img [ref=e24]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /projections
+          - img [ref=e32]
+        - link [ref=e34] [cursor=pointer]:
+          - /url: /graph
+          - img [ref=e35]
+        - link [ref=e40] [cursor=pointer]:
+          - /url: /realtime
+          - img [ref=e41]
+        - link [ref=e44] [cursor=pointer]:
+          - /url: /issues
+          - img [ref=e45]
+      - button "Switch to dark mode" [ref=e50]:
+        - img [ref=e51]
+    - complementary [ref=e53]:
+      - generic [ref=e55]:
+        - heading "Fractals" [level=2] [ref=e56]
+        - paragraph [ref=e57]: Vantage across entity, collection, page, and app containment.
+        - list [ref=e58]:
+          - listitem [ref=e59]:
+            - link "Entity" [ref=e60] [cursor=pointer]:
+              - /url: /fractals/entity
+              - img [ref=e61]
+              - generic [ref=e64]: Entity
+          - listitem [ref=e65]:
+            - link "Collection" [ref=e66] [cursor=pointer]:
+              - /url: /fractals/collection
+              - img [ref=e67]
+              - generic [ref=e71]: Collection
+          - listitem [ref=e72]:
+            - link "Page" [ref=e73] [cursor=pointer]:
+              - /url: /fractals/page
+              - img [ref=e74]
+              - generic [ref=e76]: Page
+          - listitem [ref=e77]:
+            - link "App Stub" [ref=e78] [cursor=pointer]:
+              - /url: /fractals/app
+              - img [ref=e79]
+              - generic [ref=e81]: App
+              - generic [ref=e82]: Stub
+    - generic [ref=e83]:
+      - banner [ref=e84]:
+        - navigation "breadcrumb" [ref=e85]:
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - link "Page" [disabled] [ref=e88]
+      - main [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - heading "Page" [level=1] [ref=e93]
+              - paragraph [ref=e94]: One route as graph node, outline, and layout with a graph-derived sidebar.
+            - generic [ref=e95]: Page graph
+            - radiogroup "Vantage presets" [ref=e96]:
+              - radio "Graph preset" [checked] [ref=e97]:
+                - img
+                - generic [ref=e98]: Graph
+              - radio "Outline preset" [ref=e99]:
+                - img
+                - generic [ref=e100]: Outline
+              - radio "Layout preset" [ref=e101]:
+                - img
+                - generic [ref=e102]: Layout
+            - generic [ref=e103]:
+              - generic [ref=e104]: "1.0"
+              - slider "1.0" [ref=e105]: "1"
+          - img "Page graph" [ref=e109]:
+            - generic [ref=e116]:
+              - generic "Overview" [ref=e117] [cursor=pointer]:
+                - generic [ref=e119]: Overview
+              - generic "Evidence" [ref=e120] [cursor=pointer]:
+                - generic [ref=e122]: Evidence
+              - generic "Decision" [ref=e123] [cursor=pointer]:
+                - generic [ref=e125]: Decision
+              - generic "Follow-up" [ref=e126] [cursor=pointer]:
+                - generic [ref=e128]: Follow-up

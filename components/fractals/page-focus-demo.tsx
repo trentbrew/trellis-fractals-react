@@ -62,7 +62,7 @@ export function PageFocusDemo() {
       }
     >
       <div
-        className={cn('flex min-h-0 flex-1 flex-col', embed ? 'h-full gap-2' : 'gap-4')}
+        className={cn('flex flex-col', embed ? 'w-full gap-2' : 'min-h-0 flex-1 gap-4')}
         data-testid="page-focus-demo"
       >
         {!embed ? (
@@ -81,7 +81,10 @@ export function PageFocusDemo() {
 
       <LayoutGroup id="page-focus">
         <div
-          className="relative min-h-0 flex-1"
+          className={cn(
+            'relative w-full',
+            embed ? 'flex items-center justify-center' : 'min-h-0 flex-1',
+          )}
           data-testid="page-focus-projection"
           data-page-projection={projection}
           style={vantageStyle(vantage)}
@@ -90,6 +93,7 @@ export function PageFocusDemo() {
             {projection === 'graph' ? (
               <motion.div
                 key="graph"
+                className="w-full"
                 layout={projectionLayout}
                 initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -107,6 +111,7 @@ export function PageFocusDemo() {
             {projection === 'outline' ? (
               <motion.div
                 key="outline"
+                className="w-full"
                 layout={projectionLayout}
                 initial={{ opacity: reduced ? 1 : 0 }}
                 animate={{ opacity: 1 }}
@@ -125,6 +130,7 @@ export function PageFocusDemo() {
             {projection === 'layout' ? (
               <motion.div
                 key="layout"
+                className="w-full"
                 layout={projectionLayout}
                 initial={{ opacity: reduced ? 1 : 0 }}
                 animate={{ opacity: 1 }}

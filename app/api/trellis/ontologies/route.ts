@@ -1,3 +1,4 @@
+import { parseJsonBody } from '@/lib/trellis/parse-json-body';
 import { listOntologiesServer, proxyCreateOntology } from '@/lib/trellis/ontology-server';
 
 export const runtime = 'nodejs';
@@ -9,6 +10,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  return proxyCreateOntology(body);
+  const parsed = await parseJsonBody(request);
+  if (!parsed.ok) return parsed.response;
+  return proxyCreateOntology(parsed.body);
 }

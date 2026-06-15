@@ -4,11 +4,7 @@ import { useMemo } from 'react';
 import type { CollectionRecord } from '@/lib/schemas/collection';
 import { CollectionRecordType } from '@/lib/schemas/collection';
 import { JsonLdMonacoEditor } from '@/components/json-ld/json-ld-monaco-editor';
-
-const JSON_LD_CONTEXT = {
-  '@vocab': 'https://trellis.computer/type/',
-  trellis: 'https://trellis.computer/ns#',
-};
+import { JSON_LD_CONTEXT } from '@/lib/json-ld/context';
 
 function toJsonLdEntity(record: CollectionRecord) {
   const { id, type, ...attributes } = record;

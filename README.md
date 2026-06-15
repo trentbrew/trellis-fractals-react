@@ -66,12 +66,29 @@ https://playground.trellis.computer/projections/kanban?embed=1
 | Session room (`embed-{uuid}`) | **Shipped** — hosted app; private graph per browser session |
 | `trellis deploy --name` per project | Product (C0) |
 
+## JSON-LD ontology vocabulary
+
+Collection and projection JSON-LD views share `@context` from `lib/json-ld/context.ts`. Vocabulary documents are served by this app:
+
+| Path | Purpose |
+| ---- | ------- |
+| `/ns` | Trellis namespace terms (`https://trellis.computer/ns#`) |
+| `/type/CollectionRecord` | `@vocab` term docs (`https://trellis.computer/type/…`) |
+
+Local: `http://localhost:3000/ns` and `/type/CollectionRecord`. Production apex `https://trellis.computer/ns` may require separate Vercel routing if the playground stays on `playground.trellis.computer` — use `ONTOLOGY_VOCAB_URL` when smoke-testing a non-default host.
+
+```bash
+pnpm run smoke:ontology-vocab
+# prod: ONTOLOGY_VOCAB_URL=https://playground.trellis.computer pnpm run smoke:ontology-vocab
+```
+
 ## Scripts
 
 | Script | Description |
 | ------ | ----------- |
 | `pnpm seed` | Ontology + fixtures + collections |
 | `pnpm run smoke:deploy -- <name>` | Deploy room node via trellis-node |
+| `pnpm run smoke:ontology-vocab` | GET `/ns` + `/type/CollectionRecord` smoke |
 | `pnpm run smoke:ws` | WebSocket subscribe smoke |
 | `pnpm test:e2e` | Playwright (collections + projections) |
 

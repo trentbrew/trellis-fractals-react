@@ -1,4 +1,7 @@
+import path from "node:path";
 import type { NextConfig } from "next";
+
+const projectRoot = path.join(__dirname);
 
 const trellisOrigin =
   process.env.TRELLIS_URL ??
@@ -23,6 +26,10 @@ const FRAME_ANCESTORS = [
 ].join(" ");
 
 const nextConfig: NextConfig = {
+  // pnpm + nested desk lockfiles can make Turbopack pick the wrong root ("Next.js package not found").
+  turbopack: {
+    root: projectRoot,
+  },
   async redirects() {
     return [
       {

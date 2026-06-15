@@ -17,6 +17,7 @@ export const VALUE_TYPE_OPTIONS = [
   { value: 'date', label: 'Date' },
   { value: 'select', label: 'Select' },
   { value: 'url', label: 'URL' },
+  { value: 'reference', label: 'Relationship' },
 ] as const;
 
 export function fieldLabel(key: string): string {
@@ -41,6 +42,9 @@ export function valueTypeToSpreadsheetKind(
     case 'select':
     case 'enum':
       return 'select';
+    case 'reference':
+    case 'relationship':
+      return 'reference';
     case 'rich_text':
       return name === 'body' || name.endsWith('Body') ? 'longtext' : 'longtext';
     case 'title':

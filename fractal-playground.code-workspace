@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "playground-next",
+      "path": "."
+    },
+    {
+      "name": "brew.build",
+      "path": "brew.build"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.next": true,
+      "**/dist": true,
+      "**/.vercel": true
+    }
+  }
+}

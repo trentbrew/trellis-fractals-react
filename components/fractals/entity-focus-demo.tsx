@@ -169,9 +169,14 @@ function PanelPresentation({ entity, vantage }: { entity: FocusEntity; vantage: 
   );
 }
 
-function PagePresentation({ entity }: { entity: FocusEntity }) {
+function PagePresentation({ entity, embed = false }: { entity: FocusEntity; embed?: boolean }) {
   return (
-    <article className="grid min-h-[28rem] w-full overflow-hidden rounded-lg border border-border bg-card shadow-sm lg:grid-cols-[14rem_minmax(0,1fr)]">
+    <article
+      className={cn(
+        'grid w-full overflow-hidden rounded-lg border border-border bg-card shadow-sm lg:grid-cols-[14rem_minmax(0,1fr)]',
+        !embed && 'min-h-[28rem]',
+      )}
+    >
       <aside className="border-b border-border bg-muted/25 p-4 lg:border-r lg:border-b-0">
         <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
           Evidence Graph
@@ -201,7 +206,7 @@ function PagePresentation({ entity }: { entity: FocusEntity }) {
         </header>
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_14rem]">
           <p className="text-base leading-7 text-foreground/90">{entity.body}</p>
-          <dl className="grid content-start gap-3 rounded-lg border border-border bg-background p-3 text-sm">
+          <dl className="grid content-start gap-3 rounded-lg border border-border bg-background p-4 text-sm">
             {entity.fields.map((field) => (
               <div key={field.label}>
                 <dt className="text-xs text-muted-foreground">{field.label}</dt>
@@ -219,17 +224,19 @@ function EntityPresentation({
   entity,
   presentation,
   vantage,
+  embed = false,
 }: {
   entity: FocusEntity;
   presentation: EntityPresentation;
   vantage: number;
+  embed?: boolean;
 }) {
   if (presentation === 'dot') return <DotPresentation entity={entity} />;
   if (presentation === 'chip') return <ChipPresentation entity={entity} />;
   if (presentation === 'row') return <RowPresentation entity={entity} vantage={vantage} />;
   if (presentation === 'card') return <CardPresentation entity={entity} vantage={vantage} />;
   if (presentation === 'panel') return <PanelPresentation entity={entity} vantage={vantage} />;
-  return <PagePresentation entity={entity} />;
+  return <PagePresentation entity={entity} embed={embed} />;
 }
 
 export function EntityFocusDemo() {
@@ -253,7 +260,7 @@ export function EntityFocusDemo() {
       }
     >
       <div
-        className={cn('flex min-h-0 w-full flex-1 flex-col', embed ? 'h-full gap-2' : 'gap-4')}
+        className={cn('flex w-full flex-col', embed ? 'gap-2' : 'min-h-0 flex-1 gap-4')}
         data-testid="entity-focus-demo"
       >
         {!embed ? (
@@ -270,16 +277,12 @@ export function EntityFocusDemo() {
       <main
         className={
           embed
-            ? 'flex min-h-0 w-full flex-1 flex-col p-0'
+            ? 'flex w-full items-center justify-center'
             : 'grid min-h-[32rem] flex-1 place-items-center rounded-lg border border-dashed border-border bg-muted/15 p-4'
         }
       >
         <div
-          className={cn(
-            'w-full min-w-0',
-            embed && presentation === 'dot' && 'flex flex-1 items-center justify-center',
-            embed && presentation !== 'dot' && 'flex-1',
-          )}
+          className="flex w-full min-w-0 items-center justify-center"
           data-testid="entity-focus-stage"
           data-presentation={presentation}
           style={{
@@ -292,6 +295,7 @@ export function EntityFocusDemo() {
             entity={SAMPLE_ENTITY}
             presentation={presentation}
             vantage={vantage}
+            embed={embed}
           />
         </div>
       </main>

@@ -1,0 +1,407 @@
+
+Running 5 tests using 1 worker
+
+(node:26030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26030) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › e2e/fractals.spec.ts:16:5 › fractals rail exposes entity and collection demos (2.7s)
+  ✘  2 [chromium] › e2e/fractals.spec.ts:47:5 › legacy grid route redirects to fractal collection (5.4s)
+(node:26323) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26323) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [chromium] › e2e/fractals.spec.ts:47:5 › legacy grid route redirects to fractal collection (retry #1) (5.6s)
+(node:26548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › e2e/fractals.spec.ts:47:5 › legacy grid route redirects to fractal collection (retry #2) (5.6s)
+(node:26773) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26773) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [chromium] › e2e/fractals.spec.ts:53:5 › fractals embed mode and vantage deep-links (5.6s)
+(node:26969) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26969) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  6 [chromium] › e2e/fractals.spec.ts:53:5 › fractals embed mode and vantage deep-links (retry #1) (5.8s)
+(node:27192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  7 [chromium] › e2e/fractals.spec.ts:53:5 › fractals embed mode and vantage deep-links (retry #2) (5.6s)
+(node:27380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27380) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  8 [chromium] › e2e/fractals.spec.ts:72:5 › page demo switches graph, outline, and layout projections (5.7s)
+(node:27606) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27606) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  9 [chromium] › e2e/fractals.spec.ts:72:5 › page demo switches graph, outline, and layout projections (retry #1) (5.6s)
+(node:27812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 [chromium] › e2e/fractals.spec.ts:72:5 › page demo switches graph, outline, and layout projections (retry #2) (5.6s)
+(node:27996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:27996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  11 [chromium] › e2e/fractals.spec.ts:108:5 › page embed deep-link (5.4s)
+(node:28201) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28201) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  12 [chromium] › e2e/fractals.spec.ts:108:5 › page embed deep-link (retry #1) (5.7s)
+(node:28398) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28398) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  13 [chromium] › e2e/fractals.spec.ts:108:5 › page embed deep-link (retry #2) (5.5s)
+
+
+  1) [chromium] › e2e/fractals.spec.ts:47:5 › legacy grid route redirects to fractal collection ────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/\/fractals\/collection$/[39m
+    Received string:  [31m"https://playground.trellis.computer/fractals/collection?room=13e2e6a6-a4f3-4efd-ba32-43a99e1429ad"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    14 × unexpected value "https://playground.trellis.computer/fractals/collection?room=13e2e6a6-a4f3-4efd-ba32-43a99e1429ad"[22m
+
+
+      47 | test('legacy grid route redirects to fractal collection', async ({ page }) => {
+      48 |   await page.goto('/grid');
+    > 49 |   await expect(page).toHaveURL(/\/fractals\/collection$/);
+         |                      ^
+      50 |   await expect(page.getByTestId('grid-board-projection')).toBeVisible();
+      51 | });
+      52 |
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:49:22
+
+    Error Context: test-results/fractals-legacy-grid-route-redirects-to-fractal-collection-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/\/fractals\/collection$/[39m
+    Received string:  [31m"https://playground.trellis.computer/fractals/collection?room=ed8f945f-bd05-455d-8fee-ecacbdbb494a"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    14 × unexpected value "https://playground.trellis.computer/fractals/collection?room=ed8f945f-bd05-455d-8fee-ecacbdbb494a"[22m
+
+
+      47 | test('legacy grid route redirects to fractal collection', async ({ page }) => {
+      48 |   await page.goto('/grid');
+    > 49 |   await expect(page).toHaveURL(/\/fractals\/collection$/);
+         |                      ^
+      50 |   await expect(page.getByTestId('grid-board-projection')).toBeVisible();
+      51 | });
+      52 |
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:49:22
+
+    Error Context: test-results/fractals-legacy-grid-route-redirects-to-fractal-collection-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fractals-legacy-grid-route-redirects-to-fractal-collection-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fractals-legacy-grid-route-redirects-to-fractal-collection-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/\/fractals\/collection$/[39m
+    Received string:  [31m"https://playground.trellis.computer/fractals/collection?room=43b1b2e9-0b5a-4c0b-8c2c-f9442ed9d86d"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    14 × unexpected value "https://playground.trellis.computer/fractals/collection?room=43b1b2e9-0b5a-4c0b-8c2c-f9442ed9d86d"[22m
+
+
+      47 | test('legacy grid route redirects to fractal collection', async ({ page }) => {
+      48 |   await page.goto('/grid');
+    > 49 |   await expect(page).toHaveURL(/\/fractals\/collection$/);
+         |                      ^
+      50 |   await expect(page.getByTestId('grid-board-projection')).toBeVisible();
+      51 | });
+      52 |
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:49:22
+
+    Error Context: test-results/fractals-legacy-grid-route-redirects-to-fractal-collection-chromium-retry2/error-context.md
+
+  2) [chromium] › e2e/fractals.spec.ts:53:5 › fractals embed mode and vantage deep-links ───────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"[7mFractal[27m collection"[39m
+    Received string:    [31m"[7mLive graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card[27m collection[7m.[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+    [2m    14 × locator resolved to <p class="embed-kicker shrink-0 border-b border-border px-3 py-2 text-sm text-muted-foreground">Live graph — edits sync across tabs; add ?room=na…</p>[22m
+    [2m       - unexpected value "Live graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card collection."[22m
+
+
+      62 |
+      63 |   await page.goto('/fractals/collection?embed=1&vantage=4');
+    > 64 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal collection');
+         |                                               ^
+      65 |   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+      66 |     'data-board-projection',
+      67 |     'table',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:64:47
+
+    Error Context: test-results/fractals-fractals-embed-mode-and-vantage-deep-links-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"[7mFractal[27m collection"[39m
+    Received string:    [31m"[7mLive graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card[27m collection[7m.[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+    [2m    14 × locator resolved to <p class="embed-kicker shrink-0 border-b border-border px-3 py-2 text-sm text-muted-foreground">Live graph — edits sync across tabs; add ?room=na…</p>[22m
+    [2m       - unexpected value "Live graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card collection."[22m
+
+
+      62 |
+      63 |   await page.goto('/fractals/collection?embed=1&vantage=4');
+    > 64 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal collection');
+         |                                               ^
+      65 |   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+      66 |     'data-board-projection',
+      67 |     'table',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:64:47
+
+    Error Context: test-results/fractals-fractals-embed-mode-and-vantage-deep-links-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fractals-fractals-embed-mode-and-vantage-deep-links-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fractals-fractals-embed-mode-and-vantage-deep-links-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"[7mFractal[27m collection"[39m
+    Received string:    [31m"[7mLive graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card[27m collection[7m.[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+    [2m    14 × locator resolved to <p class="embed-kicker shrink-0 border-b border-border px-3 py-2 text-sm text-muted-foreground">Live graph — edits sync across tabs; add ?room=na…</p>[22m
+    [2m       - unexpected value "Live graph — edits sync across tabs; add ?room=name to the URL to share across browsers Use presets or the slider to collapse projections on the same Card collection."[22m
+
+
+      62 |
+      63 |   await page.goto('/fractals/collection?embed=1&vantage=4');
+    > 64 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal collection');
+         |                                               ^
+      65 |   await expect(page.getByTestId('grid-board-projection')).toHaveAttribute(
+      66 |     'data-board-projection',
+      67 |     'table',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:64:47
+
+    Error Context: test-results/fractals-fractals-embed-mode-and-vantage-deep-links-chromium-retry2/error-context.md
+
+  3) [chromium] › e2e/fractals.spec.ts:72:5 › page demo switches graph, outline, and layout projections 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('page-focus-projection')
+    Expected: [32m"graph"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('page-focus-projection')[22m
+
+
+      85 |
+      86 |   await setVantage(page, 1);
+    > 87 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+         |                                                           ^
+      88 |     'data-page-projection',
+      89 |     'graph',
+      90 |   );
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:87:59
+
+    Error Context: test-results/fractals-page-demo-switche-b9ff7-line-and-layout-projections-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('page-focus-projection')
+    Expected: [32m"graph"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('page-focus-projection')[22m
+
+
+      85 |
+      86 |   await setVantage(page, 1);
+    > 87 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+         |                                                           ^
+      88 |     'data-page-projection',
+      89 |     'graph',
+      90 |   );
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:87:59
+
+    Error Context: test-results/fractals-page-demo-switche-b9ff7-line-and-layout-projections-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fractals-page-demo-switche-b9ff7-line-and-layout-projections-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fractals-page-demo-switche-b9ff7-line-and-layout-projections-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('page-focus-projection')
+    Expected: [32m"graph"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('page-focus-projection')[22m
+
+
+      85 |
+      86 |   await setVantage(page, 1);
+    > 87 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+         |                                                           ^
+      88 |     'data-page-projection',
+      89 |     'graph',
+      90 |   );
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:87:59
+
+    Error Context: test-results/fractals-page-demo-switche-b9ff7-line-and-layout-projections-chromium-retry2/error-context.md
+
+  4) [chromium] › e2e/fractals.spec.ts:108:5 › page embed deep-link ────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"Fractal page"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+
+
+      108 | test('page embed deep-link', async ({ page }) => {
+      109 |   await page.goto('/fractals/page?embed=1&vantage=1');
+    > 110 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal page');
+          |                                               ^
+      111 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+      112 |     'data-page-projection',
+      113 |     'graph',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:110:47
+
+    Error Context: test-results/fractals-page-embed-deep-link-chromium/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"Fractal page"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+
+
+      108 | test('page embed deep-link', async ({ page }) => {
+      109 |   await page.goto('/fractals/page?embed=1&vantage=1');
+    > 110 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal page');
+          |                                               ^
+      111 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+      112 |     'data-page-projection',
+      113 |     'graph',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:110:47
+
+    Error Context: test-results/fractals-page-embed-deep-link-chromium-retry1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fractals-page-embed-deep-link-chromium-retry1/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fractals-page-embed-deep-link-chromium-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Retry #2 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.embed-kicker')
+    Expected substring: [32m"Fractal page"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.embed-kicker')[22m
+
+
+      108 | test('page embed deep-link', async ({ page }) => {
+      109 |   await page.goto('/fractals/page?embed=1&vantage=1');
+    > 110 |   await expect(page.locator('.embed-kicker')).toContainText('Fractal page');
+          |                                               ^
+      111 |   await expect(page.getByTestId('page-focus-projection')).toHaveAttribute(
+      112 |     'data-page-projection',
+      113 |     'graph',
+        at /Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/e2e/fractals.spec.ts:110:47
+
+    Error Context: test-results/fractals-page-embed-deep-link-chromium-retry2/error-context.md
+
+  4 failed
+    [chromium] › e2e/fractals.spec.ts:47:5 › legacy grid route redirects to fractal collection ─────
+    [chromium] › e2e/fractals.spec.ts:53:5 › fractals embed mode and vantage deep-links ────────────
+    [chromium] › e2e/fractals.spec.ts:72:5 › page demo switches graph, outline, and layout projections 
+    [chromium] › e2e/fractals.spec.ts:108:5 › page embed deep-link ─────────────────────────────────
+  1 passed (1.3m)

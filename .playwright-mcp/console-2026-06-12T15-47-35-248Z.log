@@ -1,0 +1,930 @@
+[     484ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     498ms] [LOG] [Fast Refresh] done in 115ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     607ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     624ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[     840ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[    1083ms] [LOG] [Fast Refresh] done in 378ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   55014ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[   55033ms] [LOG] [Fast Refresh] done in 120ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  178842ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  195342ms] [LOG] [Fast Refresh] done in 16200ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  203524ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  203621ms] [LOG] [Fast Refresh] done in 152ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  216617ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  227832ms] [LOG] [Fast Refresh] done in 11270ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  246188ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  246976ms] [LOG] [Fast Refresh] done in 734ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  256320ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  257036ms] [LOG] [Fast Refresh] done in 566ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  264275ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  264582ms] [LOG] [Fast Refresh] done in 301ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  275513ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  276594ms] [LOG] [Fast Refresh] done in 1172ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  276704ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  276955ms] [LOG] [Fast Refresh] done in 351ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  277935ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  277951ms] [LOG] [Fast Refresh] done in 117ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  650351ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  650419ms] [LOG] [Fast Refresh] done in 170ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  650753ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  650848ms] [LOG] [Fast Refresh] done in 196ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  650988ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  656210ms] [LOG] [Fast Refresh] done in 5323ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  656316ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  660265ms] [LOG] [Fast Refresh] done in 4050ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  660367ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  664708ms] [LOG] [Fast Refresh] done in 4442ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  664809ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  668407ms] [LOG] [Fast Refresh] done in 3699ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  668508ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  671972ms] [LOG] [Fast Refresh] done in 3565ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  672075ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  675573ms] [LOG] [Fast Refresh] done in 3600ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  675674ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  679414ms] [LOG] [Fast Refresh] done in 3840ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  679516ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  683180ms] [LOG] [Fast Refresh] done in 3766ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  683281ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  683387ms] [LOG] [Fast Refresh] done in 207ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  684752ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  687848ms] [LOG] [Fast Refresh] done in 3197ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  965288ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  965353ms] [LOG] [Fast Refresh] done in 167ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  967844ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  969271ms] ReferenceError: detailOpacity is not defined
+    at GridCard (http://localhost:3000/_next/static/chunks/_0npe03r._.js?id=%255Bproject%255D%252Fcomponents%252Fboards%252Fgrid%252FGridCard.tsx+%255Bapp-client%255D+%2528ecmascript%2529:35:25)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10179:316)
+    at flushSyncWork$1 (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9230:86)
+    at Object.scheduleRefresh (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:299:13)
+    at http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:391:33
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:384:38)
+    at applyUpdate (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:878:31)
+    at http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:886:13
+[  969135ms] [LOG] [Fast Refresh] done in 1259ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  969554ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  971397ms] [LOG] [Fast Refresh] done in 1410ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  971912ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  972451ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  972505ms] [LOG] [Fast Refresh] done in 156ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  972615ms] [ERROR] [useCollection] registerType failed TypeError: Failed to fetch
+    at db._fetch (http://localhost:3000/_next/static/chunks/_05flseo._.js:428:27)
+    at TrellisDb.registerType (http://localhost:3000/_next/static/chunks/node_modules__pnpm_1dp2xou._.js:97:24)
+    at useCollection.useEffect (http://localhost:3000/_next/static/chunks/_05flseo._.js:8178:25)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15087:22)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at commitHookEffectListMount (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7255:167)
+    at commitHookPassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7290:60)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8779:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17) @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[  972615ms] [ERROR] [useCollection] registerType failed TypeError: Failed to fetch
+    at db._fetch (http://localhost:3000/_next/static/chunks/_05flseo._.js:428:27)
+    at TrellisDb.registerType (http://localhost:3000/_next/static/chunks/node_modules__pnpm_1dp2xou._.js:97:24)
+    at useCollection.useEffect (http://localhost:3000/_next/static/chunks/_05flseo._.js:8178:25)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15087:22)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at commitHookEffectListMount (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7255:167)
+    at commitHookPassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7290:60)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8689:33)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17) @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[  972615ms] [ERROR] [BootstrapSchemas] failed TypeError: Failed to fetch
+    at db._fetch (http://localhost:3000/_next/static/chunks/_05flseo._.js:428:27)
+    at TrellisDb.registerType (http://localhost:3000/_next/static/chunks/node_modules__pnpm_1dp2xou._.js:97:24)
+    at bootstrapExplorerSchemas (http://localhost:3000/_next/static/chunks/_05flseo._.js:884:22)
+    at BootstrapSchemas.useEffect (http://localhost:3000/_next/static/chunks/_05flseo._.js:912:188)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15087:22)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at commitHookEffectListMount (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7255:167)
+    at commitHookPassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7290:60)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8689:33)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8693:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8688:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316)
+    at commitPassiveMountOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8750:17)
+    at recursivelyTraversePassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8676:316) @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[  972616ms] [ERROR] [BootstrapSchemas] failed TypeError: Failed to fetch
+    at db._fetch (http://localhost:3000/_next/static/chunks/_05flseo._.js:428:27)
+    at TrellisDb.registerType (http://localhost:3000/_next/static/chunks/node_modules__pnpm_1dp2xou._.js:97:24)
+    at bootstrapExplorerSchemas (http://localhost:3000/_next/static/chunks/_05flseo._.js:884:22)
+    at BootstrapSchemas.useEffect (http://localhost:3000/_next/static/chunks/_05flseo._.js:912:188)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15087:22)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at commitHookEffectListMount (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7255:167)
+    at commitHookPassiveMountEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:7290:60)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8779:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8793:17)
+    at recursivelyTraverseReconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8766:13)
+    at reconnectPassiveEffects (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:8778:17)
+    at doubleInvokeEffectsOnFiber (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10117:133)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:79)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147)
+    at recursivelyTraverseAndDoubleInvokeEffectsInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10110:147) @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[  972888ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  972937ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  973350ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  974375ms] ReferenceError: metaOpacity is not defined
+    at GridCard (http://localhost:3000/_next/static/chunks/_1ni5zox._.js:1622:38)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10179:316)
+    at processRootScheduleInMicrotask (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10200:106)
+    at http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10274:158
+[  974531ms] [LOG] [Fast Refresh] done in 1343ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975388ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975405ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975442ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975483ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975739ms] [LOG] [Fast Refresh] done in 196ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  975846ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  976208ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  976245ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  979711ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  979888ms] [LOG] [Fast Refresh] done in 229ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  991018ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  991942ms] ReferenceError: resolveBoardProjection is not defined
+    at GridBoard (http://localhost:3000/_next/static/chunks/_1ni5zox._.js?id=%255Bproject%255D%252Fcomponents%252Fboards%252Fgrid%252FGridBoard.tsx+%255Bapp-client%255D+%2528ecmascript%2529:258:29)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10179:316)
+    at flushSyncWork$1 (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9230:86)
+    at Object.scheduleRefresh (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:299:13)
+    at http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:391:33
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:384:38)
+    at applyUpdate (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:878:31)
+    at http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:886:13
+[  991580ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  991955ms] ReferenceError: resolveBoardProjection is not defined
+    at GridBoard (http://localhost:3000/_next/static/chunks/_1ni5zox._.js?id=%255Bproject%255D%252Fcomponents%252Fboards%252Fgrid%252FGridBoard.tsx+%255Bapp-client%255D+%2528ecmascript%2529:258:29)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6665:639)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9098:47)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:2647:64)
+[  991919ms] [LOG] [Fast Refresh] done in 662ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992077ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992077ms] [LOG] [Fast Refresh] done in 103ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992181ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992258ms] [LOG] [Fast Refresh] done in 178ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992615ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  992653ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  993314ms] ReferenceError: resolveBoardProjection is not defined
+    at GridBoard (http://localhost:3000/_next/static/chunks/_1ni5zox._.js:2591:29)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:6665:639)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:9098:47)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_react-dom_1wo0ogl._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3000/_next/static/chunks/0jos_next_dist_compiled_173z0f8._.js:2647:64)
+[  993380ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  993411ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  993871ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  993900ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  994154ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  994265ms] [LOG] [Fast Refresh] done in 211ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  994466ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  994638ms] [LOG] [Fast Refresh] done in 272ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  994895ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  995679ms] [LOG] [Fast Refresh] done in 756ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  996672ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  997493ms] [LOG] [Fast Refresh] done in 904ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  997635ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[  998046ms] [LOG] [Fast Refresh] done in 513ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1002882ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1002980ms] [LOG] [Fast Refresh] done in 199ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1062213ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1062261ms] [LOG] [Fast Refresh] done in 148ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1062365ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1062477ms] [LOG] [Fast Refresh] done in 213ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1063395ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1063436ms] [LOG] [Fast Refresh] done in 142ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1064054ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1064902ms] [LOG] [Fast Refresh] done in 950ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1129449ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1131805ms] [LOG] [Fast Refresh] done in 2279ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1131936ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1132529ms] [LOG] [Fast Refresh] done in 693ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1132953ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1132960ms] [LOG] [Fast Refresh] done in 108ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133327ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133327ms] [LOG] [Fast Refresh] done in 101ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133611ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133640ms] [LOG] [Fast Refresh] done in 129ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133974ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1133990ms] [LOG] [Fast Refresh] done in 116ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1172778ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1172905ms] [LOG] [Fast Refresh] done in 229ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1176999ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1177181ms] [LOG] [Fast Refresh] done in 283ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1183401ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1193960ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[ 1194085ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1194470ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[ 1194473ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/fractals/collection?room=lobby&_rsc=UdB7DnaAj7xfZOFi:0
+[ 1194778ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1194836ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[ 1194880ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:3318
+[ 1194890ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/fractals/collection?room=lobby&_rsc=UdB7DnaAj7xfZOFi:0
+[ 1194972ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/fractals/collection?room=lobby:0
+[ 1195649ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/162a_react-dom_1hsf_h5._.js:15305
+[ 1195730ms] Error: ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3
+
+
+    at <unknown> (Error: ./package.json:20:3)
+    at Object.getCompilationErrors (file:///Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/node_modules/.pnpm/next@16.2.9_@babel+core@7.29.7_@playwright+test@1.60.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1175:55)
+    at DevBundlerService.getCompilationError (file:///Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/node_modules/.pnpm/next@16.2.9_@babel+core@7.29.7_@playwright+test@1.60.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/node_modules/.pnpm/next@16.2.9_@babel+core@7.29.7_@playwright+test@1.60.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/next-dev-server.js:720:42)
+    at DevServer.findPageComponents (file:///Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/node_modules/.pnpm/next@16.2.9_@babel+core@7.29.7_@playwright+test@1.60.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/next-dev-server.js:690:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/trentbrew/TURTLE/Projects/Sandbox/fractal-playground/playground-next/node_modules/.pnpm/next@16.2.9_@babel+core@7.29.7_@playwright+test@1.60.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/base-server.js:1753:26)
+[ 1195787ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1195880ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195880ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195881ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1195950ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196130ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196247ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196339ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196379ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196460ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1196486ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1196697ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1196710ms] [ERROR] ./package.json:20:3
+Error parsing package.json file
+  18 |     "test:e2e:ui": "playwright test --ui",
+  19 |     "test:unit": "vitest run",
+> 20 |   },
+     |   ^
+  21 |   "dependencies": {
+  22 |     "@base-ui/react": "^1.5.0",
+  23 |     "@dnd-kit/core": "^6.3.1",
+
+package.json is not parseable: invalid JSON: trailing comma at line 20 column 3 @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:2099
+[ 1203046ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1222749ms] [LOG] [Fast Refresh] done in 6865ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1223305ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1223322ms] [LOG] [Fast Refresh] done in 119ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1223769ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1223815ms] [LOG] [Fast Refresh] done in 147ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1224072ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1224106ms] [LOG] [Fast Refresh] done in 136ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1224214ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1224277ms] [LOG] [Fast Refresh] done in 165ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1eclsms._.js:1380
+[ 1238022ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1238089ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1238230ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1238250ms] [LOG] [Fast Refresh] done in 140ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1326934ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1327052ms] [LOG] [Fast Refresh] done in 220ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1328990ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1330058ms] [LOG] [Fast Refresh] done in 536ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1330174ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1330662ms] [LOG] [Fast Refresh] done in 385ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1330829ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1331656ms] [LOG] [Fast Refresh] done in 831ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333139ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333159ms] [LOG] [Fast Refresh] done in 120ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333434ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333458ms] [LOG] [Fast Refresh] done in 125ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333771ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1333906ms] [LOG] [Fast Refresh] done in 236ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334132ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334157ms] [LOG] [Fast Refresh] done in 126ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334323ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334448ms] [LOG] [Fast Refresh] done in 227ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334670ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334714ms] [LOG] [Fast Refresh] done in 94ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1334986ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1335055ms] [LOG] [Fast Refresh] done in 97ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1335297ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1335595ms] [LOG] [Fast Refresh] done in 349ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1335905ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1336011ms] [LOG] [Fast Refresh] done in 206ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1336774ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1336892ms] [LOG] [Fast Refresh] done in 218ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1345501ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1345525ms] [LOG] [Fast Refresh] done in 124ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1485177ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1485460ms] [LOG] [Fast Refresh] done in 210ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1485883ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1486550ms] [LOG] [Fast Refresh] done in 636ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1538731ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1539101ms] [LOG] [Fast Refresh] done in 361ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1737666ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1738132ms] [LOG] [Fast Refresh] done in 309ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1738418ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1740472ms] [LOG] [Fast Refresh] done in 1992ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1740663ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1741472ms] [LOG] [Fast Refresh] done in 556ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1741762ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1741943ms] [LOG] [Fast Refresh] done in 205ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1742145ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1750813ms] [LOG] [Fast Refresh] done in 8631ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1831720ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1831997ms] [LOG] [Fast Refresh] done in 156ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1832767ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1836217ms] [LOG] [Fast Refresh] done in 2944ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1842541ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1850352ms] [LOG] [Fast Refresh] done in 4760ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1891226ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1891767ms] [LOG] [Fast Refresh] done in 552ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1891893ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 1892209ms] [LOG] [Fast Refresh] done in 363ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2421540ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2422073ms] [LOG] [Fast Refresh] done in 471ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2449337ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2451407ms] [LOG] [Fast Refresh] done in 2164ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2451509ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2451634ms] [LOG] [Fast Refresh] done in 225ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452049ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452310ms] [LOG] [Fast Refresh] done in 361ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452488ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452511ms] [LOG] [Fast Refresh] done in 124ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452655ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2452673ms] [LOG] [Fast Refresh] done in 119ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2461456ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2472455ms] [LOG] [Fast Refresh] done in 10916ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2823135ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2823172ms] [LOG] [Fast Refresh] done in 139ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2825930ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2829936ms] [LOG] [Fast Refresh] done in 3847ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2830163ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2831292ms] [LOG] [Fast Refresh] done in 1230ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2836833ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2837050ms] [LOG] [Fast Refresh] done in 262ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2837285ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2837612ms] [LOG] [Fast Refresh] done in 343ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2838437ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2861171ms] [LOG] [Fast Refresh] done in 22450ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2861923ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2862102ms] [LOG] [Fast Refresh] done in 279ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2862799ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2862831ms] [LOG] [Fast Refresh] done in 134ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2936987ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2936992ms] [LOG] [Fast Refresh] done in 105ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2946633ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2946679ms] [LOG] [Fast Refresh] done in 147ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2949775ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2949898ms] [LOG] [Fast Refresh] done in 223ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2951052ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2951587ms] [LOG] [Fast Refresh] done in 284ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2952640ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2953263ms] [LOG] [Fast Refresh] done in 725ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2979914ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2997198ms] [LOG] [Fast Refresh] done in 17358ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2997343ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2998014ms] [LOG] [Fast Refresh] done in 772ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2999025ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2999039ms] [LOG] [Fast Refresh] done in 115ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2999614ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 2999628ms] [LOG] [Fast Refresh] done in 115ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3001040ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3001077ms] [LOG] [Fast Refresh] done in 138ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3067464ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3067926ms] [LOG] [Fast Refresh] done in 366ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3068187ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3084446ms] [LOG] [Fast Refresh] done in 16049ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3253201ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3253494ms] [LOG] [Fast Refresh] done in 334ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3259650ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3265383ms] [LOG] [Fast Refresh] done in 5609ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3295092ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3295125ms] [LOG] [Fast Refresh] done in 134ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3296788ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3296795ms] [LOG] [Fast Refresh] done in 108ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3345159ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3345185ms] [LOG] [Fast Refresh] done in 127ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3411883ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3412064ms] [LOG] [Fast Refresh] done in 194ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3412206ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3412324ms] [LOG] [Fast Refresh] done in 171ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3412997ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3413308ms] [LOG] [Fast Refresh] done in 365ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3415868ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477
+[ 3416136ms] [LOG] [Fast Refresh] done in 162ms @ http://localhost:3000/_next/static/chunks/0jos_next_dist_1trnntf._.js:2477

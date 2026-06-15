@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e16]:
+        - generic [ref=e17]: Graph → List
+        - radiogroup "Vantage presets" [ref=e18]:
+          - radio "Dots preset" [ref=e19]:
+            - img
+            - generic [ref=e20]: Dots
+          - radio "List preset" [ref=e21]:
+            - img
+            - generic [ref=e22]: List
+          - radio "Rows preset" [ref=e23]:
+            - img
+            - generic [ref=e24]: Rows
+          - radio "Dense preset" [ref=e25]:
+            - img
+            - generic [ref=e26]: Dense
+          - radio "Tiles preset" [ref=e27]:
+            - img
+            - generic [ref=e28]: Tiles
+          - radio "Cards preset" [ref=e29]:
+            - img
+            - generic [ref=e30]: Cards
+        - radiogroup "Vantage motion" [ref=e31]:
+          - radio "Full motion" [ref=e32]: full
+          - radio "Minimal motion" [checked] [ref=e33]: minimal
+          - radio "Reduced motion" [ref=e34]: reduced
+        - generic [ref=e35]:
+          - generic [ref=e36]: "2.5"
+          - slider "2.5" [ref=e37]
+      - generic [ref=e40]:
+        - generic [ref=e42]:
+          - generic:
+            - generic:
+              - paragraph: No cards match this view.
+          - generic:
+            - paragraph: No cards match this view.
+        - button

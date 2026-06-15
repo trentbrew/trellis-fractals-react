@@ -206,6 +206,9 @@ function recordFieldKind(field: TypeField): string {
     case 'select':
     case 'enum':
       return 'select';
+    case 'reference':
+    case 'relationship':
+      return 'text';
     case 'rich_text':
       return 'longtext';
     default:

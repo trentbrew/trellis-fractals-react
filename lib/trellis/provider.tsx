@@ -39,17 +39,26 @@ function installHttpProxy(db: FetchableTrellisDb) {
     path: string,
     body?: unknown,
   ) => {
+    const hasBody = body !== undefined;
     const res = await fetch(`${TRELLIS_HTTP_PROXY}${path}`, {
       method,
       headers: {
-        'Content-Type': 'application/json',
+        ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
         ...(db.opts.apiKey
           ? { Authorization: `Bearer ${db.opts.apiKey}` }
           : {}),
       },
-      body: body !== undefined ? JSON.stringify(body) : undefined,
+      body: hasBody ? JSON.stringify(body) : undefined,
     });
-    const data = await res.json();
+    const text = await res.text();
+    let data: unknown = {};
+    if (text.trim()) {
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new FetchError(res.status, 'Invalid JSON response', text);
+      }
+    }
     if (!res.ok) {
       throw new FetchError(
         res.status,

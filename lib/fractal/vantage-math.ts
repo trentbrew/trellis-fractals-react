@@ -6,6 +6,9 @@ export const VANTAGE_MIN = 1;
 export const VANTAGE_MAX = 12;
 export const DEFAULT_VANTAGE = 10;
 
+/** Graph projection band — dot field (v1–2). */
+export const GRAPH_VANTAGE_MAX = 2;
+
 /** List projection band — row shell (v3–6). */
 export const LIST_VANTAGE_MIN = 3;
 export const LIST_VANTAGE_MAX = 6;
@@ -31,9 +34,26 @@ export function resolveShell(vantage: number): FractalShell {
 }
 
 export function resolveBoardProjection(vantage: number): FractalBoardProjection {
-  if (vantage <= 2) return 'graph';
+  if (vantage <= GRAPH_VANTAGE_MAX) return 'graph';
   if (vantage <= LIST_VANTAGE_MAX) return 'list';
   return 'grid';
+}
+
+export type GraphListCrossfade = {
+  graph: number;
+  list: number;
+};
+
+/**
+ * Dual-shell opacity for the graph ↔ list boundary (v2 → v3).
+ * Both layers stay mounted between integer bands so the slider crossfades
+ * instead of swapping projections.
+ */
+export function resolveGraphListCrossfade(vantage: number): GraphListCrossfade {
+  if (vantage <= GRAPH_VANTAGE_MAX) return { graph: 1, list: 0 };
+  if (vantage >= LIST_VANTAGE_MIN) return { graph: 0, list: 1 };
+  const t = vantage - GRAPH_VANTAGE_MAX;
+  return { graph: 1 - t, list: t };
 }
 
 /** Row density for list projection — grows from compact (v3) to rich (v7). */

@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+  GRAPH_VANTAGE_MAX,
   LIST_VANTAGE_MAX,
   LIST_VANTAGE_MIN,
   resolveBoardProjection,
+  resolveGraphListCrossfade,
   resolveGridCardVariant,
   resolveGridColumns,
   resolveListRowMetrics,
@@ -22,6 +24,23 @@ describe('resolveBoardProjection', () => {
   it('starts grid after the list band', () => {
     expect(resolveBoardProjection(LIST_VANTAGE_MAX + 1)).toBe('grid');
     expect(resolveBoardProjection(12)).toBe('grid');
+  });
+});
+
+describe('resolveGraphListCrossfade', () => {
+  it('shows graph only at or below the graph band', () => {
+    expect(resolveGraphListCrossfade(1)).toEqual({ graph: 1, list: 0 });
+    expect(resolveGraphListCrossfade(GRAPH_VANTAGE_MAX)).toEqual({ graph: 1, list: 0 });
+  });
+
+  it('shows list only at or above the list band', () => {
+    expect(resolveGraphListCrossfade(LIST_VANTAGE_MIN)).toEqual({ graph: 0, list: 1 });
+    expect(resolveGraphListCrossfade(LIST_VANTAGE_MAX)).toEqual({ graph: 0, list: 1 });
+  });
+
+  it('crossfades both layers between graph and list bands', () => {
+    expect(resolveGraphListCrossfade(2.5)).toEqual({ graph: 0.5, list: 0.5 });
+    expect(resolveGraphListCrossfade(2.25)).toEqual({ graph: 0.75, list: 0.25 });
   });
 });
 

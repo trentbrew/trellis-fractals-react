@@ -1,14 +1,8 @@
 import { test, expect, type APIRequestContext, type Page } from '@playwright/test';
-
-const IDEAS_RECORD_ONTOLOGY_ID = 'https://trellis.dev/ns/demo/v1/collections/ideas/Record';
-
-const DEFAULT_IDEAS_RECORD_FIELDS = [
-  { name: 'title', valueType: 'title', required: true },
-  { name: 'body', valueType: 'rich_text' },
-  { name: 'collectionId', valueType: 'rich_text', required: true },
-  { name: 'sortOrder', valueType: 'number' },
-  { name: 'laneId', valueType: 'rich_text' },
-];
+import {
+  IDEAS_RECORD_FIELDS,
+  IDEAS_RECORD_ONTOLOGY_ID,
+} from '../lib/trellis/demo-ideas-seed.mjs';
 
 async function deleteUntitledCollections(request: APIRequestContext) {
   const res = await request.get('/api/trellis/entities?type=CollectionMeta&limit=500');
@@ -34,7 +28,7 @@ async function resetIdeasCollection(request: APIRequestContext) {
   }
   await request.patch(
     `/api/trellis/ontologies/${encodeURIComponent(IDEAS_RECORD_ONTOLOGY_ID)}`,
-    { data: { fields: DEFAULT_IDEAS_RECORD_FIELDS } },
+    { data: { fields: IDEAS_RECORD_FIELDS } },
   );
 }
 
