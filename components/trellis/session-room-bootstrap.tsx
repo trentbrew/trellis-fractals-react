@@ -4,20 +4,20 @@ import { useEffect } from 'react';
 import { useTrellis } from 'trellis/react';
 import { usePlaygroundTenantId } from '@/lib/shell/session-room';
 import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
-import { seedSessionKanbanIfEmpty } from '@/lib/trellis/seed-session-room';
+import { seedPlaygroundDemoIfEmpty } from '@/lib/trellis/seed-playground';
 
-/** Seed empty per-session tenants on hosted writable app. */
+/** Seed empty tenants with demo collections + kanban starter cards. */
 export function SessionRoomBootstrap({ children }: { children: React.ReactNode }) {
   const client = useTrellis();
   const { readonly } = useEmbedFlags();
-  const { tenantId, ready } = usePlaygroundTenantId(readonly);
+  const { ready } = usePlaygroundTenantId(readonly);
 
   useEffect(() => {
-    if (!ready || !tenantId?.startsWith('embed-')) return;
-    void seedSessionKanbanIfEmpty(client).catch((err: unknown) => {
+    if (!ready || readonly) return;
+    void seedPlaygroundDemoIfEmpty(client).catch((err: unknown) => {
       console.error('[SessionRoomBootstrap] seed failed', err);
     });
-  }, [client, tenantId, ready]);
+  }, [client, ready, readonly]);
 
   return children;
 }

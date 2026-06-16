@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useMemo, useState, Suspense } from 'react';
 import { PlusIcon, SearchIcon, XIcon } from 'lucide-react';
 import { EntityIcon } from '@/lib/icons/entity-icon';
@@ -17,6 +18,7 @@ import {
 import { useShell } from '@/lib/shell/shell-context';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { PresenceLinkBadge } from '@/components/presence/presence-link-badge';
 import { SidebarCollapsibleSection } from './sidebar-collapsible-section';
 import { TypesSecondary } from './types-secondary';
 
@@ -43,6 +45,7 @@ function matchesSidebarQuery(text: string, query: string): boolean {
 }
 
 export function CollectionsSecondary() {
+  const pathname = usePathname();
   const { collectionSlug } = useShell();
   const { types } = useTypes();
   const { rows, mut, loading } = useCollection(CollectionMetaType);
@@ -51,7 +54,7 @@ export function CollectionsSecondary() {
   const [sidebarQuery, setSidebarQuery] = useState('');
   const [creating, setCreating] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(true);
-  const [typesOpen, setTypesOpen] = useState(true);
+  const [typesOpen, setTypesOpen] = useState(false);
 
   useEffect(() => {
     if (sidebarQuery.trim()) {
@@ -59,6 +62,10 @@ export function CollectionsSecondary() {
       setTypesOpen(true);
     }
   }, [sidebarQuery]);
+
+  useEffect(() => {
+    setTypesOpen(pathname === '/collections/types');
+  }, [pathname]);
 
   const filteredCollections = useMemo(
     () => sorted.filter((collection) => matchesSidebarQuery(collection.title, sidebarQuery)),
@@ -146,7 +153,8 @@ export function CollectionsSecondary() {
                       >
                         <EntityIcon name={icon} className="size-3" />
                       </span>
-                      <span className="truncate">{collection.title}</span>
+                      <span className="min-w-0 flex-1 truncate">{collection.title}</span>
+                      <PresenceLinkBadge route={href} />
                     </Link>
                   </li>
                 );
@@ -164,7 +172,7 @@ export function CollectionsSecondary() {
         </Suspense>
       </div>
 
-      <div className="shrink-0 border-t border-border p-3">
+      <div className="shrink-0 p-3 pt-0">
         <Button
           type="button"
           variant="outline"

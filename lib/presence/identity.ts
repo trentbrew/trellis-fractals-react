@@ -70,11 +70,20 @@ function mintIdentity(): PresenceIdentity {
   };
 }
 
+function canUseSessionStorage(): boolean {
+  return typeof window !== 'undefined' && typeof sessionStorage !== 'undefined';
+}
+
 /**
  * Anonymous identity per tab (Google Docs–style names).
  * sessionStorage keeps peerId unique per tab while surviving soft reloads in that tab.
+ * Browser-only — call from useEffect (or after mount), not during SSR.
  */
 export function getOrCreatePresenceIdentity(): PresenceIdentity {
+  if (!canUseSessionStorage()) {
+    return mintIdentity();
+  }
+
   const stored = sessionStorage.getItem(IDENTITY_KEY);
   if (stored) {
     try {

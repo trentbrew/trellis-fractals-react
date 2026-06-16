@@ -25,6 +25,8 @@ export type CorpusTypeEntry = {
   defaultView: CollectionViewMode;
   /** Direct route under /projections for this type's default view */
   route: string;
+  /** Projections secondary sidebar label (view name, not entity type). */
+  demoLabel?: string;
   /** Projections secondary sidebar active id */
   demoId: string;
 };
@@ -34,6 +36,7 @@ export const CORPUS_TYPES: Record<CorpusTypeName, CorpusTypeEntry> = {
     typeName: 'Card',
     schema: Card,
     label: 'Cards',
+    demoLabel: 'Table',
     defaultView: 'table', // no select/date/file/url → table
     route: '/projections/table',
     demoId: 'table',

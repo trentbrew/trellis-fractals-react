@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './test';
 
 async function setVantage(page: import('@playwright/test').Page, value: number) {
   const slider = page.getByTestId('vantage-control').locator('input[type="range"]');

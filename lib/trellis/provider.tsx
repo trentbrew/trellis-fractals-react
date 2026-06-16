@@ -82,10 +82,13 @@ function TrellisTransport({
   const client = useTrellis();
 
   useLayoutEffect(() => {
-    if (!ready) return;
     if (USE_HTTP_PROXY) {
       installHttpProxy(client as unknown as FetchableTrellisDb);
     }
+  }, [client]);
+
+  useLayoutEffect(() => {
+    if (!ready) return;
     if (tenantId) {
       installTenantTransport(client, tenantId, TRELLIS_API_KEY);
       return;
@@ -103,14 +106,15 @@ function TrellisTransport({
 export function TrellisProvider({ children }: { children: ReactNode }) {
   const { readonly } = useEmbedFlags();
   const { tenantId, ready } = usePlaygroundTenantId(readonly);
-
-  if (!ready) {
-    return null;
-  }
+  const resolvedTenantId = ready ? tenantId : undefined;
 
   return (
-    <BaseTrellisProvider url={TRELLIS_ORIGIN} apiKey={TRELLIS_API_KEY} tenantId={tenantId}>
-      <TrellisTransport tenantId={tenantId} ready={ready}>
+    <BaseTrellisProvider
+      url={TRELLIS_ORIGIN}
+      apiKey={TRELLIS_API_KEY}
+      tenantId={resolvedTenantId}
+    >
+      <TrellisTransport tenantId={resolvedTenantId} ready={ready}>
         {children}
       </TrellisTransport>
     </BaseTrellisProvider>

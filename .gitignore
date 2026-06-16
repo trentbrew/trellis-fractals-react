@@ -47,3 +47,8 @@ next-env.d.ts
 .trellis-db/
 .trellis-db.json
 .trellis-deploy/
+.trellis-deploy-gateway/
+.trellis-mcp-gateway.json
+.trellis-rooms.json
+.trellis-scratch/
+rug/

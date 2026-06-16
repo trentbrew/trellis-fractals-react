@@ -6,6 +6,7 @@ import {
   type ThemeTokens,
 } from '@/lib/theme-presets';
 
+/** Per-tab (sessionStorage) — localStorage would sync color theme across peers in other tabs. */
 export const COLOR_THEME_STORAGE_KEY = 'fractals-color-theme';
 
 export const SHADCN_THEME_VARS = [
@@ -76,7 +77,7 @@ export function getColorThemePreset(id: string): ColorThemePreset {
 export function readStoredColorThemeId(): string {
   if (typeof window === 'undefined') return DEFAULT_THEME_ID;
   try {
-    const stored = window.localStorage.getItem(COLOR_THEME_STORAGE_KEY);
+    const stored = window.sessionStorage.getItem(COLOR_THEME_STORAGE_KEY);
     if (stored && getColorThemePreset(stored).id === stored) return stored;
   } catch {
     // ignore storage failures
@@ -87,7 +88,7 @@ export function readStoredColorThemeId(): string {
 export function persistColorThemeId(id: string) {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.setItem(COLOR_THEME_STORAGE_KEY, id);
+    window.sessionStorage.setItem(COLOR_THEME_STORAGE_KEY, id);
   } catch {
     // ignore storage failures
   }

@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ColorPicker } from '@/components/ui/color-picker';
 import { TYPE_COLOR_PRESETS } from '@/lib/icons/type-colors';
 import {
@@ -139,6 +139,71 @@ function LazyCategorySection({
   );
 }
 
+type IconPickerPanelProps = {
+  query: string;
+  onQueryChange: (query: string) => void;
+  filteredGroups: LucideIconCategoryGroup[];
+  selected: IconName;
+  onSelect: (iconName: string) => void;
+  onPick?: () => void;
+  footerText: string;
+  scrollRoot: HTMLElement | null;
+  onScrollRootChange: (node: HTMLElement | null) => void;
+};
+
+function IconPickerPanel({
+  query,
+  onQueryChange,
+  filteredGroups,
+  selected,
+  onSelect,
+  onPick,
+  footerText,
+  scrollRoot,
+  onScrollRootChange,
+}: IconPickerPanelProps) {
+  return (
+    <div className="space-y-3">
+      <div className="relative">
+        <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          value={query}
+          onChange={(event) => onQueryChange(event.currentTarget.value)}
+          placeholder="Search icons…"
+          className="h-9 pl-8"
+          autoFocus
+        />
+      </div>
+
+      <div
+        ref={onScrollRootChange}
+        className="max-h-72 overflow-y-auto rounded-md border border-border"
+        role="listbox"
+        aria-label="Lucide icons"
+      >
+        {filteredGroups.length === 0 ? (
+          <p className="px-3 py-6 text-center text-sm text-muted-foreground">
+            No icons match your search.
+          </p>
+        ) : (
+          filteredGroups.map((group) => (
+            <LazyCategorySection
+              key={group.category}
+              group={group}
+              selected={selected}
+              onSelect={onSelect}
+              onPick={onPick}
+              scrollRoot={scrollRoot}
+            />
+          ))
+        )}
+      </div>
+
+      <p className="text-xs text-muted-foreground">{footerText}</p>
+    </div>
+  );
+}
+
 export function LucideIconPicker({
   open,
   onOpenChange,
@@ -149,6 +214,7 @@ export function LucideIconPicker({
   colorPresets = TYPE_COLOR_PRESETS,
 }: LucideIconPickerProps) {
   const [query, setQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'icon' | 'color'>('icon');
   const [scrollRoot, setScrollRoot] = useState<HTMLElement | null>(null);
   const selected = normalizeLucideIconName(value);
   const hasColorPicker = Boolean(color && onColorChange);
@@ -174,12 +240,29 @@ export function LucideIconPicker({
 
   const handlePick = hasColorPicker ? undefined : () => onOpenChange(false);
 
+  const iconPanel = (
+    <IconPickerPanel
+      query={query}
+      onQueryChange={setQuery}
+      filteredGroups={filteredGroups}
+      selected={selected}
+      onSelect={onSelect}
+      onPick={handlePick}
+      footerText={footerText}
+      scrollRoot={scrollRoot}
+      onScrollRootChange={setScrollRoot}
+    />
+  );
+
   return (
     <Dialog
       open={open}
       onOpenChange={(next) => {
         onOpenChange(next);
-        if (!next) setQuery('');
+        if (!next) {
+          setQuery('');
+          setActiveTab('icon');
+        }
       }}
     >
       <DialogContent className="gap-3 sm:max-w-lg">
@@ -192,58 +275,29 @@ export function LucideIconPicker({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="relative">
-          <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.currentTarget.value)}
-            placeholder="Search icons…"
-            className="h-9 pl-8"
-            autoFocus
-          />
-        </div>
-
-        <div
-          ref={setScrollRoot}
-          className="max-h-72 overflow-y-auto rounded-md border border-border"
-          role="listbox"
-          aria-label="Lucide icons"
-        >
-          {filteredGroups.length === 0 ? (
-            <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-              No icons match your search.
-            </p>
-          ) : (
-            filteredGroups.map((group) => (
-              <LazyCategorySection
-                key={group.category}
-                group={group}
-                selected={selected}
-                onSelect={onSelect}
-                onPick={handlePick}
-                scrollRoot={scrollRoot}
-              />
-            ))
-          )}
-        </div>
-
-        <p className="text-xs text-muted-foreground">{footerText}</p>
-
         {hasColorPicker ? (
-          <>
-            <Separator />
-            <div className="space-y-2">
-              <h3 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                Color
-              </h3>
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as 'icon' | 'color')}
+          >
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="icon">Icon</TabsTrigger>
+              <TabsTrigger value="color">Color</TabsTrigger>
+            </TabsList>
+            <TabsContent value="icon" className="mt-3">
+              {iconPanel}
+            </TabsContent>
+            <TabsContent value="color" className="mt-3">
               <ColorPicker
                 value={color!}
                 onChange={onColorChange!}
                 presets={colorPresets}
               />
-            </div>
-          </>
-        ) : null}
+            </TabsContent>
+          </Tabs>
+        ) : (
+          iconPanel
+        )}
       </DialogContent>
     </Dialog>
   );

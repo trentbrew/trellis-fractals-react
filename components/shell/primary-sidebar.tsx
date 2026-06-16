@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Settings2Icon } from 'lucide-react';
-import { PRIMARY_NAV } from '@/lib/shell/modes';
+import { isShellMode, PRIMARY_NAV } from '@/lib/shell/modes';
+import { DEMO_SURFACE_DEFAULT_HREF } from '@/lib/shell/demo-nav';
 import { cn } from '@/lib/utils';
-import { ThemeToggle } from '@/components/shell/theme-toggle';
+import { PresenceNavBadges } from '@/components/presence/presence-nav-badges';
 import {
   Tooltip,
   TooltipContent,
@@ -27,15 +28,15 @@ export function PrimarySidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="flex h-full min-h-full w-14 shrink-0 flex-col self-stretch border-r border-border-subtle bg-shell-rail">
+    <aside className="flex h-full min-h-full w-14 shrink-0 flex-col self-stretch overflow-visible border-r border-border-subtle bg-shell-rail">
       <div className="flex h-12 shrink-0 items-center justify-center border-b border-border-subtle">
         <Tooltip>
           <TooltipTrigger
             render={
               <Link
-                href="/collections"
+                href={DEMO_SURFACE_DEFAULT_HREF}
                 className="flex size-8 items-center justify-center rounded-md"
-                aria-label="Fractals"
+                aria-label="Social"
               />
             }
           >
@@ -45,7 +46,7 @@ export function PrimarySidebar() {
               aria-hidden
             />
           </TooltipTrigger>
-          <TooltipContent side="right">fractals</TooltipContent>
+          <TooltipContent side="right">Social</TooltipContent>
         </Tooltip>
       </div>
 
@@ -55,12 +56,34 @@ export function PrimarySidebar() {
       >
         {PRIMARY_NAV.map((item) => {
           const Icon = item.icon;
+          const enabled = item.enabled !== false;
           const isActive =
             item.id === 'fractals'
-              ? pathname.startsWith('/grid') || pathname.startsWith('/planets')
-                || pathname === item.href
-                || pathname.startsWith(`${item.href}/`)
-              : pathname === item.href || pathname.startsWith(`${item.href}/`);
+              ? pathname.startsWith('/grid') ||
+                pathname.startsWith('/planets') ||
+                pathname === item.href ||
+                pathname.startsWith(`${item.href}/`)
+              : item.id === 'projections'
+                ? pathname === '/projections' || pathname.startsWith('/projections/')
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+          if (!enabled) {
+            return (
+              <Tooltip key={item.id}>
+                <TooltipTrigger
+                  render={
+                    <span
+                      className="relative flex size-9 cursor-not-allowed items-center justify-center rounded-lg text-sidebar-foreground/35"
+                      aria-disabled="true"
+                    />
+                  }
+                >
+                  <Icon className="size-4" />
+                </TooltipTrigger>
+                <TooltipContent side="right">{item.label} (coming soon)</TooltipContent>
+              </Tooltip>
+            );
+          }
 
           return (
             <Tooltip key={item.id}>
@@ -69,7 +92,7 @@ export function PrimarySidebar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex size-9 items-center justify-center rounded-lg text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                      'relative flex size-9 items-center justify-center rounded-lg text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                       isActive &&
                         'bg-sidebar-accent text-sidebar-accent-foreground',
                     )}
@@ -78,6 +101,7 @@ export function PrimarySidebar() {
                 }
               >
                 <Icon className="size-4" />
+                {isShellMode(item.id) ? <PresenceNavBadges modeId={item.id} /> : null}
               </TooltipTrigger>
               <TooltipContent side="right">{item.label}</TooltipContent>
             </Tooltip>
@@ -85,7 +109,7 @@ export function PrimarySidebar() {
         })}
       </nav>
 
-      <div className="mt-auto flex shrink-0 flex-col items-center gap-1 border-t border-border-subtle p-2">
+      <div className="mt-auto flex shrink-0 flex-col items-center gap-1 border-border-subtle p-2">
         <Tooltip>
           <TooltipTrigger
             render={
@@ -104,7 +128,6 @@ export function PrimarySidebar() {
           </TooltipTrigger>
           <TooltipContent side="right">Settings</TooltipContent>
         </Tooltip>
-        <ThemeToggle />
       </div>
     </aside>
   );

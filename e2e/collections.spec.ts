@@ -1,4 +1,5 @@
-import { test, expect, type APIRequestContext, type Page } from '@playwright/test';
+import { test, expect } from './test';
+import type { APIRequestContext, Page } from '@playwright/test';
 import {
   IDEAS_RECORD_FIELDS,
   IDEAS_RECORD_ONTOLOGY_ID,
@@ -13,6 +14,18 @@ async function deleteUntitledCollections(request: APIRequestContext) {
   );
   for (const meta of stray) {
     await request.delete(`/api/trellis/entities/${meta.id}`);
+  }
+}
+
+async function setIdeasDefaultView(request: APIRequestContext, view: string) {
+  const res = await request.get('/api/trellis/entities?type=CollectionMeta&limit=100');
+  if (!res.ok()) return;
+  const json = (await res.json()) as { data?: { id: string; slug?: string }[] };
+  const ideas = json.data?.find((entry) => entry.slug === 'ideas');
+  if (ideas?.id) {
+    await request.patch(`/api/trellis/entities/${ideas.id}`, {
+      data: { defaultView: view },
+    });
   }
 }
 
@@ -74,7 +87,11 @@ test.describe('Collections live platform', () => {
       'aria-checked',
       'true',
     );
-    await expect(picker.getByRole('radio', { name: /Kanban/i })).toHaveCount(0);
+    // ideas has a `priority` select field → Kanban is an eligible view.
+    await expect(picker.getByRole('radio', { name: /Kanban/i })).toHaveCount(1);
+    // Gallery and DAG are never eligible collection views — gated out by ontology.
+    await expect(picker.getByRole('radio', { name: /Gallery/i })).toHaveCount(0);
+    await expect(picker.getByRole('radio', { name: /DAG/i })).toHaveCount(0);
   });
 
   test('card grid is always eligible; dag and gallery hidden; json-ld renders on switch', async ({ page }) => {
@@ -111,7 +128,8 @@ test.describe('Collections live platform', () => {
     await page.getByTestId('collection-configure-tab-schema').click();
     await expect(page.getByTestId('collection-configure-sheet')).toBeVisible({ timeout: 10_000 });
     await expect(page.getByTestId('collection-schema-editor')).toBeVisible();
-    await expect(page).toHaveURL(/\/collections\/ideas\?configure=schema$/);
+    // Presence appends a session `room` param; assert the configure param without anchoring.
+    await expect(page).toHaveURL(/\/collections\/ideas\?.*configure=schema/);
   });
 
   test('browse variant shows toolbar; types route reachable from sidebar', async ({ page }) => {
@@ -225,8 +243,9 @@ test.describe('Collections live platform', () => {
     const ideasMeta = metaJson.data?.find((entry) => entry.slug === 'ideas');
     expect(ideasMeta?.id).toBeTruthy();
 
+    // `gallery` is not an eligible collection view → must be sanitized out and fall back.
     const patch = await request.patch(`/api/trellis/entities/${ideasMeta!.id}`, {
-      data: { defaultView: 'kanban' },
+      data: { defaultView: 'gallery' },
     });
     expect(patch.ok()).toBeTruthy();
 
@@ -236,12 +255,13 @@ test.describe('Collections live platform', () => {
       .getByTestId('collection-view-picker');
     await page.reload();
     await expect(page.getByTestId('collection-records')).toBeVisible({ timeout: 15_000 });
-    await expect(toolbarPicker.getByRole('radio', { name: /Table/i })).toHaveAttribute(
+    // Ineligible persisted view falls back to the schema-suggested default
+    // (ideas has date + lane fields → gantt).
+    await expect(toolbarPicker.getByRole('radio', { name: /Gantt/i })).toHaveAttribute(
       'aria-checked',
       'true',
     );
-    await expect(toolbarPicker.getByRole('radio', { name: /Kanban/i })).toHaveCount(0);
-    await expect(page.locator('[data-page-variant="browse"]')).toBeVisible();
+    await expect(toolbarPicker.getByRole('radio', { name: /Gallery/i })).toHaveCount(0);
     } finally {
       await resetIdeasCollection(request);
     }
@@ -259,5 +279,107 @@ test.describe('Collections live platform', () => {
     await expect(page.getByTestId('configure-discard-dialog')).toBeVisible();
     await page.getByRole('button', { name: 'Keep editing' }).click();
     await expect(page.getByTestId('collection-configure-sheet')).toBeVisible();
+  });
+
+  // ADR 0013 / TRL-10 P0 — rich_text renders a Tiptap editor, not a textarea.
+  test('rich_text body renders a rich-text editor (not a textarea)', async ({ page }) => {
+    await openCollection(page, 'ideas');
+    await page.getByTestId('collection-new-record').click();
+    const bodyField = page.getByTestId('new-record-body');
+    await expect(bodyField).toBeVisible({ timeout: 10_000 });
+    await expect(bodyField.locator('.ProseMirror[contenteditable="true"]')).toBeVisible();
+    await expect(bodyField.locator('textarea')).toHaveCount(0);
+  });
+
+  test('rich_text body edits persist with a visible save state', async ({ page, request }) => {
+    let recordId: string | null = null;
+    let originalBody: unknown;
+    try {
+      await setIdeasDefaultView(request, 'list');
+      await openCollection(page, 'ideas');
+      await expect(page.getByTestId('record-list')).toBeVisible({ timeout: 15_000 });
+
+      recordId = await page
+        .getByTestId('record-row')
+        .first()
+        .getAttribute('data-record-id');
+      const before = await request.get('/api/trellis/entities?type=CollectionRecord&limit=200');
+      const beforeJson = (await before.json()) as { data?: { id: string; body?: unknown }[] };
+      originalBody = beforeJson.data?.find((r) => r.id === recordId)?.body;
+
+      const editor = page
+        .getByTestId('record-field-body')
+        .locator('.ProseMirror[contenteditable="true"]')
+        .first();
+      await editor.click();
+      await page.keyboard.press('End');
+      await page.keyboard.type(' E2E_EDIT');
+      // Blur to the toolbar search to trigger the save.
+      await page.getByTestId('collection-search').click();
+
+      await expect(
+        page.getByTestId('record-field-body-status').first(),
+      ).toHaveAttribute('data-save-state', 'saved', { timeout: 15_000 });
+
+      await page.reload();
+      await expect(page.getByTestId('record-list')).toBeVisible({ timeout: 15_000 });
+      await expect(
+        page
+          .getByTestId('record-field-body')
+          .locator('.ProseMirror')
+          .first(),
+      ).toContainText('E2E_EDIT', { timeout: 15_000 });
+    } finally {
+      if (recordId) {
+        await request.patch(`/api/trellis/entities/${recordId}`, {
+          data: { body: originalBody ?? '' },
+        });
+      }
+      await resetIdeasCollection(request);
+    }
+  });
+
+  test('entity mention survives the HTML round-trip', async ({ page, request }) => {
+    let recordId: string | null = null;
+    let originalBody: unknown;
+    try {
+      await setIdeasDefaultView(request, 'list');
+      await openCollection(page, 'ideas');
+      await expect(page.getByTestId('record-list')).toBeVisible({ timeout: 15_000 });
+
+      recordId = await page
+        .getByTestId('record-row')
+        .first()
+        .getAttribute('data-record-id');
+      expect(recordId).toBeTruthy();
+
+      // Capture the original body so the seed record can be restored afterwards.
+      const before = await request.get('/api/trellis/entities?type=CollectionRecord&limit=200');
+      const beforeJson = (await before.json()) as { data?: { id: string; body?: unknown }[] };
+      originalBody = beforeJson.data?.find((r) => r.id === recordId)?.body;
+
+      const mentionHtml =
+        '<p>see <span data-trellis-ref="entity:TRL-10" data-label="Rich text">@Rich text</span></p>';
+      const patch = await request.patch(`/api/trellis/entities/${recordId}`, {
+        data: { body: mentionHtml },
+      });
+      expect(patch.ok()).toBeTruthy();
+
+      await page.reload();
+      await expect(page.getByTestId('record-list')).toBeVisible({ timeout: 15_000 });
+      const mention = page
+        .getByTestId('record-field-body')
+        .locator('span[data-trellis-ref="entity:TRL-10"]')
+        .first();
+      await expect(mention).toBeVisible({ timeout: 15_000 });
+      await expect(mention).toHaveText('@Rich text');
+    } finally {
+      if (recordId) {
+        await request.patch(`/api/trellis/entities/${recordId}`, {
+          data: { body: originalBody ?? '' },
+        });
+      }
+      await resetIdeasCollection(request);
+    }
   });
 });

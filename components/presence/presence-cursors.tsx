@@ -1,7 +1,8 @@
 'use client';
 
 import { useBoardPresence } from '@/lib/presence/context';
-import { OFFSCREEN } from '@/lib/presence/types';
+import { viewportToFixed } from '@/lib/presence/coordinate-space';
+import { OFFSCREEN, peerHasCellFocus } from '@/lib/presence/types';
 
 function PresencePointer() {
   return (
@@ -27,12 +28,14 @@ function RemoteCursor({
   x: number;
   y: number;
 }) {
+  const position = viewportToFixed(x, y);
+
   return (
     <div
-      className="pointer-events-none absolute transition-[left,top] duration-[60ms] ease-linear will-change-[left,top]"
+      className="pointer-events-none fixed z-50 transition-[left,top] duration-[60ms] ease-linear will-change-[left,top]"
       style={{
-        left: `${x * 100}%`,
-        top: `${y * 100}%`,
+        left: position.left,
+        top: position.top,
         color,
         transform: 'translate(-2px, -2px)',
       }}
@@ -53,19 +56,17 @@ export function PresenceCursors() {
   if (!ctx?.enabled) return null;
 
   const remote = ctx.others.filter(
-    (peer) => peer.state.x >= 0 && peer.state.y >= 0 && peer.state.x !== OFFSCREEN,
+    (peer) =>
+      peer.state.x >= 0 &&
+      peer.state.y >= 0 &&
+      peer.state.x !== OFFSCREEN &&
+      !peerHasCellFocus(peer.state),
   );
 
-  const showSelf =
-    ctx.selfCursor != null &&
-    ctx.selfCursor.x >= 0 &&
-    ctx.selfCursor.y >= 0 &&
-    ctx.selfCursor.x !== OFFSCREEN;
-
-  if (remote.length === 0 && !showSelf) return null;
+  if (remote.length === 0) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
+    <>
       {remote.map((peer) => (
         <RemoteCursor
           key={peer.id}
@@ -75,25 +76,6 @@ export function PresenceCursors() {
           y={peer.state.y}
         />
       ))}
-      {showSelf && ctx.selfCursor && (
-        <div
-          className="pointer-events-none absolute"
-          style={{
-            left: `${ctx.selfCursor.x * 100}%`,
-            top: `${ctx.selfCursor.y * 100}%`,
-            color: ctx.identity.color,
-            transform: 'translate(-2px, -2px)',
-          }}
-        >
-          <PresencePointer />
-          <span
-            className="absolute top-3 left-4 max-w-40 truncate rounded px-1.5 py-0.5 text-[10px] font-medium text-white shadow-sm"
-            style={{ backgroundColor: ctx.identity.color }}
-          >
-            {ctx.identity.name} (you)
-          </span>
-        </div>
-      )}
-    </div>
+    </>
   );
 }

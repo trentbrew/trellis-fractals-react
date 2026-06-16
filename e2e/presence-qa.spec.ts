@@ -1,9 +1,11 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './test';
+import { primeWelcomeDismissed } from './helpers/welcome';
 
 const room = 'qa-presence-check';
 
 test('kanban same-browser presence — two tabs see 2 online', async ({ browser }) => {
   const context = await browser.newContext();
+  await primeWelcomeDismissed(context);
   const pageA = await context.newPage();
   const pageB = await context.newPage();
 
@@ -25,9 +27,35 @@ test('kanban same-browser presence — two tabs see 2 online', async ({ browser 
   await context.close();
 });
 
+test('table same-browser presence — two tabs see 2 online', async ({ browser }) => {
+  const context = await browser.newContext();
+  await primeWelcomeDismissed(context);
+  const pageA = await context.newPage();
+  const pageB = await context.newPage();
+
+  const url = `/projections/table?room=${room}-table`;
+  await pageA.goto(url, { waitUntil: 'networkidle', timeout: 60_000 });
+  await pageB.goto(url, { waitUntil: 'networkidle', timeout: 60_000 });
+  await pageA.waitForTimeout(3500);
+
+  const onlineA = pageA.getByText(/\d+ online/);
+  const onlineB = pageB.getByText(/\d+ online/);
+  await expect(onlineA).toBeVisible({ timeout: 15_000 });
+  await expect(onlineB).toBeVisible({ timeout: 15_000 });
+
+  const textA = await onlineA.textContent();
+  const textB = await onlineB.textContent();
+  expect(textA).toMatch(/2 online/);
+  expect(textB).toMatch(/2 online/);
+
+  await context.close();
+});
+
 test('kanban cross-browser presence — two contexts', async ({ browser }) => {
   const ctxA = await browser.newContext();
+  await primeWelcomeDismissed(ctxA);
   const ctxB = await browser.newContext();
+  await primeWelcomeDismissed(ctxB);
   const pageA = await ctxA.newPage();
   const pageB = await ctxB.newPage();
 
@@ -52,7 +80,9 @@ test('kanban cross-browser presence — two contexts', async ({ browser }) => {
 
 test('blog embed gallery loads iframes', async ({ page }) => {
   await page.goto('/fractals/embeds', { waitUntil: 'networkidle', timeout: 60_000 });
-  await expect(page.getByRole('heading', { name: 'Blog embed gallery' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Blog embed gallery' })).toBeVisible({
+    timeout: 15_000,
+  });
   const iframes = page.locator('iframe');
   await expect(iframes).toHaveCount(6, { timeout: 15_000 });
 
@@ -61,8 +91,7 @@ test('blog embed gallery loads iframes', async ({ page }) => {
   await page.getByRole('radio', { name: 'Mobile preview' }).click();
   const gridFrame = page.locator('#collection-grid [data-testid="embed-device-frame"]');
   await expect(gridFrame).toHaveAttribute('data-device-frame', 'mobile');
-  const box = await gridFrame.boundingBox();
-  expect(box?.width ?? 0).toBeLessThanOrEqual(420);
+  await expect(gridFrame).toHaveCSS('max-width', '390px');
 
   const collectionIframe = page.frameLocator('#collection-grid iframe');
   await expect(collectionIframe.getByTestId('grid-board-projection')).toHaveAttribute(

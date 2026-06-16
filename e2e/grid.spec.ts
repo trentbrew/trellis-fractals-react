@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './test';
 
 test('grid board collapses projections by fractal vantage', async ({ page }) => {
   await page.goto('/fractals/collection');

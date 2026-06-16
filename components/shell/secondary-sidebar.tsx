@@ -25,7 +25,6 @@ export function SecondarySidebar() {
       {mode === 'fractals' && <FractalsSecondary />}
       {mode === 'projections' && <ProjectionsSecondary />}
       {mode === 'graph' && <StubSecondary title="Graph" />}
-      {mode === 'realtime' && <StubSecondary title="Realtime" />}
       {mode === 'issues' && <StubSecondary title="Issues" />}
     </aside>
   );

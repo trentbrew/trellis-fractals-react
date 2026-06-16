@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { PanelRightOpenIcon } from 'lucide-react';
 import { useCollection } from '@/lib/trellis/use-collection';
 import { useTypes } from '@/lib/trellis/use-types';
 import {
   CollectionMetaType,
   CollectionRecordType,
-  isRecordFieldEmpty,
+  assertRecordFieldUpdate,
+  canSubmitRecordForm,
   normalizeRecordAttributes,
   normalizeRecordFieldValue,
   sortMeta,
@@ -35,8 +37,11 @@ import type { CollectionViewMode } from '@/lib/registry/collection-views';
 import { useTypeAppearance } from '@/lib/registry/type-appearance';
 import {
   RecordFieldBlurInput,
-  RecordFieldInput,
 } from '@/components/collections/record-field-input';
+import type {
+  MentionCandidate,
+  MentionSource,
+} from '@/lib/links/trellis-mention';
 import { useShell } from '@/lib/shell/shell-context';
 import { BrowseProjectionShell } from '@/components/shell/browse-projection-shell';
 import { CollectionBrowseToolbar } from '@/components/collections/collection-browse-toolbar';
@@ -45,15 +50,11 @@ import {
   type ConfigureTab,
 } from '@/components/collections/collection-configure-sheet';
 import { CollectionInlineHeader } from '@/components/collections/collection-inline-header';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { RecordFormDialog } from '@/components/forms/shells/record-form-dialog';
+import { RecordFormSheet } from '@/components/forms/shells/record-form-sheet';
+import { RecordFormWizard } from '@/components/forms/shells/record-form-wizard';
+import { emptyRecordValues, recordValuesFromFields } from '@/lib/forms/record-form-values';
+import { resolveFormShell } from '@/lib/forms/resolve-form-shell';
 import {
   SpreadsheetTable,
   type SpreadsheetColumnFilter,
@@ -65,6 +66,7 @@ import {
 } from '@/components/projections/grid-column-count-control';
 import { CollectionRecordsCardGridView } from '@/components/collections/views/collection-records-card-grid';
 import { CollectionRecordsJsonLdView } from '@/components/collections/views/collection-records-json-ld';
+import { Button } from '@/components/ui/button';
 
 function stableCollectionId(collection: CollectionMeta): string {
   return `collectionMeta:${collection.slug}`;
@@ -88,13 +90,9 @@ function recordMatchesSearch(
   return searchable.some((value) => value.toLowerCase().includes(text));
 }
 
-function initialRecordFieldValue(field: TypeField): unknown {
-  if (field.valueType === 'boolean') return false;
-  return '';
-}
-
 function parseConfigureTab(value: string | null): ConfigureTab {
   if (value === 'schema') return 'schema';
+  if (value === 'form') return 'form';
   if (value === 'views') return 'views';
   return 'general';
 }
@@ -202,6 +200,30 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
     [rows],
   );
 
+  // Zero-network mention candidates from in-memory graph state (records + collections).
+  const mentionSource = useCallback<MentionSource>(
+    (query: string) => {
+      const q = query.trim().toLowerCase();
+      const candidates: MentionCandidate[] = [
+        ...rows.map((record) => ({
+          id: record.id,
+          label: String((record as Record<string, unknown>).title ?? record.id),
+          type: 'record',
+        })),
+        ...collections.map((meta) => ({
+          id: meta.id,
+          label: meta.title || meta.slug || meta.id,
+          type: 'collection',
+        })),
+      ];
+      const filtered = q
+        ? candidates.filter((candidate) => candidate.label.toLowerCase().includes(q))
+        : candidates;
+      return filtered.slice(0, 8);
+    },
+    [rows, collections],
+  );
+
   const [searchQuery, setSearchQuery] = useState('');
   const [cardGridColumnsBySlug, setCardGridColumnsBySlug] = useState<
     Record<string, GridColumnCount>
@@ -214,15 +236,26 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
   }
   const [tableFilters, setTableFilters] = useState<Record<string, SpreadsheetColumnFilter>>({});
   const [newRecordValues, setNewRecordValues] = useState<Record<string, unknown>>({});
+  const [pendingEditCell, setPendingEditCell] = useState<{ rowId: string; key: string } | null>(null);
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [createFieldErrors, setCreateFieldErrors] = useState<Record<string, string>>({});
   const [newRecordOpen, setNewRecordOpen] = useState(false);
+  const [editDraft, setEditDraft] = useState<{
+    recordId: string;
+    values: Record<string, unknown>;
+  } | null>(null);
+  const [editFieldErrors, setEditFieldErrors] = useState<Record<string, string>>({});
+  const [editError, setEditError] = useState<string | null>(null);
+  const [savingRecord, setSavingRecord] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | undefined>(undefined);
   const [configureAddField, setConfigureAddField] = useState(false);
   const [configureForcedOpen, setConfigureForcedOpen] = useState(false);
 
   const configureFromUrl = searchParams.get('configure');
   const schemaFromUrl = searchParams.get('schema') === '1';
+  const focusRecordId = searchParams.get('record');
+  const focusRecord = focusRecordId ? rowById.get(focusRecordId) ?? null : null;
   const configureTab = parseConfigureTab(configureFromUrl);
   const isConfigureOpen = configureForcedOpen || configureFromUrl != null || schemaFromUrl;
 
@@ -232,24 +265,137 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
     }
   }, [schemaFromUrl, router, slug]);
 
+  useEffect(() => {
+    const update = () => setViewportWidth(window.innerWidth);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  const editValues = useMemo(() => {
+    if (!focusRecord) return {};
+    if (editDraft?.recordId === focusRecord.id) {
+      return editDraft.values;
+    }
+    return recordValuesFromFields(editableFields, focusRecord as Record<string, unknown>);
+  }, [focusRecord, editableFields, editDraft]);
+
+  const createShell = useMemo(
+    () =>
+      resolveFormShell({
+        intent: 'create',
+        fieldCount: editableFields.length,
+        dialogShell: activeType.dialogShell,
+        formLayout: activeType.formLayout,
+        viewportWidth,
+      }),
+    [editableFields.length, activeType.dialogShell, activeType.formLayout, viewportWidth],
+  );
+
+  const editShell = useMemo(
+    () =>
+      resolveFormShell({
+        intent: 'edit',
+        fieldCount: editableFields.length,
+        dialogShell: activeType.dialogShell,
+        formLayout: activeType.formLayout,
+        viewportWidth,
+      }),
+    [editableFields.length, activeType.dialogShell, activeType.formLayout, viewportWidth],
+  );
+
   const filteredListRows = useMemo(
     () => rows.filter((record) => recordMatchesSearch(record, searchQuery, editableFields)),
     [rows, searchQuery, editableFields],
   );
 
   function resetNewRecordForm() {
-    const initial: Record<string, unknown> = {};
-    for (const field of editableFields) {
-      initial[field.name] = initialRecordFieldValue(field);
-    }
-    setNewRecordValues(initial);
+    setNewRecordValues(emptyRecordValues(editableFields));
+  }
+
+  function replaceCollectionSearchParams(mutate: (params: URLSearchParams) => void) {
+    const params = new URLSearchParams(searchParams.toString());
+    mutate(params);
+    const qs = params.toString();
+    router.replace(qs ? `/collections/${slug}?${qs}` : `/collections/${slug}`, { scroll: false });
+  }
+
+  function openRecordDialog(recordId: string) {
+    replaceCollectionSearchParams((params) => {
+      params.set('record', recordId);
+    });
+  }
+
+  function closeRecordDialog() {
+    setEditDraft(null);
+    setEditFieldErrors({});
+    setEditError(null);
+    replaceCollectionSearchParams((params) => {
+      params.delete('record');
+    });
   }
 
   function openNewRecordSheet() {
+    if (createShell === 'page') {
+      router.push(`/collections/${slug}/new`);
+      return;
+    }
     resetNewRecordForm();
     setCreateError(null);
     setCreateFieldErrors({});
     setNewRecordOpen(true);
+  }
+
+  /** Table view: drop a blank row at the top of the list for inline editing (no sheet). */
+  async function prependBlankRecord() {
+    if (!collection || creating) return;
+    setCreating(true);
+    setCreateError(null);
+    try {
+      const topOrder =
+        rows.reduce((min, record) => Math.min(min, record.sortOrder ?? 0), 0) - 1;
+      const newId = await recordMut.create({
+        collectionId: stableCollectionId(collection),
+        sortOrder: topOrder,
+        laneId: 'main',
+        title: '',
+      } as Parameters<typeof recordMut.create>[0]);
+      const titleKey =
+        editableFields.find((field) => field.name === 'title')?.name ??
+        editableFields[0]?.name;
+      if (newId && titleKey) {
+        setPendingEditCell({ rowId: newId, key: titleKey });
+      }
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  function handleNewRecord() {
+    if (viewMode === 'table') {
+      void prependBlankRecord();
+      return;
+    }
+    openNewRecordSheet();
+  }
+
+  function handleCreateFieldChange(fieldName: string, value: unknown) {
+    setNewRecordValues((prev) => ({ ...prev, [fieldName]: value }));
+    if (createFieldErrors[fieldName]) {
+      setCreateFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[fieldName];
+        return next;
+      });
+    }
+  }
+
+  function handleCreateOpenChange(open: boolean) {
+    setNewRecordOpen(open);
+    if (!open) {
+      setCreateError(null);
+      setCreateFieldErrors({});
+    }
   }
 
   async function addRecord(event?: React.FormEvent) {
@@ -290,13 +436,54 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
     const current = (record as Record<string, unknown>)[key];
     if (nextValue === current || (nextValue === undefined && current === undefined)) return;
 
-    const check = validateRecordFromType(editableFields, {
+    const nextValues = {
       ...(record as Record<string, unknown>),
       [key]: nextValue,
-    });
-    if (!check.ok) return;
+    };
+    assertRecordFieldUpdate(editableFields, nextValues, key);
 
     await recordMut.update(record.id, { [key]: nextValue } as Parameters<typeof recordMut.update>[1]);
+  }
+
+  async function saveFocusedRecord(event?: React.FormEvent) {
+    event?.preventDefault();
+    if (!focusRecord) return;
+
+    const attributes = normalizeRecordAttributes(editableFields, editValues);
+    const check = validateRecordFromType(editableFields, attributes);
+    if (!check.ok) {
+      setEditError(check.message);
+      setEditFieldErrors(check.fieldErrors);
+      return;
+    }
+    if (savingRecord) return;
+    setSavingRecord(true);
+    setEditError(null);
+    setEditFieldErrors({});
+    try {
+      await recordMut.update(
+        focusRecord.id,
+        attributes as Parameters<typeof recordMut.update>[1],
+      );
+      closeRecordDialog();
+    } finally {
+      setSavingRecord(false);
+    }
+  }
+
+  function handleEditFieldChange(fieldName: string, value: unknown) {
+    if (!focusRecord) return;
+    setEditDraft({
+      recordId: focusRecord.id,
+      values: { ...editValues, [fieldName]: value },
+    });
+    if (editFieldErrors[fieldName]) {
+      setEditFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[fieldName];
+        return next;
+      });
+    }
   }
 
   async function updateMetaTitle(title: string) {
@@ -422,11 +609,10 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
   const listDetailFields = editableFields.filter(
     (field) => field.name !== titleField?.name,
   );
-  const requiredFields = editableFields.filter((field) => field.required);
-  const canCreateRecord =
-    requiredFields.length === 0
-      ? editableFields.some((field) => !isRecordFieldEmpty(field, newRecordValues[field.name]))
-      : requiredFields.every((field) => !isRecordFieldEmpty(field, newRecordValues[field.name]));
+  const canCreateRecord = canSubmitRecordForm(editableFields, newRecordValues);
+  const canSaveFocusedRecord = canSubmitRecordForm(editableFields, editValues);
+  const focusRecordTitle =
+    String(editValues.title ?? focusRecord?.title ?? '').trim() || 'Record';
 
   function renderRecordsBody() {
     if (recordsLoading) {
@@ -452,8 +638,11 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
               filters={tableFilters}
               onFiltersChange={setTableFilters}
               onUpdateCell={updateRecordCell}
+              onOpenRow={(row) => openRecordDialog(row.id)}
               onAddColumn={() => openConfigure('schema', true)}
               onDeleteRow={(id) => void recordMut.remove(id)}
+              autoEditCell={pendingEditCell}
+              onAutoEditConsumed={() => setPendingEditCell(null)}
               getRowAttributes={(row) => {
                 const record = rowById.get(row.id);
                 const attrs: Record<string, string> = {
@@ -461,7 +650,7 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
                   'data-record-id': row.id,
                 };
                 for (const field of editableFields) {
-                  attrs[`data-record-${field.name}`] = String(
+                  attrs[`data-record-${field.name.toLowerCase()}`] = String(
                     (record as Record<string, unknown> | undefined)?.[field.name] ?? '',
                   );
                 }
@@ -478,7 +667,12 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         );
       case 'card-grid':
         return (
-          <CollectionRecordsCardGridView records={filteredListRows} columns={cardGridColumns} />
+          <CollectionRecordsCardGridView
+            records={filteredListRows}
+            columns={cardGridColumns}
+            focusRecordId={focusRecordId}
+            onOpenRecord={(record) => openRecordDialog(record.id)}
+          />
         );
       case 'list':
       default:
@@ -494,10 +688,11 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
             {filteredListRows.map((record) => (
               <li
                 key={record.id}
-                className="space-y-2 px-4 py-3"
+                className="flex items-start gap-2 px-4 py-3"
                 data-testid="record-row"
                 data-record-id={record.id}
               >
+                <div className="min-w-0 flex-1 space-y-2">
                 {titleField ? (
                   <RecordFieldBlurInput
                     field={titleField}
@@ -512,7 +707,9 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
                     field={bodyField}
                     value={(record as Record<string, unknown>)[bodyField.name]}
                     className="text-sm text-muted-foreground"
-                    onSave={(value) => void updateRecordField(record, bodyField.name, value)}
+                    presenceKey={record.id}
+                    mentionSource={mentionSource}
+                    onSave={(value) => updateRecordField(record, bodyField.name, value)}
                     data-testid={`record-field-${bodyField.name}`}
                   />
                 ) : null}
@@ -532,6 +729,18 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
                       />
                     </div>
                   ))}
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="shrink-0 text-muted-foreground"
+                  aria-label="Open record"
+                  data-testid="record-open"
+                  onClick={() => openRecordDialog(record.id)}
+                >
+                  <PanelRightOpenIcon className="size-4" />
+                </Button>
               </li>
             ))}
           </ul>
@@ -560,7 +769,7 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         className="p-2"
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
-        onNewRecord={openNewRecordSheet}
+        onNewRecord={handleNewRecord}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         typeDefinition={activeType}
@@ -571,7 +780,6 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         filtersEnabled={isTableView}
         cardGridColumns={cardGridColumns}
         onCardGridColumnsChange={setCardGridColumns}
-        hideViewTabs
       />
 
       <CollectionConfigureSheet
@@ -583,6 +791,8 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         collectionIcon={collectionIcon}
         collectionColor={collectionColor}
         fields={activeType.fields ?? []}
+        dialogShell={activeType.dialogShell}
+        formLayout={activeType.formLayout}
         startWithNewField={configureAddField}
         onSaveTitle={updateMetaTitle}
         onSaveDescription={updateMetaDescription}
@@ -590,68 +800,138 @@ export function CollectionRecordsProjection({ slug }: { slug: string }) {
         onSaveViews={updateViews}
       />
 
-      <Sheet
-        open={newRecordOpen}
-        onOpenChange={(open) => {
-          setNewRecordOpen(open);
-          if (!open) {
-            setCreateError(null);
-            setCreateFieldErrors({});
-          }
-        }}
-      >
-        <SheetContent side="right" className="sm:max-w-md">
-          <SheetHeader>
-            <SheetTitle>New record</SheetTitle>
-            <SheetDescription>Add a row to {collection.title}.</SheetDescription>
-          </SheetHeader>
-          <form className="flex flex-1 flex-col gap-4 px-4" onSubmit={addRecord}>
-            {editableFields.map((field) => (
-              <div key={field.name} className="space-y-2">
-                <label className="text-sm font-medium" htmlFor={`new-record-${field.name}`}>
-                  {fieldLabel(field.name)}
-                  {field.required ? ' *' : ''}
-                </label>
-                <RecordFieldInput
-                  field={field}
-                  id={`new-record-${field.name}`}
-                  value={newRecordValues[field.name]}
-                  error={createFieldErrors[field.name]}
-                  autoFocus={field.name === 'title'}
-                  data-testid={`new-record-${field.name}`}
-                  onChange={(value) => {
-                    setNewRecordValues((prev) => ({ ...prev, [field.name]: value }));
-                    if (createFieldErrors[field.name]) {
-                      setCreateFieldErrors((prev) => {
-                        const next = { ...prev };
-                        delete next[field.name];
-                        return next;
-                      });
-                    }
-                  }}
-                />
-              </div>
-            ))}
-            {createError && (
-              <p className="text-sm text-destructive" data-testid="create-record-error">
-                {createError}
-              </p>
-            )}
-            <SheetFooter className="px-0 sm:flex-row sm:justify-end">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setNewRecordOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={creating || !canCreateRecord}>
-                Add record
-              </Button>
-            </SheetFooter>
-          </form>
-        </SheetContent>
-      </Sheet>
+      {createShell === 'wizard' ? (
+        <RecordFormWizard
+          open={newRecordOpen}
+          onOpenChange={handleCreateOpenChange}
+          title="New record"
+          description={`Add a row to ${collection.title}.`}
+          fields={editableFields}
+          values={newRecordValues}
+          fieldErrors={createFieldErrors}
+          formError={createError}
+          formErrorTestId="create-record-error"
+          idPrefix="new-record"
+          submitting={creating}
+          submitLabel="Add record"
+          submitDisabled={!canCreateRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          onFieldChange={handleCreateFieldChange}
+          onSubmit={addRecord}
+        />
+      ) : createShell === 'sheet' ? (
+        <RecordFormSheet
+          open={newRecordOpen}
+          onOpenChange={handleCreateOpenChange}
+          title="New record"
+          description={`Add a row to ${collection.title}.`}
+          fields={editableFields}
+          values={newRecordValues}
+          fieldErrors={createFieldErrors}
+          formError={createError}
+          formErrorTestId="create-record-error"
+          idPrefix="new-record"
+          submitting={creating}
+          submitLabel="Add record"
+          submitDisabled={!canCreateRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          onFieldChange={handleCreateFieldChange}
+          onSubmit={addRecord}
+        />
+      ) : createShell === 'dialog' ? (
+        <RecordFormDialog
+          open={newRecordOpen}
+          onOpenChange={handleCreateOpenChange}
+          title="New record"
+          description={`Add a row to ${collection.title}.`}
+          fields={editableFields}
+          values={newRecordValues}
+          fieldErrors={createFieldErrors}
+          formError={createError}
+          formErrorTestId="create-record-error"
+          idPrefix="new-record"
+          submitting={creating}
+          submitLabel="Add record"
+          submitDisabled={!canCreateRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          onFieldChange={handleCreateFieldChange}
+          onSubmit={addRecord}
+        />
+      ) : null}
+
+      {focusRecord && editShell === 'wizard' ? (
+        <RecordFormWizard
+          open
+          onOpenChange={(open) => {
+            if (!open) closeRecordDialog();
+          }}
+          title={focusRecordTitle}
+          description={`Edit in ${collection.title}.`}
+          fields={editableFields}
+          values={editValues}
+          fieldErrors={editFieldErrors}
+          formError={editError}
+          formErrorTestId="edit-record-error"
+          idPrefix="edit-record"
+          submitting={savingRecord}
+          submitLabel="Save"
+          submitDisabled={!canSaveFocusedRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          onFieldChange={handleEditFieldChange}
+          onSubmit={saveFocusedRecord}
+        />
+      ) : focusRecord && editShell === 'sheet' ? (
+        <RecordFormSheet
+          open
+          onOpenChange={(open) => {
+            if (!open) closeRecordDialog();
+          }}
+          title={focusRecordTitle}
+          description={`Edit in ${collection.title}.`}
+          fields={editableFields}
+          values={editValues}
+          fieldErrors={editFieldErrors}
+          formError={editError}
+          formErrorTestId="edit-record-error"
+          idPrefix="edit-record"
+          submitting={savingRecord}
+          submitLabel="Save"
+          submitDisabled={!canSaveFocusedRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          onFieldChange={handleEditFieldChange}
+          onSubmit={saveFocusedRecord}
+        />
+      ) : null}
+
+      {focusRecord && editShell === 'dialog' ? (
+        <RecordFormDialog
+          open
+          onOpenChange={(open) => {
+            if (!open) closeRecordDialog();
+          }}
+          title={focusRecordTitle}
+          description={`Edit in ${collection.title}.`}
+          fields={editableFields}
+          values={editValues}
+          fieldErrors={editFieldErrors}
+          formError={editError}
+          formErrorTestId="edit-record-error"
+          idPrefix="edit-record"
+          submitting={savingRecord}
+          submitLabel="Save"
+          submitDisabled={!canSaveFocusedRecord}
+          mentionSource={mentionSource}
+          layout={activeType.formLayout}
+          layoutId={`record-${focusRecord.id}`}
+          onFieldChange={handleEditFieldChange}
+          onSubmit={saveFocusedRecord}
+        />
+      ) : null}
 
       <div className="flex min-h-0 flex-1 flex-col">{renderRecordsBody()}</div>
     </BrowseProjectionShell>

@@ -18,9 +18,12 @@ import { useEmbedFlags } from '@/lib/shell/use-embed-flags';
 import { pageLabel } from '@/lib/shell/modes';
 import { ShellProvider, useShell } from '@/lib/shell/shell-context';
 import { PresenceAvatars } from '@/components/presence/presence-avatars';
+import { PresenceCursors } from '@/components/presence/presence-cursors';
+import { PresenceLinkBadge } from '@/components/presence/presence-link-badge';
 import { PresenceRoomBadge } from '@/components/presence/presence-room-badge';
 import { PresenceRoomShare } from '@/components/presence/presence-room-share';
 import { PresenceRoom, useBoardPresence } from '@/lib/presence/context';
+import { WelcomeDialog } from '@/components/shell/welcome-dialog';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -87,7 +90,9 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
     collectionDetailMatch != null && collectionDetailMatch[1] !== 'types';
   const isTypeBrowse =
     pathname.startsWith('/collections/types') && Boolean(searchParams.get('type'));
-  const fullBleedMain = isCollectionDetail || isTypeBrowse;
+  const isChatFullBleed =
+    pathname === '/projections/chat' || pathname === '/realtime/chat';
+  const fullBleedMain = isCollectionDetail || isTypeBrowse || isChatFullBleed;
 
   if (embed) {
     return (
@@ -128,7 +133,14 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
               {isCollectionDetail ? (
                 <>
                   <BreadcrumbItem>
-                    <BreadcrumbLink render={<Link href="/collections">Collections</Link>} />
+                    <BreadcrumbLink
+                      render={
+                        <Link href="/collections" className="inline-flex items-center gap-1.5">
+                          Collections
+                          <PresenceLinkBadge route="/collections" />
+                        </Link>
+                      }
+                    />
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
@@ -155,8 +167,8 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
         </header>
         <main
           className={cn(
-            'flex min-h-0 flex-1 flex-col overflow-auto',
-            fullBleedMain ? 'p-0' : 'p-4',
+            'flex min-h-0 flex-1 flex-col',
+            fullBleedMain ? 'overflow-hidden p-0' : 'overflow-auto p-4',
           )}
         >
           {children}
@@ -171,6 +183,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <ShellProvider>
       <PresenceRoom>
         <AppShellInner>{children}</AppShellInner>
+        <WelcomeDialog />
+        {/* Single viewport-wide overlay so remote cursors show everywhere, not just over boards. */}
+        <PresenceCursors />
       </PresenceRoom>
     </ShellProvider>
   );

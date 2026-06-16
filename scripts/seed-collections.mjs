@@ -21,13 +21,37 @@ const RECORD_PREFIX = 'collectionRecord:';
 
 const SEED_COLLECTIONS = [
   {
+    id: `${META_PREFIX}posts`,
+    title: 'Posts',
+    slug: 'posts',
+    icon: 'message-square',
+    color: '#0f62fe',
+    description: 'Short updates — twitter-style feed in Realtime → Posts',
+    sortOrder: 0,
+    defaultView: 'list',
+    records: [
+      {
+        title: 'Graph-native playground',
+        body: 'Every projection is a lens on the same Trellis graph. Collections, kanban, calendar — one kernel.',
+      },
+      {
+        title: 'Presence shipped',
+        body: 'Cursors, avatars, and live cell text on kanban + table. Open two tabs and say hi.',
+      },
+      {
+        title: 'More gizmos incoming',
+        body: 'Group chat, fractal vantages, and richer social surfaces are landing weekly. Edit anything. It is a public sandbox.',
+      },
+    ],
+  },
+  {
     id: `${META_PREFIX}ideas`,
     title: 'Ideas',
     slug: 'ideas',
     icon: 'lightbulb',
     color: '#0f62fe',
     description: 'Rough concepts and sparks worth revisiting',
-    sortOrder: 0,
+    sortOrder: 2,
     records: IDEAS_SEED_RECORDS,
     richSchema: true,
   },
@@ -38,7 +62,7 @@ const SEED_COLLECTIONS = [
     icon: 'book-open',
     color: '#8a3ffc',
     description: 'Articles, papers, and threads to read',
-    sortOrder: 1,
+    sortOrder: 3,
     records: [
       {
         title: 'Local-first software',
@@ -53,11 +77,11 @@ const SEED_COLLECTIONS = [
     icon: 'rocket',
     color: '#198038',
     description: 'Milestones and demo wedges shipped',
-    sortOrder: 2,
+    sortOrder: 4,
     records: [
       {
-        title: 'Typed SDK explorer',
-        body: 'Graph nav + chat on entitiesStore + mutations.',
+        title: 'Realtime presence overlay',
+        body: 'Cursors, avatars, room share, and collaborative cell text.',
       },
     ],
   },

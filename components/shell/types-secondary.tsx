@@ -15,6 +15,7 @@ import { CollectionMetaType, sortMeta, type CollectionMeta } from '@/lib/schemas
 import { useCollection } from '@/lib/trellis/use-collection';
 import { useTypes } from '@/lib/trellis/use-types';
 import { cn } from '@/lib/utils';
+import { PresenceLinkBadge } from '@/components/presence/presence-link-badge';
 import { SidebarCollapsibleSection } from './sidebar-collapsible-section';
 
 function matchesSidebarQuery(text: string, query: string): boolean {
@@ -121,7 +122,8 @@ export function TypesSecondary({
                   >
                     <EntityIcon name={icon} className="size-3" />
                   </span>
-                  <span className="truncate">{label}</span>
+                  <span className="min-w-0 flex-1 truncate">{label}</span>
+                  <PresenceLinkBadge route={href} />
                 </Link>
               </li>
             );

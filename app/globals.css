@@ -202,6 +202,26 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 18%, transparent)
+      transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--muted-foreground) 18%, transparent);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--muted-foreground) 32%, transparent);
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
   }
   body {
     @apply bg-background text-foreground;
@@ -225,4 +245,107 @@
     min-width: 0;
     overflow: hidden;
   }
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Rich-text field editor — ADR 0013 / TRL-10 (Tiptap substrate, graph mentions) */
+.trellis-richtext :where(p) {
+  margin: 0;
+}
+.trellis-richtext :where(p, ul, ol, h1, h2, h3, blockquote, pre)
+  + :where(p, ul, ol, h1, h2, h3, blockquote, pre) {
+  margin-top: 0.5rem;
+}
+.trellis-richtext :where(ul, ol) {
+  padding-left: 1.25rem;
+}
+.trellis-richtext :where(ul) {
+  list-style: disc outside;
+}
+.trellis-richtext :where(ol) {
+  list-style: decimal outside;
+}
+.trellis-richtext :where(h1) {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.trellis-richtext :where(h2) {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.trellis-richtext :where(h3) {
+  font-weight: 600;
+}
+.trellis-richtext :where(blockquote) {
+  border-left: 2px solid var(--border);
+  padding-left: 0.75rem;
+  color: var(--muted-foreground);
+}
+.trellis-richtext :where(code) {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.85em;
+  background: var(--muted);
+  padding: 0.1em 0.3em;
+  border-radius: 0.25rem;
+}
+
+.trellis-mention {
+  border-radius: 0.25rem;
+  padding: 0 0.2rem;
+  background: color-mix(in oklab, var(--primary) 16%, transparent);
+  color: var(--accent-foreground);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.trellis-mention-popup {
+  position: absolute;
+  z-index: 60;
+  min-width: 12rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+.trellis-mention-popup__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.375rem 0.5rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+.trellis-mention-popup__item[data-active='true'],
+.trellis-mention-popup__item:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.trellis-mention-popup__hint {
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.trellis-mention-popup__empty {
+  padding: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
 }

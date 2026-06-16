@@ -5,20 +5,71 @@ import { cn } from '@/lib/utils';
 import { fieldLabel, valueTypeToSpreadsheetKind } from '@/lib/registry/type-columns';
 import type { TypeField } from '@/lib/schemas/collection';
 import { Input } from '@/components/ui/input';
-
-function dateInputValue(value: unknown): string {
-  if (value === undefined || value === null || value === '') return '';
-  const raw = String(value);
-  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
-  const parsed = new Date(raw);
-  if (Number.isNaN(parsed.getTime())) return '';
-  return parsed.toISOString().slice(0, 10);
-}
+import { DatePicker } from '@/components/ui/date-picker';
+import {
+  SELECT_EMPTY_VALUE,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { ColorFieldControl, IconFieldControl } from '@/components/collections/record-field-special';
+import { RichTextField } from '@/components/collections/rich-text-field';
+import type { MentionSource } from '@/lib/links/trellis-mention';
+import { htmlToPlainText } from '@/lib/links/trellis-mention';
+import { recordDateInputValue } from '@/lib/record-field-utils';
 
 function displayValue(value: unknown, kind: string): string {
-  if (kind === 'date') return dateInputValue(value);
+  if (kind === 'date') return recordDateInputValue(value);
   if (value === undefined || value === null) return '';
+  if (kind === 'longtext') return htmlToPlainText(value);
   return String(value);
+}
+
+function OptionSelect({
+  value,
+  onChange,
+  options,
+  id,
+  invalid,
+  className,
+  testId,
+  compact = false,
+}: {
+  value: unknown;
+  onChange: (value: unknown) => void;
+  options: string[];
+  id?: string;
+  invalid?: boolean;
+  className?: string;
+  testId?: string;
+  compact?: boolean;
+}) {
+  return (
+    <Select
+      value={value == null ? SELECT_EMPTY_VALUE : String(value)}
+      onValueChange={(next) => onChange(next === SELECT_EMPTY_VALUE ? undefined : next)}
+    >
+      <SelectTrigger
+        id={id}
+        size={compact ? 'sm' : 'default'}
+        aria-invalid={invalid}
+        data-testid={testId}
+        className={cn('w-full', invalid && 'border-destructive', className)}
+      >
+        <SelectValue placeholder="—" />
+      </SelectTrigger>
+      <SelectContent position={compact ? 'popper' : 'item-aligned'}>
+        <SelectItem value={SELECT_EMPTY_VALUE}>—</SelectItem>
+        {options.map((option) => (
+          <SelectItem key={option} value={option}>
+            {option}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
 }
 
 type RecordFieldInputProps = {
@@ -30,6 +81,8 @@ type RecordFieldInputProps = {
   id?: string;
   className?: string;
   autoFocus?: boolean;
+  presenceKey?: string;
+  mentionSource?: MentionSource;
   'data-testid'?: string;
 };
 
@@ -42,10 +95,32 @@ export function RecordFieldInput({
   id,
   className,
   autoFocus,
+  presenceKey,
+  mentionSource,
   'data-testid': testId,
 }: RecordFieldInputProps) {
   const kind = valueTypeToSpreadsheetKind(field.valueType, field.name);
   const invalid = Boolean(error);
+
+  if (field.valueType === 'rich_text') {
+    return (
+      <div className="space-y-1">
+        <RichTextField
+          value={value}
+          autoFocus={autoFocus}
+          className={className}
+          presenceKey={presenceKey}
+          mentionSource={mentionSource}
+          data-testid={testId}
+          onSave={(html) => {
+            onChange(html);
+            onCommit?.();
+          }}
+        />
+        {error ? <p className="text-xs text-destructive">{error}</p> : null}
+      </div>
+    );
+  }
 
   if (kind === 'boolean') {
     const checked = value === true;
@@ -81,25 +156,93 @@ export function RecordFieldInput({
   if (kind === 'select') {
     return (
       <div className="space-y-1">
-        <select
+        <OptionSelect
           id={id}
-          aria-invalid={invalid}
+          invalid={invalid}
+          testId={testId}
+          className={className}
+          value={value}
+          options={field.options ?? []}
+          onChange={onChange}
+        />
+        {error ? <p className="text-xs text-destructive">{error}</p> : null}
+      </div>
+    );
+  }
+
+  if (kind === 'date') {
+    if (field.date?.includeTime) {
+      const text = recordDateInputValue(value);
+      const datetimeValue =
+        text && text.includes('T')
+          ? text.slice(0, 16)
+          : text
+            ? `${text}T00:00`
+            : '';
+      return (
+        <div className="space-y-1">
+          <Input
+            id={id}
+            type="datetime-local"
+            aria-invalid={invalid}
+            data-testid={testId}
+            autoFocus={autoFocus}
+            className={cn(invalid && 'border-destructive', className)}
+            value={datetimeValue}
+            onChange={(event) => onChange(event.currentTarget.value || undefined)}
+            onBlur={() => onCommit?.()}
+          />
+          {error ? <p className="text-xs text-destructive">{error}</p> : null}
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-1">
+        <DatePicker
+          id={id}
           data-testid={testId}
-          className={cn(
-            'h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring',
-            invalid && 'border-destructive',
-            className,
-          )}
-          value={value == null ? '' : String(value)}
-          onChange={(event) => onChange(event.currentTarget.value || undefined)}
-        >
-          <option value="">—</option>
-          {(field.options ?? []).map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+          value={value}
+          className={cn(invalid && 'ring-1 ring-destructive', className)}
+          onChange={(next) => {
+            onChange(next);
+            onCommit?.();
+          }}
+        />
+        {error ? <p className="text-xs text-destructive">{error}</p> : null}
+      </div>
+    );
+  }
+
+  if (kind === 'color') {
+    return (
+      <div className="space-y-1">
+        <ColorFieldControl
+          data-testid={testId}
+          value={value}
+          className={cn(invalid && 'ring-1 ring-destructive', className)}
+          onChange={(next) => {
+            onChange(next);
+            onCommit?.();
+          }}
+        />
+        {error ? <p className="text-xs text-destructive">{error}</p> : null}
+      </div>
+    );
+  }
+
+  if (kind === 'icon') {
+    return (
+      <div className="space-y-1">
+        <IconFieldControl
+          data-testid={testId}
+          value={value}
+          className={cn(invalid && 'ring-1 ring-destructive', className)}
+          onChange={(next) => {
+            onChange(next);
+            onCommit?.();
+          }}
+        />
         {error ? <p className="text-xs text-destructive">{error}</p> : null}
       </div>
     );
@@ -113,6 +256,7 @@ export function RecordFieldInput({
           aria-invalid={invalid}
           data-testid={testId}
           autoFocus={autoFocus}
+          maxLength={field.maxLength}
           className={cn(
             'min-h-28 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring',
             invalid && 'border-destructive',
@@ -128,14 +272,31 @@ export function RecordFieldInput({
   }
 
   const inputType =
-    kind === 'number' ? 'number' : kind === 'date' ? 'date' : field.valueType === 'url' ? 'url' : 'text';
+    kind === 'number'
+      ? 'number'
+      : field.valueType === 'email'
+        ? 'email'
+        : field.valueType === 'phone_number'
+          ? 'tel'
+          : field.valueType === 'url'
+            ? 'url'
+            : 'text';
+
+  const numberStep =
+    kind === 'number'
+      ? field.step ?? (field.format === 'currency' ? 0.01 : field.format === 'percent' ? 1 : 'any')
+      : undefined;
 
   return (
     <div className="space-y-1">
       <Input
         id={id}
         type={inputType}
-        step={kind === 'number' ? 'any' : undefined}
+        step={numberStep}
+        min={kind === 'number' ? field.min : undefined}
+        max={kind === 'number' ? field.max : undefined}
+        maxLength={field.maxLength}
+        placeholder={field.placeholder}
         aria-invalid={invalid}
         data-testid={testId}
         autoFocus={autoFocus}
@@ -158,8 +319,10 @@ export function RecordFieldInput({
 type RecordFieldBlurInputProps = {
   field: TypeField;
   value: unknown;
-  onSave: (value: unknown) => void;
+  onSave: (value: unknown) => void | Promise<void>;
   className?: string;
+  presenceKey?: string;
+  mentionSource?: MentionSource;
   'data-testid'?: string;
 };
 
@@ -168,6 +331,8 @@ export function RecordFieldBlurInput({
   value,
   onSave,
   className,
+  presenceKey,
+  mentionSource,
   'data-testid': testId,
 }: RecordFieldBlurInputProps) {
   const kind = valueTypeToSpreadsheetKind(field.valueType, field.name);
@@ -191,6 +356,19 @@ export function RecordFieldBlurInput({
     },
     [onSave],
   );
+
+  if (field.valueType === 'rich_text') {
+    return (
+      <RichTextField
+        value={value}
+        className={className}
+        presenceKey={presenceKey}
+        mentionSource={mentionSource}
+        data-testid={testId}
+        onSave={(html) => onSave(html)}
+      />
+    );
+  }
 
   if (kind === 'boolean') {
     const checked = value === true;
@@ -220,22 +398,50 @@ export function RecordFieldBlurInput({
 
   if (kind === 'select') {
     return (
-      <select
+      <OptionSelect
+        testId={testId}
+        className={className}
+        value={value}
+        options={field.options ?? []}
+        compact
+        onChange={(next) => onSave(next)}
+      />
+    );
+  }
+
+  if (kind === 'date') {
+    return (
+      <DatePicker
         data-testid={testId}
-        className={cn(
-          'min-w-0 max-w-full rounded-md border border-input bg-transparent px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring',
-          className,
-        )}
-        value={value == null ? '' : String(value)}
-        onChange={(event) => onSave(event.currentTarget.value || undefined)}
-      >
-        <option value="">—</option>
-        {(field.options ?? []).map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
+        value={value}
+        compact
+        className={className}
+        onChange={(next) => onSave(next)}
+      />
+    );
+  }
+
+  if (kind === 'color') {
+    return (
+      <ColorFieldControl
+        data-testid={testId}
+        value={value}
+        compact
+        className={className}
+        onChange={(next) => onSave(next)}
+      />
+    );
+  }
+
+  if (kind === 'icon') {
+    return (
+      <IconFieldControl
+        data-testid={testId}
+        value={value}
+        compact
+        className={className}
+        onChange={(next) => onSave(next)}
+      />
     );
   }
 
@@ -261,12 +467,27 @@ export function RecordFieldBlurInput({
   }
 
   const inputType =
-    kind === 'number' ? 'number' : kind === 'date' ? 'date' : field.valueType === 'url' ? 'url' : 'text';
+    kind === 'number'
+      ? 'number'
+      : field.valueType === 'email'
+        ? 'email'
+        : field.valueType === 'phone_number'
+          ? 'tel'
+          : field.valueType === 'url'
+            ? 'url'
+            : 'text';
 
   return (
     <Input
       type={inputType}
-      step={kind === 'number' ? 'any' : undefined}
+      step={
+        kind === 'number'
+          ? field.step ?? (field.format === 'currency' ? 0.01 : 'any')
+          : undefined
+      }
+      min={kind === 'number' ? field.min : undefined}
+      max={kind === 'number' ? field.max : undefined}
+      maxLength={field.maxLength}
       data-testid={testId}
       className={className}
       value={typeof draft === 'string' ? draft : ''}

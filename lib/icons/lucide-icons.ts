@@ -1,7 +1,19 @@
 import { iconNames, type IconName } from 'lucide-react/dynamic';
 
+function buildLucideIconNames(): IconName[] {
+  try {
+    const source = iconNames as Iterable<string> | undefined;
+    if (!source || typeof source[Symbol.iterator] !== 'function') {
+      return ['folder'];
+    }
+    return [...source].sort((a, b) => a.localeCompare(b)) as IconName[];
+  } catch {
+    return ['folder'];
+  }
+}
+
 /** All Lucide icon ids (kebab-case), including aliases — ~1.7k entries. */
-export const LUCIDE_ICON_NAMES = [...iconNames].sort((a, b) => a.localeCompare(b)) as IconName[];
+export const LUCIDE_ICON_NAMES = buildLucideIconNames();
 
 const LUCIDE_ICON_SET = new Set<string>(LUCIDE_ICON_NAMES);
 

@@ -2,9 +2,12 @@
 
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import { useBoardPresence } from '@/lib/presence/context';
-import { PresenceCursors } from '@/components/presence/presence-cursors';
 
+/**
+ * Relative-positioned board container. Pointer presence is tracked globally at
+ * the viewport level and remote cursors render in a single app-shell overlay
+ * (see {@link PresenceCursors}), so this no longer attaches a tracking surface.
+ */
 export function BoardPresenceSurface({
   children,
   className,
@@ -12,15 +15,9 @@ export function BoardPresenceSurface({
   children: ReactNode;
   className?: string;
 }) {
-  const presence = useBoardPresence();
-
   return (
-    <div
-      ref={presence?.attachSurface}
-      className={cn('relative min-h-48 touch-none', className)}
-    >
+    <div className={cn('relative min-h-48 touch-none', className)}>
       {children}
-      <PresenceCursors />
     </div>
   );
 }

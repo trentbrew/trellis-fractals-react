@@ -9,7 +9,7 @@ export type DemoRoute = {
 /** Projection fixture lab routes — derived boards, not collection destinations. */
 export const PROJECTION_DEMOS: DemoRoute[] = listCorpusTypes().map((entry: CorpusTypeEntry) => ({
   id: entry.demoId,
-  label: entry.label,
+  label: entry.demoLabel ?? entry.label,
   href: entry.route,
 }));
 
@@ -22,6 +22,23 @@ export const PROJECTION_LAB_EXTRAS: DemoRoute[] = [
 ];
 
 export const ALL_PROJECTION_NAV: DemoRoute[] = [...PROJECTION_DEMOS, ...PROJECTION_LAB_EXTRAS];
+
+/** Moved to the primary icon rail (disabled stubs). */
+export const DISABLED_PROJECTION_RAIL_IDS = new Set([
+  'dag',
+  'json-ld',
+  'gallery',
+  'fractal',
+  'todos',
+  'calendar',
+  'gantt',
+]);
+
+/** Social / collaborative surfaces in the demo secondary sidebar. */
+export const SOCIAL_DEMOS: DemoRoute[] = [
+  { id: 'posts', label: 'Posts', href: '/projections/posts' },
+  { id: 'chat', label: 'Group chat', href: '/projections/chat' },
+];
 
 export const MOTION_LABS: DemoRoute[] = [
   { id: 'grid-crud', label: 'Grid CRUD', href: '/grid' },

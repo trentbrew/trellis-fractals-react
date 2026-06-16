@@ -6,10 +6,12 @@ import { TrellisProvider } from "@/lib/trellis/provider";
 import { BootstrapSchemas } from "@/components/trellis/bootstrap-schemas";
 import { SessionRoomBootstrap } from "@/components/trellis/session-room-bootstrap";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { AppShell } from "@/components/shell/AppShell";
 import { ThemeProvider } from "@/lib/shell/theme";
 import { ColorThemeProvider } from "@/components/shell/color-theme-provider";
-import { getServerTheme } from "@/lib/shell/theme-server";
+import { COLOR_THEME_STORAGE_KEY } from "@/lib/color-theme";
+import { THEME_STORAGE_KEY } from "@/lib/shell/theme-types";
 import { VantageMotionProvider } from "@/lib/fractal/vantage-motion";
 
 const geistSans = Geist({
@@ -35,36 +37,35 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const theme = await getServerTheme();
-
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full${theme === "dark" ? " dark" : ""}`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full`}
       suppressHydrationWarning
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('fractals-color-theme');if(!t)t='notebook';if(t!=='neutral')document.documentElement.dataset.colorTheme=t}catch(e){}`,
+            __html: `try{var m=sessionStorage.getItem('${THEME_STORAGE_KEY}');if(m==='dark')document.documentElement.classList.add('dark');var t=sessionStorage.getItem('${COLOR_THEME_STORAGE_KEY}');if(!t)t='notebook';if(t!=='neutral')document.documentElement.dataset.colorTheme=t}catch(e){}`,
           }}
         />
       </head>
       <body className={`${geistSans.className} h-full min-h-0 antialiased`}>
-        <ThemeProvider defaultTheme={theme}>
+        <ThemeProvider>
         <ColorThemeProvider>
         <VantageMotionProvider>
-        <TrellisProvider>
-          <BootstrapSchemas>
-            <SessionRoomBootstrap>
-              <TooltipProvider>
-                <Suspense fallback={null}>
+        <Suspense fallback={null}>
+          <TrellisProvider>
+            <BootstrapSchemas>
+              <SessionRoomBootstrap>
+                <TooltipProvider>
                   <AppShell>{children}</AppShell>
-                </Suspense>
-              </TooltipProvider>
-            </SessionRoomBootstrap>
-          </BootstrapSchemas>
-        </TrellisProvider>
+                  <Toaster position="bottom-right" closeButton />
+                </TooltipProvider>
+              </SessionRoomBootstrap>
+            </BootstrapSchemas>
+          </TrellisProvider>
+        </Suspense>
         </VantageMotionProvider>
         </ColorThemeProvider>
         </ThemeProvider>

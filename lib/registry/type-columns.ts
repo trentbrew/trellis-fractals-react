@@ -1,4 +1,5 @@
 import type { SpreadsheetCellKind, SpreadsheetColumn } from '@/components/boards/spreadsheet/SpreadsheetTable';
+import { formatFieldDisplayValue } from '@/lib/registry/field-constraints';
 import {
   COLLECTION_RECORD_TYPE_ID,
   DEFAULT_COLLECTION_RECORD_FIELDS,
@@ -15,6 +16,10 @@ export const VALUE_TYPE_OPTIONS = [
   { value: 'number', label: 'Number' },
   { value: 'boolean', label: 'Boolean' },
   { value: 'date', label: 'Date' },
+  { value: 'email', label: 'Email' },
+  { value: 'phone_number', label: 'Phone' },
+  { value: 'color', label: 'Color' },
+  { value: 'icon', label: 'Icon' },
   { value: 'select', label: 'Select' },
   { value: 'url', label: 'URL' },
   { value: 'reference', label: 'Relationship' },
@@ -39,6 +44,10 @@ export function valueTypeToSpreadsheetKind(
       return 'boolean';
     case 'date':
       return 'date';
+    case 'color':
+      return 'color';
+    case 'icon':
+      return 'icon';
     case 'select':
     case 'enum':
       return 'select';
@@ -49,6 +58,8 @@ export function valueTypeToSpreadsheetKind(
       return name === 'body' || name.endsWith('Body') ? 'longtext' : 'longtext';
     case 'title':
     case 'string':
+    case 'email':
+    case 'phone_number':
     case 'url':
     default:
       return 'text';
@@ -71,8 +82,19 @@ export function typeToSpreadsheetColumns(fields: TypeField[] | undefined): Sprea
     width: field.valueType === 'rich_text' ? 420 : field.name === 'title' ? 240 : 180,
     required: field.required,
     options: field.options,
+    min: field.min,
+    max: field.max,
+    step: field.step,
+    minLength: field.minLength,
+    maxLength: field.maxLength,
+    format: field.format,
+    currency: field.currency,
+    includeTime: field.date?.includeTime,
+    valueType: field.valueType,
   }));
 }
+
+export { formatFieldDisplayValue };
 
 export function resolveCollectionType(
   types: TypeDef[],

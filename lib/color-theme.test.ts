@@ -2,11 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import {
   COLOR_THEME_STORAGE_KEY,
-  DEFAULT_THEME_ID,
   getColorThemePreset,
   readStoredColorThemeId,
 } from '@/lib/color-theme';
-import { NEUTRAL_THEME_ID } from '@/lib/theme-presets';
+import { DEFAULT_THEME_ID, NEUTRAL_THEME_ID } from '@/lib/theme-presets';
 
 describe('color-theme defaults', () => {
   it('falls back to notebook preset', () => {
@@ -15,18 +14,18 @@ describe('color-theme defaults', () => {
   });
 
   it('returns notebook when storage is empty or unavailable', () => {
-    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+    if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
       expect(readStoredColorThemeId()).toBe('notebook');
       return;
     }
 
-    const previous = localStorage.getItem(COLOR_THEME_STORAGE_KEY);
+    const previous = sessionStorage.getItem(COLOR_THEME_STORAGE_KEY);
     try {
-      localStorage.removeItem(COLOR_THEME_STORAGE_KEY);
+      sessionStorage.removeItem(COLOR_THEME_STORAGE_KEY);
       expect(readStoredColorThemeId()).toBe('notebook');
     } finally {
-      if (previous == null) localStorage.removeItem(COLOR_THEME_STORAGE_KEY);
-      else localStorage.setItem(COLOR_THEME_STORAGE_KEY, previous);
+      if (previous == null) sessionStorage.removeItem(COLOR_THEME_STORAGE_KEY);
+      else sessionStorage.setItem(COLOR_THEME_STORAGE_KEY, previous);
     }
   });
 

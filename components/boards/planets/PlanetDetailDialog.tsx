@@ -101,7 +101,7 @@ function PlanetDetailContent({
           <span className="text-xs font-medium text-muted-foreground">Type</span>
           <Select
             value={String(planet.planetType)}
-            onValueChange={(value) => {
+            onValueChange={(value: string) => {
               if (value != null) onPersist(planet.id, { planetType: Number(value) });
             }}
           >

@@ -9,15 +9,9 @@ import {
   useState,
 } from 'react';
 
-import {
-  THEME_COOKIE_NAME,
-  THEME_STORAGE_KEY,
-  type Theme,
-} from '@/lib/shell/theme-types';
+import { THEME_STORAGE_KEY, type Theme } from '@/lib/shell/theme-types';
 
 export type { Theme } from '@/lib/shell/theme-types';
-
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 type ThemeContextValue = {
   theme: Theme;
@@ -29,7 +23,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 function readStoredTheme(): Theme | null {
   try {
-    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    const stored = sessionStorage.getItem(THEME_STORAGE_KEY);
     if (stored === 'light' || stored === 'dark') return stored;
   } catch {
     /* ignore */
@@ -50,11 +44,10 @@ function applyTheme(theme: Theme) {
 function persistTheme(theme: Theme) {
   applyTheme(theme);
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    sessionStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
     /* ignore */
   }
-  document.cookie = `${THEME_COOKIE_NAME}=${theme};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax`;
 }
 
 export function ThemeProvider({

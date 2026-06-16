@@ -5,7 +5,9 @@ import { SettingsIcon } from 'lucide-react';
 import { TypeAppearanceControls } from '@/components/icons/type-appearance-controls';
 import { EntityIcon } from '@/lib/icons/entity-icon';
 import { useFocusSafeField } from '@/lib/hooks/use-focus-safe-field';
+import type { FormLayout, FormShellKind } from '@/lib/forms/record-form-layout';
 import type { CollectionMeta, TypeField } from '@/lib/schemas/collection';
+import { CollectionFormLayoutEditor } from '@/components/collections/collection-form-layout-editor';
 import { CollectionSchemaFieldsEditor } from '@/components/collections/collection-schema-editor';
 import { CollectionViewsEditor } from '@/components/collections/collection-views-editor';
 import type { CollectionViewMode } from '@/lib/registry/collection-views';
@@ -29,7 +31,7 @@ import {
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 
-export type ConfigureTab = 'general' | 'schema' | 'views';
+export type ConfigureTab = 'general' | 'schema' | 'form' | 'views';
 
 type CollectionConfigureSheetProps = {
   open: boolean;
@@ -40,6 +42,8 @@ type CollectionConfigureSheetProps = {
   collectionIcon: string;
   collectionColor: string;
   fields: TypeField[];
+  dialogShell?: FormShellKind;
+  formLayout?: FormLayout;
   startWithNewField?: boolean;
   onSaveTitle: (title: string) => Promise<void>;
   onSaveDescription: (description: string) => Promise<void>;
@@ -160,6 +164,8 @@ export function CollectionConfigureSheet({
   collectionIcon,
   collectionColor,
   fields,
+  dialogShell,
+  formLayout,
   startWithNewField = false,
   onSaveTitle,
   onSaveDescription,
@@ -173,6 +179,7 @@ export function CollectionConfigureSheet({
   const [generalSaving, setGeneralSaving] = useState(false);
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [schemaDirty, setSchemaDirty] = useState(false);
+  const [formDirty, setFormDirty] = useState(false);
   const [viewsDirty, setViewsDirty] = useState(false);
   const [discardConfirmOpen, setDiscardConfirmOpen] = useState(false);
 
@@ -184,6 +191,7 @@ export function CollectionConfigureSheet({
     setDraftColor(collectionColor);
     setGeneralError(null);
     setSchemaDirty(false);
+    setFormDirty(false);
     setViewsDirty(false);
     setDiscardConfirmOpen(false);
   }, [open, collection.title, collection.description, collectionIcon, collectionColor]);
@@ -208,7 +216,7 @@ export function CollectionConfigureSheet({
     collectionColor,
   ]);
 
-  const isDirty = generalDirty || schemaDirty || viewsDirty;
+  const isDirty = generalDirty || schemaDirty || formDirty || viewsDirty;
 
   const requestClose = useCallback(
     (nextOpen: boolean) => {
@@ -283,6 +291,13 @@ export function CollectionConfigureSheet({
               testId="collection-configure-tab-schema"
             >
               Schema
+            </ConfigureTabTrigger>
+            <ConfigureTabTrigger
+              active={activeTab === 'form'}
+              onClick={() => onTabChange('form')}
+              testId="collection-configure-tab-form"
+            >
+              Form
             </ConfigureTabTrigger>
             <ConfigureTabTrigger
               active={activeTab === 'views'}
@@ -376,6 +391,27 @@ export function CollectionConfigureSheet({
               fields={fields}
               startWithNewField={startWithNewField}
               onDirtyChange={setSchemaDirty}
+              onClose={() => onOpenChange(false)}
+              onRequestClose={requestClose}
+            />
+          </div>
+
+          <div
+            className={cn(
+              'flex min-h-0 flex-1 flex-col',
+              activeTab !== 'form' && 'hidden',
+            )}
+            role="tabpanel"
+            aria-hidden={activeTab !== 'form'}
+            data-testid="collection-configure-form"
+          >
+            <CollectionFormLayoutEditor
+              collectionTitle={collection.title}
+              collectionSlug={collection.slug}
+              fields={fields}
+              dialogShell={dialogShell}
+              formLayout={formLayout}
+              onDirtyChange={setFormDirty}
               onClose={() => onOpenChange(false)}
               onRequestClose={requestClose}
             />

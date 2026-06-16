@@ -1,6 +1,42 @@
 import { defineType, type InferType } from 'trellis/schema';
 import { z } from 'zod';
 import type { CollectionViewMode } from '@/lib/registry/collection-views';
+import type { TypeField } from '@/lib/schemas/record-fields';
+import {
+  normalizeTypeFieldConstraints,
+  validateTypeFieldConstraints,
+} from '@/lib/registry/field-constraints';
+
+export type {
+  TypeField,
+  TypeFieldDateConfig,
+  TypeFieldFormat,
+  RecordValidationResult,
+} from '@/lib/schemas/record-fields';
+export {
+  assertRecordFieldUpdate,
+  canSubmitRecordForm,
+  initialRecordFieldValue,
+  isRecordFieldEmpty,
+  isSelectValueType,
+  normalizeRecordAttributes,
+  normalizeRecordFieldValue,
+  recordFieldKind,
+  recordFieldLabel,
+  RecordFieldValidationError,
+  validateRecordField,
+  validateRecordFieldsByName,
+  validateRecordFromType,
+} from '@/lib/schemas/record-fields';
+export {
+  collectionSlugFromCollectionId,
+  compileCollectionRecordSchema,
+  compileTypeFieldToOntology,
+  compileTypeFieldsToOntology,
+  type CompiledCollectionSchema,
+  type OntologyPropertyType,
+  type PropertyValueSpecification,
+} from '@/lib/schemas/compile-type-fields';
 
 export const DEMO_NS = 'https://trellis.dev/ns/demo/v1' as const;
 
@@ -72,13 +108,6 @@ export type CollectionMeta = InferType<typeof CollectionMetaType>;
 export type CollectionRecord = InferType<typeof CollectionRecordType>;
 export type { CollectionViewMode };
 
-export type TypeField = {
-  name: string;
-  valueType?: string;
-  required?: boolean;
-  options?: string[];
-};
-
 export const COLLECTION_RECORD_TYPE_ID = `${DEMO_NS}/CollectionRecord` as const;
 
 export function collectionRecordTypeId(slug: string): string {
@@ -95,19 +124,8 @@ export const RESERVED_RECORD_FIELD_NAMES = new Set([
   '@id',
 ]);
 
-export function isSelectValueType(valueType: string | undefined): boolean {
-  return valueType === 'select' || valueType === 'enum';
-}
-
 export function normalizeSchemaDraftFields(fields: TypeField[]): TypeField[] {
-  return fields.map((field) => ({
-    name: field.name.trim(),
-    valueType: field.valueType ?? 'string',
-    required: Boolean(field.required),
-    options: isSelectValueType(field.valueType)
-      ? (field.options ?? []).map((option) => option.trim()).filter(Boolean)
-      : undefined,
-  }));
+  return fields.map((field) => normalizeTypeFieldConstraints(field));
 }
 
 export function validateSchemaDraftFields(fields: TypeField[]): {
@@ -119,6 +137,7 @@ export function validateSchemaDraftFields(fields: TypeField[]): {
   const trimmedNames = fields.map((field) => field.name.trim());
 
   for (let index = 0; index < fields.length; index += 1) {
+    const field = fields[index];
     const name = trimmedNames[index];
     const errors: string[] = [];
 
@@ -132,6 +151,12 @@ export function validateSchemaDraftFields(fields: TypeField[]): {
 
     if (errors.length > 0) {
       fieldErrors[index] = errors;
+      continue;
+    }
+
+    const constraintErrors = validateTypeFieldConstraints(field);
+    if (constraintErrors.length > 0) {
+      fieldErrors[index] = constraintErrors;
     }
   }
 
@@ -158,8 +183,25 @@ export function slugify(title: string): string {
     .replace(/^-|-$/g, '');
 }
 
+function metaCreatedAt(item: CollectionMeta): number {
+  const created = (item as { createdAt?: string }).createdAt;
+  return created ? Date.parse(created) : Number.MAX_SAFE_INTEGER;
+}
+
+/** Keep one meta row per slug — earliest created wins when duplicates exist. */
+export function dedupeMetaBySlug(items: CollectionMeta[]): CollectionMeta[] {
+  const bySlug = new Map<string, CollectionMeta>();
+  for (const item of items) {
+    const existing = bySlug.get(item.slug);
+    if (!existing || metaCreatedAt(item) < metaCreatedAt(existing)) {
+      bySlug.set(item.slug, item);
+    }
+  }
+  return [...bySlug.values()];
+}
+
 export function sortMeta(items: CollectionMeta[]): CollectionMeta[] {
-  return [...items].sort((a, b) => {
+  return dedupeMetaBySlug(items).sort((a, b) => {
     const orderA = a.sortOrder ?? Number.MAX_SAFE_INTEGER;
     const orderB = b.sortOrder ?? Number.MAX_SAFE_INTEGER;
     if (orderA !== orderB) return orderA - orderB;
@@ -191,135 +233,3 @@ export function validateRecordFields(input: {
   return { ok: false, message: issue?.message ?? 'Invalid record' };
 }
 
-function isEmptyValue(value: unknown): boolean {
-  return value === undefined || value === null || value === '';
-}
-
-function recordFieldKind(field: TypeField): string {
-  switch (field.valueType) {
-    case 'number':
-      return 'number';
-    case 'boolean':
-      return 'boolean';
-    case 'date':
-      return 'date';
-    case 'select':
-    case 'enum':
-      return 'select';
-    case 'reference':
-    case 'relationship':
-      return 'text';
-    case 'rich_text':
-      return 'longtext';
-    default:
-      return 'text';
-  }
-}
-
-export function isRecordFieldEmpty(field: TypeField, value: unknown): boolean {
-  const kind = recordFieldKind(field);
-  if (kind === 'boolean') return false;
-  if (value === undefined || value === null) return true;
-  if (kind === 'number') {
-    if (value === '') return true;
-    const numeric = typeof value === 'number' ? value : Number(String(value).trim());
-    return !Number.isFinite(numeric);
-  }
-  return isEmptyValue(value);
-}
-
-export function normalizeRecordFieldValue(field: TypeField, raw: unknown): unknown {
-  const kind = recordFieldKind(field);
-  if (raw === undefined || raw === null) return undefined;
-
-  if (kind === 'boolean') return Boolean(raw);
-
-  if (kind === 'number') {
-    if (raw === '') return undefined;
-    const numeric = typeof raw === 'number' ? raw : Number(String(raw).trim());
-    return Number.isFinite(numeric) ? numeric : undefined;
-  }
-
-  if (kind === 'date') {
-    const text = String(raw).trim();
-    return text || undefined;
-  }
-
-  if (kind === 'select') {
-    const text = String(raw).trim();
-    return text || undefined;
-  }
-
-  const text = String(raw).trim();
-  return text || undefined;
-}
-
-export function normalizeRecordAttributes(
-  fields: TypeField[],
-  values: Record<string, unknown>,
-): Record<string, unknown> {
-  const attributes: Record<string, unknown> = {};
-  for (const field of fields) {
-    attributes[field.name] = normalizeRecordFieldValue(field, values[field.name]);
-  }
-  return attributes;
-}
-
-export function validateRecordFromType(
-  fields: TypeField[],
-  values: Record<string, unknown>,
-): { ok: true } | { ok: false; message: string; fieldErrors: Record<string, string> } {
-  const fieldErrors: Record<string, string> = {};
-
-  for (const field of fields) {
-    const raw = values[field.name];
-    const normalized = normalizeRecordFieldValue(field, raw);
-    const label = field.name
-      .replace(/([a-z])([A-Z])/g, '$1 $2')
-      .replace(/[_-]+/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-
-    if (field.required && isRecordFieldEmpty(field, raw)) {
-      fieldErrors[field.name] = `${label} is required`;
-      continue;
-    }
-
-    if (isEmptyValue(raw) && raw !== false) continue;
-
-    const kind = recordFieldKind(field);
-
-    if (kind === 'number' && !isEmptyValue(raw) && normalized === undefined) {
-      fieldErrors[field.name] = 'Enter a valid number';
-      continue;
-    }
-
-    if (field.valueType === 'url' && normalized) {
-      try {
-        new URL(String(normalized));
-      } catch {
-        fieldErrors[field.name] = 'Enter a valid URL';
-        continue;
-      }
-    }
-
-    if (kind === 'select' && field.options?.length && normalized) {
-      if (!field.options.includes(String(normalized))) {
-        fieldErrors[field.name] = 'Select a valid option';
-      }
-    }
-
-    if (kind === 'date' && normalized) {
-      const text = String(normalized);
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(text) || Number.isNaN(Date.parse(text))) {
-        fieldErrors[field.name] = 'Enter a valid date';
-      }
-    }
-  }
-
-  if (Object.keys(fieldErrors).length > 0) {
-    const first = Object.values(fieldErrors)[0] ?? 'Invalid record';
-    return { ok: false, message: first, fieldErrors };
-  }
-
-  return { ok: true };
-}

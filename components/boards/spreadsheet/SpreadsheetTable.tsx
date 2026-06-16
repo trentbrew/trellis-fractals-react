@@ -13,6 +13,8 @@ import {
   Trash2Icon,
   XIcon,
 } from 'lucide-react';
+import { htmlToPlainText, plainTextToRichHtml } from '@/lib/links/trellis-mention';
+import { formatFieldDisplayValue } from '@/lib/registry/field-constraints';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -26,12 +28,47 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+import { DatePicker } from '@/components/ui/date-picker';
+import {
+  SELECT_EMPTY_VALUE,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  ColorFieldControl,
+  IconFieldControl,
+} from '@/components/collections/record-field-special';
+import {
+  formatRecordDateLabel,
+  recordColorDisplay,
+  recordIconDisplay,
+} from '@/lib/record-field-utils';
+import { useBoardPresence } from '@/lib/presence/context';
+import { cellFocusKey, remoteCellFocusHolders, remoteFocusedCellSlotsKey } from '@/lib/presence/cell-focus';
+import {
+  applyRemoteFieldValue,
+  cancelCaretSync,
+  isTextFieldActive,
+  scheduleCaretSync,
+  utf16ToCodePointIndex,
+} from '@/lib/presence/text-editing';
+import { useCellTextSync } from '@/lib/presence/use-cell-text-sync';
+import { BoardPresenceSurface } from '@/components/presence/board-presence-surface';
+import { MeasuredRemoteCarets } from '@/components/presence/measured-remote-carets';
+import { RemoteCellNameBadges } from '@/components/presence/remote-cell-name-badges';
+
+import type { TypeFieldFormat } from '@/lib/schemas/record-fields';
 
 export type SpreadsheetCellKind =
   | 'text'
   | 'longtext'
   | 'number'
   | 'date'
+  | 'color'
+  | 'icon'
   | 'boolean'
   | 'select'
   | 'reference'
@@ -49,6 +86,15 @@ export type SpreadsheetColumn = {
   readOnly?: boolean;
   options?: string[];
   formula?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  minLength?: number;
+  maxLength?: number;
+  format?: TypeFieldFormat;
+  currency?: string;
+  includeTime?: boolean;
+  valueType?: string;
 };
 
 export type SpreadsheetRow = {
@@ -82,12 +128,17 @@ type SpreadsheetTableProps = {
   emptyDescription?: string;
   createLabel?: string;
   onCreateRow?: () => Promise<void> | void;
+  /** Begin inline editing of this cell once the row exists (e.g. a freshly created row). */
+  autoEditCell?: { rowId: string; key: string } | null;
+  /** Called after {@link autoEditCell} has been applied so the parent can clear it. */
+  onAutoEditConsumed?: () => void;
   showToolbar?: boolean;
   query?: string;
   onQueryChange?: (query: string) => void;
   filters?: Record<string, SpreadsheetColumnFilter>;
   onFiltersChange?: (filters: Record<string, SpreadsheetColumnFilter>) => void;
   onUpdateCell: (rowId: string, key: string, value: unknown) => Promise<void> | void;
+  onOpenRow?: (row: SpreadsheetRow) => void;
   onDeleteRow?: (rowId: string) => Promise<void> | void;
   onRowContextMenu?: (event: React.MouseEvent, row: SpreadsheetRow) => void;
   getRowAttributes?: (row: SpreadsheetRow) => React.HTMLAttributes<HTMLDivElement> & {
@@ -121,10 +172,28 @@ function cellSlot(rowId: string, key: string) {
   return `${rowId}\u0000${key}`;
 }
 
-function labelValue(value: unknown): string {
+function labelValue(value: unknown, column?: SpreadsheetColumn): string {
   if (value === undefined || value === null || value === '') return '-';
   if (typeof value === 'boolean') return value ? 'Yes' : 'No';
-  if (typeof value === 'number') return value.toLocaleString();
+  const kind = column?.kind ?? 'text';
+  if (typeof value === 'number') {
+    if (column?.format) {
+      return formatFieldDisplayValue(
+        {
+          name: column.key,
+          valueType: 'number',
+          format: column.format,
+          currency: column.currency,
+        },
+        value,
+      );
+    }
+    return value.toLocaleString();
+  }
+  if (kind === 'color') return recordColorDisplay(value) || '-';
+  if (kind === 'icon') return recordIconDisplay(value) || '-';
+  if (kind === 'date') return formatRecordDateLabel(value) || '-';
+  if (kind === 'longtext') return htmlToPlainText(value) || '-';
   return String(value);
 }
 
@@ -167,17 +236,26 @@ function castDraft(value: string, column: SpreadsheetColumn): unknown {
     return value.trim() === '' || !Number.isFinite(n) ? undefined : n;
   }
   if (kind === 'date') return value.trim() || undefined;
+  if (kind === 'longtext' && column.valueType === 'rich_text') {
+    return plainTextToRichHtml(value);
+  }
   return value.trim() === '' ? undefined : value;
 }
 
 function displayDraft(value: unknown, column: SpreadsheetColumn) {
   if (column.kind === 'date') return dateInputValue(value);
+  if (column.kind === 'longtext') return htmlToPlainText(value);
   return value === undefined || value === null ? '' : String(value);
+}
+
+function editableTextLength(value: unknown, column: SpreadsheetColumn): number {
+  if (column.kind === 'longtext') return htmlToPlainText(value).length;
+  return String(value ?? '').length;
 }
 
 function isEditableTextColumn(column: SpreadsheetColumn) {
   const kind = column.kind ?? 'text';
-  return !column.readOnly && (kind === 'text' || kind === 'longtext' || kind === 'number' || kind === 'date');
+  return !column.readOnly && (kind === 'text' || kind === 'longtext' || kind === 'number');
 }
 
 function isEmpty(value: unknown) {
@@ -491,12 +569,15 @@ export function SpreadsheetTable({
   emptyDescription = 'Create a row to start filling this table.',
   createLabel = 'New row',
   onCreateRow,
+  autoEditCell,
+  onAutoEditConsumed,
   showToolbar = true,
   query: queryProp,
   onQueryChange,
   filters: filtersProp,
   onFiltersChange,
   onUpdateCell,
+  onOpenRow,
   onDeleteRow,
   onRowContextMenu,
   getRowAttributes,
@@ -505,8 +586,24 @@ export function SpreadsheetTable({
   variant = 'default',
 }: SpreadsheetTableProps) {
   const embedded = variant === 'embedded';
+  const presence = useBoardPresence();
+  const editInputRef = useRef<HTMLInputElement | null>(null);
+  const cellTextSync = useCellTextSync(
+    presence?.room ?? null,
+    presence?.identity.peerId ?? '',
+  );
+  const { beginEdit: syncBeginEdit, applyLocalEdit, watchCell, releaseDoc, cellTexts } =
+    cellTextSync;
+  const watchCellRef = useRef(watchCell);
+  watchCellRef.current = watchCell;
+  const remoteWatchKey =
+    presence?.enabled && presence.identity.peerId
+      ? remoteFocusedCellSlotsKey(presence.focusByCell, presence.identity.peerId)
+      : '';
   const surface = embedded ? 'bg-background' : 'bg-card';
   const rowSurface = embedded ? 'bg-background hover:bg-muted/55' : 'bg-card hover:bg-muted/55';
+  // Sticky cells must stay fully opaque on hover so scrolled content does not bleed through.
+  const stickyCellSurface = cn(surface, 'group-hover:bg-muted');
   const { widths, setColumnWidth, resetColumnWidth } = useColumnWidths(tableId);
   const [internalQuery, setInternalQuery] = useState('');
   const [internalFilters, setInternalFilters] = useState<Record<string, SpreadsheetColumnFilter>>({});
@@ -539,9 +636,44 @@ export function SpreadsheetTable({
   const [lastSelected, setLastSelected] = useState('');
   const [editing, setEditing] = useState<EditingCell>(null);
   const [draft, setDraft] = useState('');
+  const [cellEditError, setCellEditError] = useState<string | null>(null);
   const [pending, setPending] = useState<Record<string, PendingCell>>({});
   const seq = useRef(0);
   const shiftClickRef = useRef(false);
+  const applyingRemoteDraftRef = useRef(false);
+
+  useEffect(() => {
+    if (!presence?.enabled || !remoteWatchKey) return;
+
+    const unsubs: Array<() => void> = [];
+    for (const slot of remoteWatchKey.split('\u0001')) {
+      if (!slot) continue;
+      const [rowId, columnKey] = slot.split('\u0000');
+      if (!rowId || !columnKey) continue;
+      unsubs.push(watchCellRef.current(rowId, columnKey));
+    }
+
+    return () => {
+      for (const unsub of unsubs) unsub();
+    };
+  }, [presence?.enabled, remoteWatchKey]);
+
+  useEffect(() => {
+    if (!editing) return;
+    const live = cellTexts[cellFocusKey(editing.rowId, editing.key)];
+    if (live === undefined) return;
+
+    setDraft((current) => {
+      if (current === live) return current;
+      const input = editInputRef.current;
+      if (input && document.activeElement === input) {
+        applyingRemoteDraftRef.current = true;
+        applyRemoteFieldValue(input, live, current);
+        applyingRemoteDraftRef.current = false;
+      }
+      return live;
+    });
+  }, [cellTexts, editing]);
 
   const idWidth = widths._id ?? DEFAULT_ID_WIDTH;
   const colWidth = useCallback(
@@ -652,14 +784,64 @@ export function SpreadsheetTable({
 
   function beginEdit(row: SpreadsheetRow, column: SpreadsheetColumn) {
     if (!isEditableTextColumn(column)) return;
+    setCellEditError(null);
+    const remoteHolders = presence?.enabled
+      ? remoteCellFocusHolders(
+          presence.focusByCell,
+          row.id,
+          column.key,
+          presence.identity.peerId,
+        )
+      : [];
     setEditing({ rowId: row.id, key: column.key });
-    setDraft(displayDraft(pendingValue(row, column.key), column));
+    const seed = displayDraft(pendingValue(row, column.key), column);
+    const synced = syncBeginEdit(row.id, column.key, seed, {
+      reset: remoteHolders.length === 0,
+    });
+    setDraft(synced);
+    presence?.setCellFocus(row.id, column.key, 0, Date.now());
   }
 
   function clearEdit() {
+    if (editing) {
+      releaseDoc(editing.rowId, editing.key);
+    }
+    cancelCaretSync();
     setEditing(null);
     setDraft('');
+    setCellEditError(null);
+    presence?.setCellFocus(null, null, -1, 0);
   }
+
+  // Open inline editing on a row that was just created (it streams in async, so
+  // wait for the row + column to exist, then defer to the next frame so the row
+  // is mounted before we focus its cell).
+  useEffect(() => {
+    if (!autoEditCell) return;
+    const row = rows.find((candidate) => candidate.id === autoEditCell.rowId);
+    const column = columns.find((candidate) => candidate.key === autoEditCell.key);
+    if (!row || !column) return;
+    const frame = requestAnimationFrame(() => {
+      beginEdit(row, column);
+      onAutoEditConsumed?.();
+    });
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fire when the target row/column become available
+  }, [autoEditCell, rows, columns]);
+
+  const publishCellCaret = useCallback(
+    (rowId: string, key: string, element: HTMLInputElement | HTMLTextAreaElement) => {
+      scheduleCaretSync(() => {
+        if (!isTextFieldActive(element)) {
+          presence?.setCellFocus(rowId, key, -1, 0);
+          return;
+        }
+        const caret = utf16ToCodePointIndex(element.value, element.selectionStart ?? 0);
+        presence?.setCellFocus(rowId, key, caret, Date.now());
+      });
+    },
+    [presence],
+  );
 
   async function saveCell(rowId: string, key: string, value: unknown) {
     const token = ++seq.current;
@@ -667,6 +849,14 @@ export function SpreadsheetTable({
     setPending((prev) => ({ ...prev, [slot]: { value, seq: token } }));
     try {
       await onUpdateCell(rowId, key, value);
+    } catch (error) {
+      setPending((prev) => {
+        if (prev[slot]?.seq !== token) return prev;
+        const next = { ...prev };
+        delete next[slot];
+        return next;
+      });
+      throw error;
     } finally {
       setPending((prev) => {
         if (prev[slot]?.seq !== token) return prev;
@@ -679,8 +869,13 @@ export function SpreadsheetTable({
 
   async function commit(row: SpreadsheetRow, column: SpreadsheetColumn) {
     if (editing?.rowId !== row.id || editing.key !== column.key) return;
-    await saveCell(row.id, column.key, castDraft(draft, column));
-    clearEdit();
+    try {
+      await saveCell(row.id, column.key, castDraft(draft, column));
+      clearEdit();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Invalid value';
+      setCellEditError(message);
+    }
   }
 
   function editableColumnsFor(row: SpreadsheetRow) {
@@ -715,11 +910,18 @@ export function SpreadsheetTable({
   }
 
   async function updateBoolean(row: SpreadsheetRow, column: SpreadsheetColumn) {
+    presence?.setCellFocus(row.id, column.key);
     await saveCell(row.id, column.key, pendingValue(row, column.key) !== true);
   }
 
   async function updateSelect(row: SpreadsheetRow, column: SpreadsheetColumn, value: string) {
+    presence?.setCellFocus(row.id, column.key);
     await saveCell(row.id, column.key, value || undefined);
+  }
+
+  async function updateSpecial(row: SpreadsheetRow, column: SpreadsheetColumn, value: unknown) {
+    presence?.setCellFocus(row.id, column.key);
+    await saveCell(row.id, column.key, value);
   }
 
   function copyId(rowId: string) {
@@ -803,10 +1005,11 @@ export function SpreadsheetTable({
         </div>
       )}
 
+      <BoardPresenceSurface className="min-h-0 flex-1 touch-auto">
       <div
         ref={scrollerRef}
         className={cn(
-          'min-h-0 flex-1 overflow-auto',
+          'min-h-0 h-full flex-1 overflow-auto',
           embedded ? 'bg-background' : 'bg-muted/15',
         )}
         onScroll={(event) => measure(event.currentTarget)}
@@ -845,11 +1048,18 @@ export function SpreadsheetTable({
                 onReset={() => resetColumnWidth('_id')}
               />
             </div>
-            {columns.map((column) => {
+            {columns.map((column, columnIndex) => {
               const width = colWidth(column);
               const activeSort = sort.key === column.key;
+              const isLastDataColumn = columnIndex === columns.length - 1 && !onAddColumn;
               return (
-                <div key={column.key} className="relative flex min-w-0 items-center gap-1 border-r border-border px-2">
+                <div
+                  key={column.key}
+                  className={cn(
+                    'relative flex min-w-0 items-center gap-1 px-2',
+                    !isLastDataColumn && 'border-r border-border',
+                  )}
+                >
                   <button
                     type="button"
                     className="flex min-w-0 flex-1 items-center gap-1 truncate text-left hover:text-foreground"
@@ -878,7 +1088,7 @@ export function SpreadsheetTable({
               );
             })}
             {onAddColumn ? (
-              <div className="flex min-w-0 items-center justify-center border-r border-border px-1">
+              <div className="flex min-w-0 items-center justify-center px-1">
                 <button
                   type="button"
                   className="inline-flex min-w-0 items-center gap-1 rounded px-1.5 py-1 text-[10px] font-medium tracking-wide text-muted-foreground uppercase hover:bg-muted hover:text-foreground"
@@ -892,7 +1102,7 @@ export function SpreadsheetTable({
                 </button>
               </div>
             ) : null}
-            <div className={cn('sticky right-0 z-40 flex items-center justify-center border-l border-border shadow-[-12px_0_18px_-20px_rgba(0,0,0,0.65)]', surface)}>
+            <div className={cn('sticky right-0 z-40 flex items-center justify-center shadow-[-12px_0_18px_-20px_rgba(0,0,0,0.65)]', surface)}>
               <MoreHorizontalIcon className="size-3.5" />
             </div>
           </div>
@@ -920,13 +1130,28 @@ export function SpreadsheetTable({
                 const rowIndex = range.start + offset;
                 const rowSelected = !!selected[row.id];
                 const rowAttrs = getRowAttributes?.(row) ?? {};
+                const rowHasRemoteCellFocus =
+                  presence?.enabled &&
+                  columns.some((column) => {
+                    const holders = remoteCellFocusHolders(
+                      presence.focusByCell,
+                      row.id,
+                      column.key,
+                      presence.identity.peerId,
+                    );
+                    return holders.length > 0;
+                  });
                 return (
                   <div
                     key={row.id}
                     role="row"
                     {...rowAttrs}
                     className="group absolute right-0 left-0 border-b border-border/70"
-                    style={{ top: rowIndex * ROW_HEIGHT, height: ROW_HEIGHT }}
+                    style={{
+                      top: rowIndex * ROW_HEIGHT,
+                      height: ROW_HEIGHT,
+                      zIndex: rowHasRemoteCellFocus ? 15 : undefined,
+                    }}
                     onContextMenu={(event) => onRowContextMenu?.(event, row)}
                   >
                     <div
@@ -939,7 +1164,7 @@ export function SpreadsheetTable({
                       <div
                         className={cn(
                           'sticky left-0 z-30 flex items-center justify-center border-r border-border',
-                          rowSelected ? 'bg-muted' : cn(surface, 'group-hover:bg-muted/55'),
+                          rowSelected ? 'bg-muted' : stickyCellSurface,
                         )}
                       >
                         <Checkbox
@@ -957,7 +1182,7 @@ export function SpreadsheetTable({
                       <div
                         className={cn(
                           'sticky z-30 flex items-center justify-center border-r border-border font-mono text-[10px] text-muted-foreground',
-                          rowSelected ? 'bg-muted' : cn(surface, 'group-hover:bg-muted/55'),
+                          rowSelected ? 'bg-muted' : stickyCellSurface,
                         )}
                         style={{ left: CHECK_WIDTH }}
                       >
@@ -965,10 +1190,13 @@ export function SpreadsheetTable({
                       </div>
                       <div
                         className={cn(
-                          'sticky z-30 flex min-w-0 items-center gap-1 border-r border-border shadow-[5px_0_10px_-8px_rgba(0,0,0,0.55)]',
-                          rowSelected ? 'bg-muted' : cn(surface, 'group-hover:bg-muted/55'),
+                          'sticky z-30 flex min-w-0 items-center gap-1 border-r border-border',
+                          rowSelected ? 'bg-muted' : stickyCellSurface,
+                          onOpenRow && 'cursor-pointer',
                         )}
                         style={{ left: CHECK_WIDTH + INDEX_WIDTH }}
+                        onDoubleClick={() => onOpenRow?.(row)}
+                        title={onOpenRow ? 'Double-click to open record' : undefined}
                       >
                         <span className="min-w-0 flex-1 truncate pl-2 font-mono text-[10px] text-muted-foreground">
                           {row.id}
@@ -983,24 +1211,53 @@ export function SpreadsheetTable({
                           <CopyIcon className="size-3" />
                         </button>
                       </div>
-                      {columns.map((column) => {
+                      {columns.map((column, columnIndex) => {
                         const value = pendingValue(row, column.key);
                         const active = editing?.rowId === row.id && editing.key === column.key;
                         const kind = column.kind ?? 'text';
                         const missing = column.required && isEmpty(value);
-
+                        const isLastDataColumn = columnIndex === columns.length - 1 && !onAddColumn;
+                        const remoteHolders = presence?.enabled
+                          ? remoteCellFocusHolders(
+                              presence.focusByCell,
+                              row.id,
+                              column.key,
+                              presence.identity.peerId,
+                            )
+                          : [];
+                        const remoteFocusColor = remoteHolders[0]?.color;
+                        const showRemoteCarets =
+                          (kind === 'text' || kind === 'longtext') && remoteHolders.length > 0;
+                        const liveCellText =
+                          (remoteHolders.length > 0
+                            ? cellTexts[cellFocusKey(row.id, column.key)]
+                            : undefined) ??
+                          (active ? draft : labelValue(value, column));
+                        const caretMirrorClass =
+                          'h-full w-full min-w-0 rounded-none px-2 text-xs';
                         return (
                           <div
                             key={column.key}
                             role="gridcell"
                             className={cn(
-                              'flex min-w-0 h-full overflow-hidden border-r border-border',
+                              'relative flex min-w-0 h-full',
+                              remoteHolders.length > 0 ? 'z-20 overflow-visible' : 'overflow-hidden',
+                              !isLastDataColumn && 'border-r border-border',
                               kind === 'boolean' ? 'items-center justify-center' : 'items-stretch',
                               missing && 'ring-1 ring-inset ring-amber-500/45',
                               active && 'z-10 border border-primary bg-primary/5',
                             )}
+                            style={
+                              remoteFocusColor
+                                ? { boxShadow: `inset 0 0 0 2px ${remoteFocusColor}` }
+                                : undefined
+                            }
+                            title={remoteHolders.map((holder) => holder.name).join(', ') || undefined}
                             onDoubleClick={() => beginEdit(row, column)}
                           >
+                            {remoteHolders.length > 0 ? (
+                              <RemoteCellNameBadges holders={remoteHolders} />
+                            ) : null}
                             {kind === 'boolean' ? (
                               <button
                                 type="button"
@@ -1020,71 +1277,174 @@ export function SpreadsheetTable({
                                 />
                               </button>
                             ) : kind === 'select' ? (
-                              <select
-                                className="h-full w-full min-w-0 appearance-none rounded-none border-0 bg-transparent px-2 text-xs outline-none hover:bg-muted focus:bg-background"
-                                value={value == null ? '' : String(value)}
-                                onChange={(event) => void updateSelect(row, column, event.currentTarget.value)}
+                              <Select
+                                value={value == null ? SELECT_EMPTY_VALUE : String(value)}
+                                onValueChange={(next) =>
+                                  void updateSelect(
+                                    row,
+                                    column,
+                                    next === SELECT_EMPTY_VALUE ? '' : next,
+                                  )
+                                }
                               >
-                                <option value="">-</option>
-                                {(column.options ?? []).map((option) => (
-                                  <option key={option} value={option}>
-                                    {option}
-                                  </option>
-                                ))}
-                              </select>
-                            ) : active ? (
-                              <input
-                                type={kind === 'number' ? 'number' : kind === 'date' ? 'date' : 'text'}
-                                step={kind === 'number' ? 'any' : undefined}
-                                autoFocus
-                                className="h-full w-full min-w-0 rounded-none border-0 bg-transparent px-2 text-xs shadow-none outline-none focus-visible:ring-0"
-                                value={draft}
-                                onChange={(event) => setDraft(event.currentTarget.value)}
-                                onBlur={() => void commit(row, column)}
-                                onKeyDown={(event) => {
-                                  if (event.key === 'Escape') {
-                                    event.preventDefault();
-                                    clearEdit();
-                                    return;
-                                  }
-                                  if (event.key === 'Tab') {
-                                    event.preventDefault();
-                                    const direction = event.shiftKey ? 'prev' : 'next';
-                                    void commit(row, column).then(() => focusNext(row, column, direction));
-                                    return;
-                                  }
-                                  if (event.key === 'Enter') {
-                                    event.preventDefault();
-                                    void commit(row, column).then(() => focusNext(row, column, 'down'));
-                                  }
-                                }}
+                                <SelectTrigger
+                                  size="sm"
+                                  className="h-full w-full min-w-0 rounded-none border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0"
+                                  onFocus={() => presence?.setCellFocus(row.id, column.key)}
+                                >
+                                  <SelectValue placeholder="-" />
+                                </SelectTrigger>
+                                <SelectContent position="popper">
+                                  <SelectItem value={SELECT_EMPTY_VALUE}>-</SelectItem>
+                                  {(column.options ?? []).map((option) => (
+                                    <SelectItem key={option} value={option}>
+                                      {option}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : kind === 'date' ? (
+                              <DatePicker
+                                compact
+                                value={value}
+                                placeholder="—"
+                                onChange={(next) => void updateSpecial(row, column, next)}
                               />
+                            ) : kind === 'color' ? (
+                              <ColorFieldControl
+                                compact
+                                value={value}
+                                onChange={(next) => void updateSpecial(row, column, next)}
+                              />
+                            ) : kind === 'icon' ? (
+                              <IconFieldControl
+                                compact
+                                value={value}
+                                onChange={(next) => void updateSpecial(row, column, next)}
+                              />
+                            ) : active ? (
+                              <div className="relative flex h-full w-full min-w-0 flex-col">
+                                <input
+                                  ref={editInputRef}
+                                  type={
+                                    kind === 'number'
+                                      ? 'number'
+                                      : column.valueType === 'email'
+                                        ? 'email'
+                                        : column.valueType === 'phone_number'
+                                          ? 'tel'
+                                          : column.valueType === 'url'
+                                            ? 'url'
+                                            : 'text'
+                                  }
+                                  min={kind === 'number' ? column.min : undefined}
+                                  max={kind === 'number' ? column.max : undefined}
+                                  step={
+                                    kind === 'number'
+                                      ? column.step ?? (column.format === 'currency' ? 0.01 : 'any')
+                                      : undefined
+                                  }
+                                  maxLength={column.maxLength}
+                                  autoFocus
+                                  aria-invalid={Boolean(cellEditError)}
+                                  className={cn(
+                                    'h-full w-full min-w-0 rounded-none border-0 bg-transparent px-2 text-xs shadow-none outline-none focus-visible:ring-0',
+                                    cellEditError && 'text-destructive',
+                                  )}
+                                  value={draft}
+                                  onChange={(event) => {
+                                    if (applyingRemoteDraftRef.current) return;
+                                    setCellEditError(null);
+                                    const next = event.currentTarget.value;
+                                    applyLocalEdit(row.id, column.key, next);
+                                    setDraft(next);
+                                    publishCellCaret(row.id, column.key, event.currentTarget);
+                                  }}
+                                  onFocus={(event) =>
+                                    publishCellCaret(row.id, column.key, event.currentTarget)
+                                  }
+                                  onSelect={(event) =>
+                                    publishCellCaret(row.id, column.key, event.currentTarget)
+                                  }
+                                  onKeyUp={(event) =>
+                                    publishCellCaret(row.id, column.key, event.currentTarget)
+                                  }
+                                  onClick={(event) =>
+                                    publishCellCaret(row.id, column.key, event.currentTarget)
+                                  }
+                                  onBlur={() => {
+                                    cancelCaretSync();
+                                    presence?.setCellFocus(row.id, column.key, -1, 0);
+                                    void commit(row, column);
+                                  }}
+                                  onKeyDown={(event) => {
+                                    publishCellCaret(row.id, column.key, event.currentTarget);
+                                    if (event.key === 'Escape') {
+                                      event.preventDefault();
+                                      clearEdit();
+                                      return;
+                                    }
+                                    if (event.key === 'Tab') {
+                                      event.preventDefault();
+                                      const direction = event.shiftKey ? 'prev' : 'next';
+                                      void commit(row, column).then(() => focusNext(row, column, direction));
+                                      return;
+                                    }
+                                    if (event.key === 'Enter') {
+                                      event.preventDefault();
+                                      void commit(row, column).then(() => focusNext(row, column, 'down'));
+                                    }
+                                  }}
+                                />
+                                {showRemoteCarets ? (
+                                  <MeasuredRemoteCarets
+                                    holders={remoteHolders}
+                                    text={liveCellText}
+                                    mirrorClassName={caretMirrorClass}
+                                  />
+                                ) : null}
+                                {cellEditError ? (
+                                  <span
+                                    className="pointer-events-none absolute bottom-0 left-2 right-2 truncate text-[10px] text-destructive"
+                                    title={cellEditError}
+                                  >
+                                    {cellEditError}
+                                  </span>
+                                ) : null}
+                              </div>
                             ) : (
                               <button
                                 type="button"
                                 className={cn(
-                                  'h-full w-full min-w-0 truncate rounded-none px-2 text-left text-xs hover:bg-muted',
+                                  'relative h-full w-full min-w-0 truncate rounded-none px-2 text-left text-xs hover:bg-muted',
                                   (kind === 'formula' || kind === 'reference' || kind === 'readonly' || column.readOnly) &&
                                     'cursor-default text-muted-foreground hover:bg-transparent',
-                                  isEmpty(value) && 'text-muted-foreground',
+                                  isEmpty(value) && !liveCellText && 'text-muted-foreground',
                                 )}
                                 onClick={() => beginEdit(row, column)}
-                                title={labelValue(value)}
+                                title={liveCellText}
                               >
+                                {showRemoteCarets ? (
+                                  <MeasuredRemoteCarets
+                                    holders={remoteHolders}
+                                    text={liveCellText}
+                                    mirrorClassName={cn(caretMirrorClass, 'text-left')}
+                                  />
+                                ) : null}
                                 {kind === 'formula' && <span className="mr-1 text-muted-foreground">fx</span>}
-                                {labelValue(value)}
+                                {liveCellText}
                               </button>
                             )}
                           </div>
                         );
                       })}
                       {onAddColumn ? (
-                        <div className="border-r border-border bg-inherit" aria-hidden />
+                        <div className="bg-inherit" aria-hidden />
                       ) : null}
                       <div
                         className={cn(
-                          'sticky right-0 z-30 flex items-center justify-center border-l border-border shadow-[-12px_0_18px_-20px_rgba(0,0,0,0.65)]',
-                          rowSelected ? 'bg-muted' : cn(surface, 'group-hover:bg-muted/55'),
+                          'sticky right-0 z-30 flex items-center justify-center shadow-[-12px_0_18px_-20px_rgba(0,0,0,0.65)]',
+                          rowSelected ? 'bg-muted' : stickyCellSurface,
                         )}
                       >
                         <DropdownMenu>
@@ -1140,6 +1500,7 @@ export function SpreadsheetTable({
           )}
         </div>
       </div>
+      </BoardPresenceSurface>
 
       {selectedIds.length > 0 && (
         <div className={cn('shrink-0 border-t border-border px-3 py-2', surface)}>

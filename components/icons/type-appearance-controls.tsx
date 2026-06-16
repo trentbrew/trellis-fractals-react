@@ -20,17 +20,14 @@ const SIZE_CLASSES = {
   sm: {
     iconButton: 'size-5',
     icon: 'size-3',
-    dot: 'size-1.5',
   },
   md: {
     iconButton: 'size-8',
     icon: 'size-4',
-    dot: 'size-2',
   },
   lg: {
     iconButton: 'size-10',
     icon: 'size-5',
-    dot: 'size-2.5',
   },
 } as const;
 
@@ -52,7 +49,7 @@ export function TypeAppearanceControls({
       <button
         type="button"
         className={cn(
-          'relative flex shrink-0 items-center justify-center rounded-md border border-border transition-colors hover:bg-muted',
+          'flex shrink-0 items-center justify-center rounded-md border border-border transition-colors hover:bg-muted',
           sizes.iconButton,
           className,
         )}
@@ -62,14 +59,6 @@ export function TypeAppearanceControls({
         data-testid={iconButtonTestId}
       >
         <EntityIcon name={icon} className={sizes.icon} />
-        <span
-          className={cn(
-            'absolute -right-0.5 -bottom-0.5 rounded-full border border-background',
-            sizes.dot,
-          )}
-          style={{ backgroundColor: color }}
-          aria-hidden
-        />
       </button>
 
       <LucideIconPicker

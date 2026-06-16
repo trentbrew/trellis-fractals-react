@@ -32,7 +32,7 @@ export function CollectionInlineHeader({
 
   return (
     <header className={cn('shrink-0 space-y-2', className)}>
-      <div className="flex items-start gap-2">
+      <div className="flex items-center gap-2">
         <TypeAppearanceControls
           icon={icon}
           color={color}

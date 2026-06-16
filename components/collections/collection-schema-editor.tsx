@@ -15,6 +15,8 @@ import {
   VALUE_TYPE_OPTIONS,
   withSystemRecordFields,
 } from '@/lib/registry/type-columns';
+import { mergeTypeFieldPatch } from '@/lib/registry/field-constraints';
+import { SchemaFieldConstraints } from '@/components/collections/schema-field-constraints';
 import { useTypes } from '@/lib/trellis/use-types';
 import { Button } from '@/components/ui/button';
 import {
@@ -53,6 +55,7 @@ function cloneEditableFields(fields: TypeField[]): TypeField[] {
   return editableTypeFields(fields).map((field) => ({
     ...field,
     options: field.options ? [...field.options] : undefined,
+    date: field.date ? { ...field.date } : undefined,
   }));
 }
 
@@ -116,10 +119,8 @@ export function CollectionSchemaFieldsEditor({
     setDraftFields((prev) =>
       prev.map((field, fieldIndex) => {
         if (fieldIndex !== index) return field;
-        const next = { ...field, ...patch };
-        if (patch.valueType && !isSelectValueType(patch.valueType)) {
-          next.options = undefined;
-        } else if (isSelectValueType(next.valueType) && !next.options) {
+        const next = mergeTypeFieldPatch(field, patch);
+        if (isSelectValueType(next.valueType) && !next.options) {
           next.options = [];
         }
         return next;
@@ -348,6 +349,10 @@ export function CollectionSchemaFieldsEditor({
                             </Button>
                           </div>
                         ) : null}
+                        <SchemaFieldConstraints
+                          field={field}
+                          onChange={(patch) => updateField(index, patch)}
+                        />
                         <label className="flex items-center gap-2 text-xs text-muted-foreground">
                           <input
                             type="checkbox"

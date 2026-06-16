@@ -27,6 +27,10 @@ db-init:
 db-serve:
     bunx trellis db serve -p 8230
 
+# Presence relay for cross-browser cursors (BroadcastChannel handles same-browser tabs)
+presence-relay port="8231":
+    cd ../trellis-node && RELAY_PORT={{port}} node scripts/demo-relay.mjs
+
 trellis-url := "http://localhost:8230"
 app-url := "http://localhost:3000"
 
@@ -80,11 +84,12 @@ parity:
     curl -sf "{{ app-url }}/api/trellis/health" >/dev/null
     echo "parity: ok"
 
-# Trellis DB + Next dev in one terminal (Bun for db-serve — see db-serve recipe)
+# Trellis DB + presence relay + Next dev (Bun for db-serve — see db-serve recipe)
 run:
     #!/usr/bin/env bash
     set -euo pipefail
     trap 'kill $(jobs -p) 2>/dev/null; wait' INT TERM EXIT
     bunx trellis db serve -p 8230 &
+    just presence-relay &
     pnpm dev &
     wait

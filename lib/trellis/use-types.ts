@@ -1,21 +1,26 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import type { FormLayout, FormShellKind } from '@/lib/forms/record-form-layout';
+import type { TypeField } from '@/lib/schemas/record-fields';
 
 export type TypeDef = {
   '@id': string;
   label?: string;
   icon?: string;
   color?: string;
-  fields?: {
-    name: string;
-    valueType?: string;
-    required?: boolean;
-    options?: string[];
-  }[];
+  fields?: TypeField[];
+  /** Preferred form shell for create/edit (kernel `dialogShell` parity). */
+  dialogShell?: FormShellKind;
+  formLayout?: FormLayout;
 };
 
-export type TypeUpdate = Partial<Pick<TypeDef, 'label' | 'fields' | 'icon' | 'color'>>;
+export type TypeUpdate = Partial<
+  Pick<TypeDef, 'label' | 'fields' | 'icon' | 'color' | 'dialogShell' | 'formLayout'>
+> & {
+  dialogShell?: FormShellKind | null;
+  formLayout?: FormLayout | null;
+};
 
 const TRELLIS_HTTP_PROXY = '/api/trellis';
 
@@ -102,6 +107,8 @@ export function useTypes() {
           fields: def.fields ?? [],
           ...(def.icon !== undefined ? { icon: def.icon } : {}),
           ...(def.color !== undefined ? { color: def.color } : {}),
+          ...(def.dialogShell ? { dialogShell: def.dialogShell } : {}),
+          ...(def.formLayout ? { formLayout: def.formLayout } : {}),
         }),
       });
       if (!res.ok) {

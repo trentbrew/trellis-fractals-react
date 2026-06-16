@@ -6,12 +6,12 @@ export function PresenceRoomBadge() {
   const ctx = useBoardPresence();
   if (!ctx?.enabled) return null;
 
-  const online = ctx.presence.length;
+  const online = ctx.sessionPresence.length;
 
   return (
     <span
       className="hidden text-xs text-muted-foreground sm:inline"
-      title="Peers in this presence room"
+      title={`Peers in room ${ctx.sessionRoom} (all pages)`}
     >
       Room <code className="rounded bg-muted px-1 py-0.5 text-[10px]">{ctx.sessionRoom}</code>
       {' · '}

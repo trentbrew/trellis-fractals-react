@@ -1,4 +1,8 @@
 import {
+  compileCollectionRecordSchema,
+  type PropertyValueSpecification,
+} from '@/lib/schemas/compile-type-fields';
+import {
   collectionRecordTypeId,
   DEFAULT_COLLECTION_RECORD_FIELDS,
   type TypeField,
@@ -29,6 +33,8 @@ function mergeOntology(
     ...overlay,
     '@id': base['@id'],
     fields: overlay.fields ?? base.fields,
+    formLayout: overlay.formLayout ?? base.formLayout,
+    dialogShell: overlay.dialogShell ?? base.dialogShell,
   };
 }
 
@@ -39,6 +45,18 @@ function synthesizeCollectionOntology(meta: CollectionMetaRow): TypeDef {
     label: meta.title ? `${meta.title} records` : `${slug} records`,
     fields: withSystemRecordFields(DEFAULT_COLLECTION_RECORD_FIELDS),
   };
+}
+
+function compileOntologyPayload(ontology: TypeDef) {
+  return compileCollectionRecordSchema({
+    id: ontology['@id'],
+    label: ontology.label,
+    fields: ontology.fields ?? [],
+    icon: ontology.icon,
+    color: ontology.color,
+    dialogShell: ontology.dialogShell,
+    formLayout: ontology.formLayout,
+  });
 }
 
 async function fetchCollectionMetas(origin: string, apiKey?: string): Promise<CollectionMetaRow[]> {
@@ -100,6 +118,15 @@ export async function patchOntologyServer(
     fields: (updates.fields as TypeField[] | undefined) ?? existing.fields,
   };
 
+  if ('dialogShell' in updates) {
+    if (updates.dialogShell == null) delete merged.dialogShell;
+    else merged.dialogShell = updates.dialogShell;
+  }
+  if ('formLayout' in updates) {
+    if (updates.formLayout == null) delete merged.formLayout;
+    else merged.formLayout = updates.formLayout;
+  }
+
   overlay[id] = merged;
   writeOntologyOverlay(overlayPath, overlay);
 
@@ -115,22 +142,39 @@ export async function proxyCreateOntology(
   cwd?: string,
 ): Promise<Response> {
   const config = trellisServerConfig(cwd);
+  const def = body as TypeDef;
+  const compiled =
+    def?.['@id'] && def.fields
+      ? compileOntologyPayload(def)
+      : (body as { fields?: PropertyValueSpecification[] });
+
   const res = await fetch(`${config.origin}/ontologies`, {
     method: 'POST',
     headers: trellisAuthHeaders(config.apiKey),
-    body: JSON.stringify(body),
+    body: JSON.stringify(compiled),
   });
 
   if (res.ok || res.status === 409) {
-    const def = body as TypeDef;
     if (def?.['@id']) {
       const overlayPath = ontologyOverlayPath(config.dbPath!);
       const overlay = readOntologyOverlay(overlayPath);
       overlay[def['@id']] = mergeOntology(
-        overlay[def['@id']] ?? { '@id': def['@id'], label: def.label, fields: def.fields ?? [] },
+        overlay[def['@id']] ?? {
+          '@id': def['@id'],
+          label: def.label,
+          fields: def.fields ?? [],
+          formLayout: def.formLayout,
+          dialogShell: def.dialogShell,
+        },
         def,
       );
       writeOntologyOverlay(overlayPath, overlay);
+
+      if (res.status === 409) {
+        await syncOntologyToSidecar(config.origin, config.apiKey, overlay[def['@id']]).catch(
+          () => {},
+        );
+      }
     }
   }
 
@@ -146,23 +190,32 @@ async function syncOntologyToSidecar(
   apiKey: string | undefined,
   ontology: TypeDef,
 ): Promise<void> {
-  const payload = {
-    '@id': ontology['@id'],
-    '@type': 'trellis:Schema',
-    version: '1.0.0',
-    tier: 'user',
-    subClassOf: 'core:Record',
-    label: ontology.label,
-    fields: ontology.fields ?? [],
-    ...(ontology.icon !== undefined ? { icon: ontology.icon } : {}),
-    ...(ontology.color !== undefined ? { color: ontology.color } : {}),
-  };
+  const payload = compileOntologyPayload(ontology);
 
-  await fetch(`${origin}/ontologies`, {
+  const post = await fetch(`${origin}/ontologies`, {
     method: 'POST',
     headers: trellisAuthHeaders(apiKey),
     body: JSON.stringify(payload),
   });
+
+  if (post.ok) return;
+
+  const patch = await fetch(`${origin}/ontologies/${encodeURIComponent(ontology['@id'])}`, {
+    method: 'PATCH',
+    headers: trellisAuthHeaders(apiKey),
+    body: JSON.stringify({
+      fields: payload.fields,
+      label: payload.label,
+      icon: payload.icon,
+      color: payload.color,
+      dialogShell: payload.dialogShell,
+    }),
+  });
+
+  if (!patch.ok) {
+    const message = await patch.text().catch(() => '');
+    throw new Error(message || `Failed to sync ontology ${ontology['@id']}`);
+  }
 }
 
 export class OntologyNotFoundError extends Error {
