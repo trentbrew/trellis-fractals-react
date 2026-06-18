@@ -1,28 +1,17 @@
-/** shadcn CSS variables applied by the color theme picker (tweakcn-compatible).
- *  Shell surfaces (`shell-rail`, `shell-panel`) derive from `--sidebar` unless overridden.
- *  Border variants (`border-subtle`, `border`, `border-strong`) derive from raw `--border`. */
+import { TWEAKCN_THEME_PRESETS } from '@/lib/theme-presets-tweakcn';
+import {
+  DEFAULT_THEME_ID,
+  NEUTRAL_THEME_ID,
+  tokens,
+  type ColorThemePreset,
+  type ThemeTokens,
+} from '@/lib/theme-presets-types';
 
-export type ThemeTokens = Partial<Record<string, string>>;
-
-export type ColorThemePreset = {
-  id: string;
-  label: string;
-  /** Primary swatch for the picker UI */
-  swatch: string;
-  light: ThemeTokens;
-  dark: ThemeTokens;
-};
-
-export const NEUTRAL_THEME_ID = 'neutral';
-export const DEFAULT_THEME_ID = 'notebook';
-
-const tokens = (
-  light: ThemeTokens,
-  dark: ThemeTokens,
-): Pick<ColorThemePreset, 'light' | 'dark'> => ({ light, dark });
+export type { ColorThemePreset, ThemeTokens } from '@/lib/theme-presets-types';
+export { DEFAULT_THEME_ID, NEUTRAL_THEME_ID } from '@/lib/theme-presets-types';
 
 /** Curated presets — values from https://github.com/jnsahaj/tweakcn */
-export const COLOR_THEME_PRESETS: ColorThemePreset[] = [
+const CORE_THEME_PRESETS: ColorThemePreset[] = [
   {
     id: NEUTRAL_THEME_ID,
     label: 'Playground',
@@ -330,4 +319,9 @@ export const COLOR_THEME_PRESETS: ColorThemePreset[] = [
       },
     ),
   },
+];
+
+export const COLOR_THEME_PRESETS: ColorThemePreset[] = [
+  ...CORE_THEME_PRESETS,
+  ...TWEAKCN_THEME_PRESETS,
 ];

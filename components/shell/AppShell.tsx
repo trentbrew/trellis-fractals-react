@@ -179,6 +179,22 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  // Arena is a standalone full-bleed surface — keep presence (cursors), drop all
+  // playground chrome (sidebars, breadcrumb, welcome dialog) so the bare URL is
+  // the demo with no `?embed=1` flag.
+  if (pathname?.startsWith('/arena')) {
+    return (
+      <ShellProvider>
+        <PresenceRoom>
+          {children}
+          <PresenceCursors />
+        </PresenceRoom>
+      </ShellProvider>
+    );
+  }
+
   return (
     <ShellProvider>
       <PresenceRoom>

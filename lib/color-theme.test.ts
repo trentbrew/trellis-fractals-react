@@ -5,7 +5,7 @@ import {
   getColorThemePreset,
   readStoredColorThemeId,
 } from '@/lib/color-theme';
-import { DEFAULT_THEME_ID, NEUTRAL_THEME_ID } from '@/lib/theme-presets';
+import { DEFAULT_THEME_ID, NEUTRAL_THEME_ID, COLOR_THEME_PRESETS } from '@/lib/theme-presets';
 
 describe('color-theme defaults', () => {
   it('falls back to notebook preset', () => {
@@ -31,5 +31,11 @@ describe('color-theme defaults', () => {
 
   it('keeps neutral playground preset available', () => {
     expect(getColorThemePreset(NEUTRAL_THEME_ID).id).toBe('neutral');
+  });
+
+  it('exposes unique tweakcn preset ids', () => {
+    const ids = COLOR_THEME_PRESETS.map((preset) => preset.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids.length).toBeGreaterThanOrEqual(20);
   });
 });
